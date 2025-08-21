@@ -103,6 +103,14 @@
             <p><strong>Usage:</strong> This page allows you to send metrics to Pushgateway from any computer on the network</p>
         </div>
         
+        <div class="network-info" style="background-color: #fff3cd; border-color: #ffc107;">
+            <h3>🖥️ Client Information</h3>
+            <p><strong>Client IP:</strong> <span id="clientIP">Detecting...</span></p>
+            <p><strong>Client Hostname:</strong> <span id="clientHostname">Detecting...</span></p>
+            <p><strong>User Agent:</strong> <span id="userAgent">Detecting...</span></p>
+            <p><strong>Client Type:</strong> <span id="clientType">Detecting...</span></p>
+        </div>
+        
         <p>This page allows you to send <code>videostutter</code> metrics directly from any computer on the network to Prometheus Pushgateway.</p>
         
         <div class="form-group">
@@ -147,6 +155,7 @@
         <div class="form-group">
             <button onclick="sendSingleMetric()">📤 Send Single Metric</button>
             <button onclick="sendRandomMetrics()">🎲 Send Random Metrics</button>
+            <button onclick="sendClientInfo()">🖥️ Send Client Info</button>
             <button onclick="clearLog()">🗑️ Clear Log</button>
             <button onclick="testConnection()">🔗 Test Connection</button>
         </div>
@@ -168,6 +177,79 @@
             constructor(pushgatewayUrl = 'http://192.168.20.9:9091') {
                 this.pushgatewayUrl = pushgatewayUrl;
                 this.jobName = 'studio-web-player';
+                this.clientInfo = null;
+            }
+
+            // Collect client information
+            async collectClientInfo() {
+                if (this.clientInfo) {
+                    return this.clientInfo;
+                }
+
+                try {
+                    // Try to get client IP from external service
+                    const ipResponse = await fetch('https://api.ipify.org?format=json');
+                    const ipData = await ipResponse.json();
+                    
+                    this.clientInfo = {
+                        client_ip: ipData.ip || 'unknown',
+                        client_host: window.location.hostname || 'unknown',
+                        user_agent: navigator.userAgent || 'unknown',
+                        client_type: this.detectClientType(),
+                        timestamp: new Date().toISOString()
+                    };
+                } catch (error) {
+                    // Fallback to local information
+                    this.clientInfo = {
+                        client_ip: 'local',
+                        client_host: window.location.hostname || 'unknown',
+                        user_agent: navigator.userAgent || 'unknown',
+                        client_type: this.detectClientType(),
+                        timestamp: new Date().toISOString()
+                    };
+                }
+
+                return this.clientInfo;
+            }
+
+            // Detect client type based on user agent
+            detectClientType() {
+                const ua = navigator.userAgent.toLowerCase();
+                if (ua.includes('chrome')) return 'chrome';
+                if (ua.includes('firefox')) return 'firefox';
+                if (ua.includes('safari')) return 'safari';
+                if (ua.includes('edge')) return 'edge';
+                if (ua.includes('mobile')) return 'mobile';
+                return 'browser';
+            }
+
+            // Send client information as a separate metric
+            async sendClientInfo() {
+                const clientInfo = await this.collectClientInfo();
+                
+                const labels = {
+                    client_ip: clientInfo.client_ip,
+                    client_host: clientInfo.client_host,
+                    client_type: clientInfo.client_type
+                };
+                
+                // Send client info as a gauge metric
+                return await this.sendMetric('client_info', 1, labels);
+            }
+
+            // Send client activity metric
+            async sendClientActivity(action) {
+                const clientInfo = await this.collectClientInfo();
+                
+                const labels = {
+                    client_ip: clientInfo.client_ip,
+                    client_host: clientInfo.client_host,
+                    client_type: clientInfo.client_type,
+                    action: action
+                };
+                
+                // Send client activity as a counter metric
+                return await this.sendMetric('client_activity_total', 1, labels);
             }
 
             async sendMetric(metricName, value, labels = {}) {
@@ -218,10 +300,16 @@
             }
 
             async sendVideoStutter(tableId, cdnId, quality, value) {
+                // Collect client information first
+                const clientInfo = await this.collectClientInfo();
+                
                 const labels = {
                     table_id: tableId,
                     cdn_id: cdnId,
-                    quality: quality
+                    quality: quality,
+                    client_ip: clientInfo.client_ip,
+                    client_host: clientInfo.client_host,
+                    client_type: clientInfo.client_type
                 };
                 
                 return await this.sendMetric('videostutter', value, labels);
@@ -311,6 +399,9 @@
             const result = await client.sendVideoStutter(tableId, cdnId, quality, stutterValue);
             
             if (result.success) {
+                // Send client activity metric
+                await client.sendClientActivity('send_single_metric');
+                
                 updateStatus('Metric sent successfully!', 'success');
                 addLogEntry(result.message, 'success');
             } else {
@@ -358,6 +449,9 @@
                 const result = await client.sendVideoStutter(tableId, cdnId, quality, stutterValue);
                 
                 if (result.success) {
+                    // Send client activity metric
+                    await client.sendClientActivity('send_random_metric');
+                    
                     addLogEntry(`Random metric sent: ${tableId} - ${cdnId} - ${quality} = ${stutterValue}`, 'success');
                 } else {
                     addLogEntry(`Failed to send random metric: ${result.message}`, 'error');
@@ -370,10 +464,49 @@
             logContainer.innerHTML = '<div class="log-entry log-info">Log cleared...</div>';
         }
 
+        // Send client information
+        async function sendClientInfo() {
+            const pushgatewayUrl = document.getElementById('pushgatewayUrl').value;
+            
+            if (!pushgatewayUrl) {
+                updateStatus('Please enter Pushgateway URL', 'error');
+                return;
+            }
+
+            client = new PrometheusClient(pushgatewayUrl);
+            
+            updateStatus('Sending client info...', 'info');
+            addLogEntry('Sending client information metric', 'info');
+            
+            const result = await client.sendClientInfo();
+            
+            if (result.success) {
+                updateStatus('Client info sent successfully!', 'success');
+                addLogEntry(result.message, 'success');
+            } else {
+                updateStatus('Failed to send client info', 'error');
+                addLogEntry(result.message, 'error');
+            }
+        }
+
+        // Display client information
+        async function displayClientInfo() {
+            const client = new PrometheusClient();
+            const clientInfo = await client.collectClientInfo();
+            
+            document.getElementById('clientIP').textContent = clientInfo.client_ip;
+            document.getElementById('clientHostname').textContent = clientInfo.client_host;
+            document.getElementById('userAgent').textContent = clientInfo.user_agent.substring(0, 50) + '...';
+            document.getElementById('clientType').textContent = clientInfo.client_type;
+        }
+
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             updateStatus('Ready to send metrics to Pushgateway', 'info');
             addLogEntry('Network-accessible Prometheus client loaded', 'info');
+            
+            // Display client information
+            displayClientInfo();
         });
     </script>
 </body>
