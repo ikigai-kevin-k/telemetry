@@ -131,6 +131,40 @@ kill -9 <PID>
 - Prometheus data: `prometheus_data` volume
 - Grafana data: `grafana_data` volume
 
+### Prometheus Time Series Database
+
+**Location:**
+- **Host path**: `/var/lib/docker/volumes/telemetry_prometheus_data/_data`
+- **Container path**: `/prometheus`
+
+**Check Database Size:**
+```bash
+# Check total database size
+docker exec kevin-telemetry-prometheus du -sh /prometheus
+
+# Check detailed directory sizes
+docker exec kevin-telemetry-prometheus sh -c "du -sh /prometheus/*"
+
+# Check Docker volume information
+docker volume inspect telemetry_prometheus_data
+
+# Check system disk usage for Docker volumes
+df -h /var/lib/docker
+```
+
+**Database Structure:**
+- **TSDB blocks**: Historical time series data
+- **chunks_head**: In-memory chunks
+- **wal**: Write-ahead log for data durability
+- **queries.active**: Active query tracking
+- **lock**: Database lock file
+
+**Data Retention:**
+- **Retention time**: 200 hours (8.33 days)
+- **Configuration**: Set in `docker-compose.yml` with `--storage.tsdb.retention.time=200h`
+- **Storage growth**: Database size will increase over time as metrics accumulate
+- **Cleanup**: Old data is automatically removed after retention period expires
+
 ## Network
 
 All services are connected through a custom `monitoring` network for isolation.
