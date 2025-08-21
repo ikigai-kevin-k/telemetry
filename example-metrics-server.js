@@ -8,13 +8,13 @@ const PORT = 8080;
 const videoStutterGauge = new Gauge({
   name: 'videostutter',
   help: 'Video stutter metric for studio web player',
-  labelNames: ['player_id', 'video_id', 'quality']
+  labelNames: ['table_id', 'cdn_id', 'quality']
 });
 
 const videoPlayCounter = new Counter({
   name: 'video_play_total',
   help: 'Total number of video plays',
-  labelNames: ['player_id', 'video_id']
+  labelNames: ['table_id', 'cdn_id']
 });
 
 // Register metrics
@@ -38,27 +38,27 @@ app.get('/health', (req, res) => {
 
 // Simulate video stutter metrics
 function simulateVideoStutter() {
-  // Simulate different video players
-  const players = ['player-001', 'player-002', 'player-003'];
-  const videos = ['video-001', 'video-002', 'video-003'];
-  const qualities = ['720p', '1080p', '4K'];
+  // Simulate different tables
+  const tables = ['ARO-001', 'ARO-002', 'SBO-001'];
+  const cdns = ['byteplus', 'tencent'];
+  const qualities = ['HD', 'Hi', 'Me', 'Lo'];
 
-  players.forEach(playerId => {
-    videos.forEach(videoId => {
+  tables.forEach(tableId => {
+    cdns.forEach(cdnId => {
       qualities.forEach(quality => {
-        // Generate random stutter value between 0-20
-        const stutterValue = Math.random() * 20;
-        videoStutterGauge.labels(playerId, videoId, quality).set(stutterValue);
+        // Generate random stutter value between 0-20 (integer)
+        const stutterValue = Math.floor(Math.random() * 21);
+        videoStutterGauge.labels(tableId, cdnId, quality).set(stutterValue);
         
         // Increment play counter
-        videoPlayCounter.labels(playerId, videoId).inc();
+        videoPlayCounter.labels(tableId, cdnId).inc();
       });
     });
   });
 }
 
-// Update metrics every 5 seconds
-setInterval(simulateVideoStutter, 5000);
+// Update metrics every 30 seconds
+setInterval(simulateVideoStutter, 30000);
 
 // Initial metrics
 simulateVideoStutter();

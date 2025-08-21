@@ -67,8 +67,24 @@ The `studio-web-player` dashboard includes:
 - **Current Video Stutter Value**: Stat panel displaying current stutter value with color-coded thresholds
 
 **Metrics Available:**
-- `videostutter` - Video stutter gauge with labels (player_id, video_id, quality)
+- `videostutter` - Video stutter gauge with labels (table_id, cdn_id, quality)
+  - **table_id**: ARO-001, ARO-002, SBO-001, BCR-001
+  - **cdn_id**: byteplus, tencent, cdnnetwork
+  - **quality**: HD, Hi, Me, Lo
 - `video_play_total` - Counter for total video plays
+
+**Important Setup Note:**
+After the dashboard is first loaded, you need to manually execute the query to see data:
+1. Click on any panel to enter edit mode
+2. In the query editor, ensure the query is: `videostutter{job="studio-web-player"}`
+3. Click "Run queries" to execute the query
+4. The dashboard will then display the metrics data
+
+**Dashboard Features:**
+- **Time Range**: Default set to "Last 15 minutes" for recent data
+- **Auto Refresh**: Every 30 seconds (matches metrics sampling rate)
+- **Legend Format**: `{{table_id}} - {{cdn_id}} - {{quality}}`
+- **Color Coding**: Values are color-coded based on thresholds (Green: 0-4, Yellow: 5-9, Red: 10+)
 
 ## Example Metrics Server
 
@@ -88,6 +104,27 @@ npm run dev
 The server runs on port 8080 and provides:
 - `/metrics` - Prometheus metrics endpoint
 - `/health` - Health check endpoint
+
+### Stopping the Background Server
+
+To stop the background running metrics server:
+
+```bash
+# Method 1: Find and kill by process ID
+ps aux | grep "example-metrics-server" | grep -v grep
+kill <PID>
+
+# Method 2: Kill by process name
+pkill -f "example-metrics-server"
+
+# Method 3: Kill all Node.js processes (use with caution)
+killall node
+
+# Method 4: Force kill if normal kill doesn't work
+kill -9 <PID>
+```
+
+**Note:** After stopping the server, Prometheus targets will show as "down" since it can't connect to the metrics endpoint.
 
 ## Data Persistence
 
@@ -121,3 +158,25 @@ If you encounter connection errors like `Not supported URL scheme http+docker`:
 - Prometheus runs on port 9090
 - Grafana runs on port 3000
 - If ports are in use, modify the port mappings in `docker-compose.yml`
+
+### Dashboard Shows "No Data"
+
+If your dashboard displays "No data" even though metrics exist in Prometheus:
+
+1. **Check Query Execution**: 
+   - Enter edit mode for any panel
+   - Ensure the query is correct: `videostutter{job="studio-web-player"}`
+   - Click "Run queries" to execute
+
+2. **Verify Time Range**:
+   - Check if time range is set to "Last 15 minutes" or appropriate range
+   - Ensure data exists within the selected time window
+
+3. **Check Data Source**:
+   - Verify Prometheus data source is connected
+   - Check if metrics are being scraped successfully
+
+4. **Common Solutions**:
+   - Restart Grafana: `docker compose restart grafana`
+   - Check Prometheus targets status
+   - Verify metrics server is running and generating data
