@@ -1,0 +1,25 @@
+{
+  "name": "kevin-telemetry-example",
+  "version": "1.0.0",
+  "description": "Example metrics server for Kevin Telemetry Stack",
+  "main": "example-metrics-server.js",
+  "scripts": {
+    "start": "node example-metrics-server.js",
+    "dev": "nodemon example-metrics-server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "prom-client": "^15.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "prometheus",
+    "metrics",
+    "telemetry",
+    "grafana"
+  ],
+  "author": "Kevin Team",
+  "license": "MIT"
+}

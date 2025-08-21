@@ -56,6 +56,38 @@ docker system df -v | grep -A 5 -B 5 "kevin-telemetry"
 
 - Prometheus configuration: `prometheus.yml`
 - Grafana datasource: `grafana/provisioning/datasources/prometheus.yml`
+- Grafana dashboards: `grafana/provisioning/dashboards/`
+
+## Dashboards
+
+### Studio Web Player Dashboard
+
+The `studio-web-player` dashboard includes:
+- **Video Stutter Metrics**: Time series chart showing video stutter over time
+- **Current Video Stutter Value**: Stat panel displaying current stutter value with color-coded thresholds
+
+**Metrics Available:**
+- `videostutter` - Video stutter gauge with labels (player_id, video_id, quality)
+- `video_play_total` - Counter for total video plays
+
+## Example Metrics Server
+
+A sample Node.js application that generates `videostutter` metrics:
+
+```bash
+# Install dependencies
+npm install
+
+# Start the metrics server
+npm start
+
+# Or run in development mode
+npm run dev
+```
+
+The server runs on port 8080 and provides:
+- `/metrics` - Prometheus metrics endpoint
+- `/health` - Health check endpoint
 
 ## Data Persistence
 
