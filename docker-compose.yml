@@ -20,6 +20,15 @@ services:
     networks:
       - monitoring
 
+  pushgateway:
+    image: prom/pushgateway:latest
+    container_name: kevin-telemetry-pushgateway
+    ports:
+      - "9091:9091"
+    restart: unless-stopped
+    networks:
+      - monitoring
+
   grafana:
     image: grafana/grafana:latest
     container_name: kevin-telemetry-grafana

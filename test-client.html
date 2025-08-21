@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prometheus Client - Network Accessible</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .network-info {
+            background-color: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .metrics-log {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .log-entry {
+            margin-bottom: 5px;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        .log-success { background-color: #d4edda; }
+        .log-error { background-color: #f8d7da; }
+        .log-info { background-color: #d1ecf1; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Prometheus Client - Network Accessible</h1>
+        
+        <div class="network-info">
+            <h3>🌐 Network Configuration</h3>
+            <p><strong>Host IP:</strong> <code>192.168.20.9</code></p>
+            <p><strong>Pushgateway Port:</strong> <code>9091</code></p>
+            <p><strong>Full URL:</strong> <code>http://192.168.20.9:9091</code></p>
+            <p><strong>Usage:</strong> This page allows you to send metrics to Pushgateway from any computer on the network</p>
+        </div>
+        
+        <p>This page allows you to send <code>videostutter</code> metrics directly from any computer on the network to Prometheus Pushgateway.</p>
+        
+        <div class="form-group">
+            <label for="pushgatewayUrl">Pushgateway URL:</label>
+            <input type="text" id="pushgatewayUrl" value="http://192.168.20.9:9091" placeholder="http://192.168.20.9:9091">
+        </div>
+        
+        <div class="form-group">
+            <label for="tableId">Table ID:</label>
+            <select id="tableId">
+                <option value="ARO-001">ARO-001</option>
+                <option value="ARO-002">ARO-002</option>
+                <option value="SBO-001">SBO-001</option>
+                <option value="BCR-001">BCR-001</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="cdnId">CDN ID:</label>
+            <select id="cdnId">
+                <option value="byteplus">byteplus</option>
+                <option value="tencent">tencent</option>
+                <option value="cdnnetwork">cdnnetwork</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="quality">Quality:</label>
+            <select id="quality">
+                <option value="HD">HD</option>
+                <option value="Hi">Hi</option>
+                <option value="Me">Me</option>
+                <option value="Lo">Lo</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="stutterValue">Video Stutter Value (0-20):</label>
+            <input type="number" id="stutterValue" min="0" max="20" value="5">
+        </div>
+        
+        <div class="form-group">
+            <button onclick="sendSingleMetric()">📤 Send Single Metric</button>
+            <button onclick="sendRandomMetrics()">🎲 Send Random Metrics</button>
+            <button onclick="clearLog()">🗑️ Clear Log</button>
+            <button onclick="testConnection()">🔗 Test Connection</button>
+        </div>
+        
+        <div id="status" class="status info" style="display: none;">
+            Ready to send metrics...
+        </div>
+        
+        <div class="metrics-log">
+            <h3>📋 Metrics Log</h3>
+            <div id="logContainer">
+                <div class="log-entry log-info">Ready to send metrics to Pushgateway...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class PrometheusClient {
+            constructor(pushgatewayUrl = 'http://192.168.20.9:9091') {
+                this.pushgatewayUrl = pushgatewayUrl;
+                this.jobName = 'studio-web-player';
+            }
+
+            async sendMetric(metricName, value, labels = {}) {
+                const metricData = this.formatMetric(metricName, value, labels);
+                const url = `${this.pushgatewayUrl}/metrics/job/${this.jobName}`;
+                
+                try {
+                    // Try direct fetch first
+                    let response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'text/plain',
+                        },
+                        body: metricData
+                    });
+                    
+                    if (response.ok) {
+                        return { success: true, message: `Metric sent: ${metricName} = ${value}` };
+                    } else {
+                        return { success: false, message: `Failed: ${response.status} ${response.statusText}` };
+                    }
+                } catch (error) {
+                    // If direct fetch fails due to CORS, try using a proxy
+                    try {
+                        console.log('Direct fetch failed, trying proxy method...');
+                        const proxyUrl = `http://192.168.20.9:8080/proxy-pushgateway`;
+                        const response = await fetch(proxyUrl, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                pushgatewayUrl: this.pushgatewayUrl,
+                                jobName: this.jobName,
+                                metricData: metricData
+                            })
+                        });
+                        
+                        if (response.ok) {
+                            return { success: true, message: `Metric sent via proxy: ${metricName} = ${value}` };
+                        } else {
+                            return { success: false, message: `Proxy failed: ${response.status} ${response.statusText}` };
+                        }
+                    } catch (proxyError) {
+                        return { success: false, message: `Error: ${error.message} (Proxy also failed: ${proxyError.message})` };
+                    }
+                }
+            }
+
+            async sendVideoStutter(tableId, cdnId, quality, value) {
+                const labels = {
+                    table_id: tableId,
+                    cdn_id: cdnId,
+                    quality: quality
+                };
+                
+                return await this.sendMetric('videostutter', value, labels);
+            }
+
+            formatMetric(name, value, labels = {}) {
+                let metricLine = name;
+                
+                if (Object.keys(labels).length > 0) {
+                    const labelPairs = Object.entries(labels)
+                        .map(([key, value]) => `${key}="${value}"`)
+                        .join(',');
+                    metricLine += `{${labelPairs}}`;
+                }
+                
+                metricLine += ` ${value}`;
+                
+                // Ensure the metric line ends with a newline for Pushgateway
+                metricLine += '\n';
+                
+                return metricLine;
+            }
+        }
+
+        let client;
+        let isRunning = false;
+
+        function updateStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+            statusDiv.style.display = 'block';
+        }
+
+        function addLogEntry(message, type = 'info') {
+            const logContainer = document.getElementById('logContainer');
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry log-${type}`;
+            logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+
+        async function testConnection() {
+            const pushgatewayUrl = document.getElementById('pushgatewayUrl').value;
+            
+            if (!pushgatewayUrl) {
+                updateStatus('Please enter Pushgateway URL', 'error');
+                return;
+            }
+
+            updateStatus('Testing connection...', 'info');
+            addLogEntry(`Testing connection to: ${pushgatewayUrl}`, 'info');
+            
+            try {
+                const response = await fetch(`${pushgatewayUrl}/metrics`);
+                if (response.ok) {
+                    updateStatus('✅ Connection successful!', 'success');
+                    addLogEntry('Connection test: SUCCESS', 'success');
+                } else {
+                    updateStatus('❌ Connection failed', 'error');
+                    addLogEntry(`Connection test: FAILED - ${response.status}`, 'error');
+                }
+            } catch (error) {
+                updateStatus('❌ Connection error', 'error');
+                addLogEntry(`Connection test: ERROR - ${error.message}`, 'error');
+            }
+        }
+
+        async function sendSingleMetric() {
+            const pushgatewayUrl = document.getElementById('pushgatewayUrl').value;
+            const tableId = document.getElementById('tableId').value;
+            const cdnId = document.getElementById('cdnId').value;
+            const quality = document.getElementById('quality').value;
+            const stutterValue = parseInt(document.getElementById('stutterValue').value);
+
+            if (!pushgatewayUrl) {
+                updateStatus('Please enter Pushgateway URL', 'error');
+                return;
+            }
+
+            client = new PrometheusClient(pushgatewayUrl);
+            
+            updateStatus('Sending metric...', 'info');
+            addLogEntry(`Sending videostutter metric: ${tableId} - ${cdnId} - ${quality} = ${stutterValue}`, 'info');
+            
+            const result = await client.sendVideoStutter(tableId, cdnId, quality, stutterValue);
+            
+            if (result.success) {
+                updateStatus('Metric sent successfully!', 'success');
+                addLogEntry(result.message, 'success');
+            } else {
+                updateStatus('Failed to send metric', 'error');
+                addLogEntry(result.message, 'error');
+            }
+        }
+
+        async function sendRandomMetrics() {
+            if (isRunning) {
+                isRunning = false;
+                document.querySelector('button[onclick="sendRandomMetrics()"]').textContent = '🎲 Send Random Metrics';
+                updateStatus('Random metrics stopped', 'info');
+                return;
+            }
+
+            const pushgatewayUrl = document.getElementById('pushgatewayUrl').value;
+            if (!pushgatewayUrl) {
+                updateStatus('Please enter Pushgateway URL', 'error');
+                return;
+            }
+
+            client = new PrometheusClient(pushgatewayUrl);
+            isRunning = true;
+            document.querySelector('button[onclick="sendRandomMetrics()"]').textContent = '⏹️ Stop Random Metrics';
+            
+            updateStatus('Sending random metrics every 5 seconds...', 'info');
+            addLogEntry('Started sending random metrics every 5 seconds', 'info');
+
+            const tables = ['ARO-001', 'ARO-002', 'SBO-001', 'BCR-001'];
+            const cdns = ['byteplus', 'tencent', 'cdnnetwork'];
+            const qualities = ['HD', 'Hi', 'Me', 'Lo'];
+
+            const interval = setInterval(async () => {
+                if (!isRunning) {
+                    clearInterval(interval);
+                    return;
+                }
+
+                const tableId = tables[Math.floor(Math.random() * tables.length)];
+                const cdnId = cdns[Math.floor(Math.random() * cdns.length)];
+                const quality = qualities[Math.floor(Math.random() * qualities.length)];
+                const stutterValue = Math.floor(Math.random() * 21);
+
+                const result = await client.sendVideoStutter(tableId, cdnId, quality, stutterValue);
+                
+                if (result.success) {
+                    addLogEntry(`Random metric sent: ${tableId} - ${cdnId} - ${quality} = ${stutterValue}`, 'success');
+                } else {
+                    addLogEntry(`Failed to send random metric: ${result.message}`, 'error');
+                }
+            }, 5000);
+        }
+
+        function clearLog() {
+            const logContainer = document.getElementById('logContainer');
+            logContainer.innerHTML = '<div class="log-entry log-info">Log cleared...</div>';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStatus('Ready to send metrics to Pushgateway', 'info');
+            addLogEntry('Network-accessible Prometheus client loaded', 'info');
+        });
+    </script>
+</body>
+</html>
