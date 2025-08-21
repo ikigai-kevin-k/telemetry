@@ -1,6 +1,6 @@
-# Kevin Grafana + Prometheus Stack
+# Kevin Telemetry Stack
 
-This directory contains a Docker Compose setup for Grafana and Prometheus monitoring stack.
+This directory contains a Docker setup for Grafana and Prometheus monitoring stack.
 
 ## Services
 
@@ -32,8 +32,25 @@ This directory contains a Docker Compose setup for Grafana and Prometheus monito
 
 ## Container Names
 
-- Prometheus: `kevin-grafana-prom-prometheus`
-- Grafana: `kevin-grafana-prom-grafana`
+- Prometheus: `kevin-telemetry-prometheus`
+- Grafana: `kevin-telemetry-grafana`
+
+## Container Management
+
+### View Container Sizes
+
+To check the current size and resource usage of the containers:
+
+```bash
+# View container status and sizes
+docker ps -a --filter "name=kevin-telemetry" --format "table {{.Names}}\t{{.Size}}\t{{.Status}}"
+
+# View real-time resource usage
+docker stats --no-stream kevin-telemetry-grafana kevin-telemetry-prometheus
+
+# View detailed disk usage
+docker system df -v | grep -A 5 -B 5 "kevin-telemetry"
+```
 
 ## Configuration
 

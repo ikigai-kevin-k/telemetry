@@ -3,7 +3,7 @@ version: '3.8'
 services:
   prometheus:
     image: prom/prometheus:latest
-    container_name: kevin-grafana-prom-prometheus
+    container_name: kevin-telemetry-prometheus
     ports:
       - "9090:9090"
     volumes:
@@ -22,7 +22,7 @@ services:
 
   grafana:
     image: grafana/grafana:latest
-    container_name: kevin-grafana-prom-grafana
+    container_name: kevin-telemetry-grafana
     ports:
       - "3000:3000"
     volumes:
