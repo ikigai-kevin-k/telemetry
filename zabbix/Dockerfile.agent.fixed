@@ -1,0 +1,37 @@
+# Custom Zabbix Agent2 Dockerfile with necessary tools
+# Based on official Zabbix agent2 image with additional tools
+
+FROM zabbix/zabbix-agent2:ubuntu-6.0-latest
+
+# Switch to root user for package installation
+USER root
+
+# Install additional tools for monitoring
+RUN apt-get update && apt-get install -y \
+    curl \
+    jq \
+    iputils-ping \
+    net-tools \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create scripts directory
+RUN mkdir -p /var/lib/zabbix/scripts
+
+# Copy custom scripts
+COPY scripts/ /var/lib/zabbix/scripts/
+
+# Make scripts executable
+RUN chmod +x /var/lib/zabbix/scripts/*.sh
+
+# Switch back to zabbix user
+USER zabbix
+
+# Set working directory
+WORKDIR /var/lib/zabbix
+
+# Expose agent port
+EXPOSE 10050
+
+# Default command
+CMD ["zabbix_agent2", "-f"]

@@ -74,10 +74,85 @@ services:
       - prometheus
       - loki
 
+  # Zabbix Server
+  zabbix-server:
+    image: zabbix/zabbix-server-mysql:ubuntu-6.0-latest
+    container_name: kevin-telemetry-zabbix-server
+    ports:
+      - "10051:10051"
+    environment:
+      - DB_SERVER_HOST=zabbix-db
+      - MYSQL_DATABASE=zabbix
+      - MYSQL_USER=zabbix
+      - MYSQL_PASSWORD=zabbix_pwd
+      - MYSQL_ROOT_PASSWORD=root_pwd
+    volumes:
+      - zabbix_server_data:/var/lib/zabbix
+    restart: unless-stopped
+    networks:
+      - monitoring
+    depends_on:
+      - zabbix-db
+
+  # Zabbix Database
+  zabbix-db:
+    image: mysql:8.0
+    container_name: kevin-telemetry-zabbix-db
+    environment:
+      - MYSQL_DATABASE=zabbix
+      - MYSQL_USER=zabbix
+      - MYSQL_PASSWORD=zabbix_pwd
+      - MYSQL_ROOT_PASSWORD=root_pwd
+    volumes:
+      - zabbix_db_data:/var/lib/mysql
+      - ./zabbix/mysql-init:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+  # Zabbix Web Interface
+  zabbix-web:
+    image: zabbix/zabbix-web-nginx-mysql:ubuntu-6.0-latest
+    container_name: kevin-telemetry-zabbix-web
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_SERVER_HOST=zabbix-db
+      - MYSQL_DATABASE=zabbix
+      - MYSQL_USER=zabbix
+      - MYSQL_PASSWORD=zabbix_pwd
+      - PHP_TZ=Asia/Taipei
+    restart: unless-stopped
+    networks:
+      - monitoring
+    depends_on:
+      - zabbix-db
+      - zabbix-server
+
+  # Zabbix Agent
+  zabbix-agent:
+    image: zabbix/zabbix-agent2:ubuntu-6.0-latest
+    container_name: kevin-telemetry-zabbix-agent
+    environment:
+      - ZBX_HOSTNAME=kevin-telemetry-zabbix-agent
+      - ZBX_SERVER_HOST=zabbix-server
+      - ZBX_SERVER_PORT=10051
+      - ZBX_ENABLEPERSISTENTBUFFER=1
+    volumes:
+      - ./zabbix/agent2.conf:/etc/zabbix/zabbix_agent2.conf
+      - ./zabbix/scripts:/var/lib/zabbix/scripts
+    restart: unless-stopped
+    networks:
+      - monitoring
+    depends_on:
+      - zabbix-server
+
 volumes:
   prometheus_data:
   grafana_data:
   loki_data:
+  zabbix_server_data:
+  zabbix_db_data:
 
 networks:
   monitoring:
