@@ -38,13 +38,13 @@ check_docker() {
     print_success "Docker is running"
 }
 
-# Function to check if docker-compose is available
+# Function to check if docker compose is available
 check_docker_compose() {
-    if ! command -v docker-compose &> /dev/null; then
-        print_error "docker-compose is not installed. Please install it first."
+    if ! docker compose version &> /dev/null; then
+        print_error "docker compose is not available. Please install Docker Compose first."
         exit 1
     fi
-    print_success "docker-compose is available"
+    print_success "docker compose is available"
 }
 
 # Function to start Zabbix containers
@@ -55,7 +55,7 @@ start_zabbix() {
     cd "$(dirname "$0")/.."
     
     # Start only Zabbix-related services
-    docker-compose up -d zabbix-db zabbix-server zabbix-web zabbix-agent
+    docker compose up -d zabbix-db zabbix-server zabbix-web zabbix-agent
     
     print_success "Zabbix containers started successfully"
 }
@@ -66,7 +66,7 @@ stop_zabbix() {
     
     cd "$(dirname "$0")/.."
     
-    docker-compose stop zabbix-agent zabbix-web zabbix-server zabbix-db
+    docker compose stop zabbix-agent zabbix-web zabbix-server zabbix-db
     
     print_success "Zabbix containers stopped successfully"
 }
@@ -88,7 +88,7 @@ show_status() {
     
     cd "$(dirname "$0")/.."
     
-    docker-compose ps zabbix-db zabbix-server zabbix-web zabbix-agent
+    docker compose ps zabbix-db zabbix-server zabbix-web zabbix-agent
 }
 
 # Function to show Zabbix logs
@@ -104,7 +104,7 @@ show_logs() {
     
     cd "$(dirname "$0")/.."
     
-    docker-compose logs -f "$service"
+    docker compose logs -f "$service"
 }
 
 # Function to test ZCAM API connection
