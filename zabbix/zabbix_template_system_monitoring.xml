@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>6.0</version>
+    <date>2024-01-01T00:00:00Z</date>
+    <groups>
+        <group>
+            <uuid>12345678-1234-1234-1234-123456789abc</uuid>
+            <name>Templates/Operating systems</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <uuid>87654321-4321-4321-4321-cba987654321</uuid>
+            <template>System Monitoring Template</template>
+            <name>System Monitoring Template</name>
+            <description>Comprehensive system monitoring template for CPU, Memory, Disk, Power, and Health checks</description>
+            <groups>
+                <group>
+                    <name>Templates/Operating systems</name>
+                </group>
+            </groups>
+            <items>
+                <!-- System Resource Monitoring Items -->
+                <item>
+                    <uuid>item-cpu-usage</uuid>
+                    <name>CPU Usage</name>
+                    <type>ZABBIX_PASSIVE</type>
+                    <key>system.cpu.usage</key>
+                    <history>7d</history>
+                    <trends>365d</trends>
+                    <value_type>UNSIGNED</value_type>
+                    <units>%</units>
+                    <description>Current CPU usage percentage</description>
+                </item>
+                <item>
+                    <uuid>item-memory-usage</uuid>
+                    <name>Memory Usage</name>
+                    <type>ZABBIX_PASSIVE</type>
+                    <key>system.memory.usage</key>
+                    <history>7d</history>
+                    <trends>365d</trends>
+                    <value_type>UNSIGNED</value_type>
+                    <units>%</units>
+                    <description>Current memory usage percentage</description>
+                </item>
+                <item>
+                    <uuid>item-disk-usage</uuid>
+                    <name>Disk Usage</name>
+                    <type>ZABBIX_PASSIVE</type>
+                    <key>system.disk.usage</key>
+                    <history>7d</history>
+                    <trends>365d</trends>
+                    <value_type>UNSIGNED</value_type>
+                    <units>%</units>
+                    <description>Root filesystem usage percentage</description>
+                </item>
+                <item>
+                    <uuid>item-load-average</uuid>
+                    <name>Load Average</name>
+                    <type>ZABBIX_PASSIVE</type>
+                    <key>system.load.average</key>
+                    <history>7d</history>
+                    <trends>365d</trends>
+                    <value_type>FLOAT</value_type>
+                    <description>System load average (1 minute)</description>
+                </item>
+                <item>
+                    <uuid>item-temperature</uuid>
+                    <name>System Temperature</name>
+                    <type>ZABBIX_PASSIVE</type>
+                    <key>system.temperature</key>
+                    <history>7d</history>
+                    <trends>365d</trends>
+                    <value_type>UNSIGNED</value_type>
+                    <units>°C</units>
+                    <description>System temperature in Celsius</description>
+                </item>
+                
+                <!-- Power Monitoring Items -->
+                <item>
+                    <uuid>item-battery-status</uuid>
+                    <name>Battery Status</name>
+                    <type>ZABBIX_PASSIVE</type>
+                    <key>power.battery.status</key>
+                    <history>7d</history>
+                    <trends>365d</trends>
+                    <value_type>UNSIGNED</value_type>
+                    <description>Battery power status (1=on battery, 0=on AC)</description>
+                </item>
+                <item>
+                    <uuid>item-battery-charge</uuid>
+                    <name>Battery Charge</name>
+                    <type>ZABBIX_PASSIVE</type>
+                    <key>power.battery.charge</key>
+                    <history>7d</history>
+                    <trends>365d</trends>
+                    <value_type>UNSIGNED</value_type>
+                    <units>%</units>
+                    <description>Battery charge percentage</description>
+                </item>
+                <item>
+                    <uuid>item-ups-runtime</uuid>
+                    <name>UPS Runtime</name>
+                    <type>ZABBIX_PASSIVE</type>
+                    <key>power.ups.runtime</key>
+                    <history>7d</history>
+                    <trends>365d</trends>
+                    <value_type>UNSIGNED</value_type>
+                    <units>min</units>
+                    <description>UPS runtime remaining in minutes</description>
+                </item>
+                <item>
+                    <uuid>item-power-supply-status</uuid>
+                    <name>Power Supply Status</name>
+                    <type>ZABBIX_PASSIVE</type>
+                    <key>power.supply.status</key>
+                    <history>7d</history>
+                    <trends>365d</trends>
+                    <value_type>UNSIGNED</value_type>
+                    <description>AC power supply status (1=connected, 0=disconnected)</description>
+                </item>
+                
+                <!-- Health Check Items -->
+                <item>
+                    <uuid>item-system-health</uuid>
+                    <name>System Health Score</name>
+                    <type>ZABBIX_PASSIVE</type>
+                    <key>health.comprehensive</key>
+                    <history>7d</history>
+                    <trends>365d</trends>
+                    <value_type>UNSIGNED</value_type>
+                    <units>score</units>
+                    <description>Overall system health score (0-100)</description>
+                </item>
+                <item>
+                    <uuid>item-critical-services</uuid>
+                    <name>Critical Services Status</name>
+                    <type>ZABBIX_PASSIVE</type>
+                    <key>health.critical.services</key>
+                    <history>7d</history>
+                    <trends>365d</trends>
+                    <value_type>UNSIGNED</value_type>
+                    <description>Number of failed critical services</description>
+                </item>
+                <item>
+                    <uuid>item-network-connectivity</uuid>
+                    <name>Network Connectivity</name>
+                    <type>ZABBIX_PASSIVE</type>
+                    <key>health.network</key>
+                    <history>7d</history>
+                    <trends>365d</trends>
+                    <value_type>UNSIGNED</value_type>
+                    <description>Network connectivity issues count</description>
+                </item>
+                
+                <!-- Warning Status Items -->
+                <item>
+                    <uuid>item-cpu-warning</uuid>
+                    <name>CPU Warning Status</name>
+                    <type>ZABBIX_PASSIVE</type>
+                    <key>system.cpu.warning</key>
+                    <history>7d</history>
+                    <trends>365d</trends>
+                    <value_type>UNSIGNED</value_type>
+                    <description>CPU warning level (0=OK, 1=Warning, 2=Critical)</description>
+                </item>
+                <item>
+                    <uuid>item-memory-warning</uuid>
+                    <name>Memory Warning Status</name>
+                    <type>ZABBIX_PASSIVE</type>
+                    <key>system.memory.warning</key>
+                    <history>7d</history>
+                    <trends>365d</trends>
+                    <value_type>UNSIGNED</value_type>
+                    <description>Memory warning level (0=OK, 1=Warning, 2=Critical)</description>
+                </item>
+                <item>
+                    <uuid>item-disk-warning</uuid>
+                    <name>Disk Warning Status</name>
+                    <type>ZABBIX_PASSIVE</type>
+                    <key>system.disk.warning</key>
+                    <history>7d</history>
+                    <trends>365d</trends>
+                    <value_type>UNSIGNED</value_type>
+                    <description>Disk warning level (0=OK, 1=Warning, 2=Critical)</description>
+                </item>
+                <item>
+                    <uuid>item-power-warning</uuid>
+                    <name>Power Warning Status</name>
+                    <type>ZABBIX_PASSIVE</type>
+                    <key>power.warning</key>
+                    <history>7d</history>
+                    <trends>365d</trends>
+                    <value_type>UNSIGNED</value_type>
+                    <description>Power warning level (0=OK, 1=Warning, 2=Critical)</description>
+                </item>
+            </items>
+            
+            <triggers>
+                <!-- CPU Triggers -->
+                <trigger>
+                    <uuid>trigger-cpu-high</uuid>
+                    <expression>last(/System Monitoring Template/system.cpu.usage)>80</expression>
+                    <name>High CPU Usage</name>
+                    <priority>WARNING</priority>
+                    <description>CPU usage is above 80%</description>
+                </trigger>
+                <trigger>
+                    <uuid>trigger-cpu-critical</uuid>
+                    <expression>last(/System Monitoring Template/system.cpu.usage)>90</expression>
+                    <name>Critical CPU Usage</name>
+                    <priority>HIGH</priority>
+                    <description>CPU usage is above 90%</description>
+                </trigger>
+                
+                <!-- Memory Triggers -->
+                <trigger>
+                    <uuid>trigger-memory-high</uuid>
+                    <expression>last(/System Monitoring Template/system.memory.usage)>80</expression>
+                    <name>High Memory Usage</name>
+                    <priority>WARNING</priority>
+                    <description>Memory usage is above 80%</description>
+                </trigger>
+                <trigger>
+                    <uuid>trigger-memory-critical</uuid>
+                    <expression>last(/System Monitoring Template/system.memory.usage)>90</expression>
+                    <name>Critical Memory Usage</name>
+                    <priority>HIGH</priority>
+                    <description>Memory usage is above 90%</description>
+                </trigger>
+                
+                <!-- Disk Triggers -->
+                <trigger>
+                    <uuid>trigger-disk-high</uuid>
+                    <expression>last(/System Monitoring Template/system.disk.usage)>80</expression>
+                    <name>High Disk Usage</name>
+                    <priority>WARNING</priority>
+                    <description>Disk usage is above 80%</description>
+                </trigger>
+                <trigger>
+                    <uuid>trigger-disk-critical</uuid>
+                    <expression>last(/System Monitoring Template/system.disk.usage)>90</expression>
+                    <name>Critical Disk Usage</name>
+                    <priority>HIGH</priority>
+                    <description>Disk usage is above 90%</description>
+                </trigger>
+                
+                <!-- Temperature Triggers -->
+                <trigger>
+                    <uuid>trigger-temp-high</uuid>
+                    <expression>last(/System Monitoring Template/system.temperature)>70</expression>
+                    <name>High System Temperature</name>
+                    <priority>WARNING</priority>
+                    <description>System temperature is above 70°C</description>
+                </trigger>
+                <trigger>
+                    <uuid>trigger-temp-critical</uuid>
+                    <expression>last(/System Monitoring Template/system.temperature)>80</expression>
+                    <name>Critical System Temperature</name>
+                    <priority>HIGH</priority>
+                    <description>System temperature is above 80°C</description>
+                </trigger>
+                
+                <!-- Power Triggers -->
+                <trigger>
+                    <uuid>trigger-battery-low</uuid>
+                    <expression>last(/System Monitoring Template/power.battery.charge)<20</expression>
+                    <name>Low Battery Charge</name>
+                    <priority>WARNING</priority>
+                    <description>Battery charge is below 20%</description>
+                </trigger>
+                <trigger>
+                    <uuid>trigger-battery-critical</uuid>
+                    <expression>last(/System Monitoring Template/power.battery.charge)<10</expression>
+                    <name>Critical Battery Charge</name>
+                    <priority>HIGH</priority>
+                    <description>Battery charge is below 10%</description>
+                </trigger>
+                <trigger>
+                    <uuid>trigger-on-battery</uuid>
+                    <expression>last(/System Monitoring Template/power.battery.status)=1</expression>
+                    <name>System Running on Battery</name>
+                    <priority>WARNING</priority>
+                    <description>System is running on battery power</description>
+                </trigger>
+                <trigger>
+                    <uuid>trigger-ups-low-runtime</uuid>
+                    <expression>last(/System Monitoring Template/power.ups.runtime)<30</expression>
+                    <name>Low UPS Runtime</name>
+                    <priority>WARNING</priority>
+                    <description>UPS runtime is below 30 minutes</description>
+                </trigger>
+                
+                <!-- System Health Triggers -->
+                <trigger>
+                    <uuid>trigger-system-health-low</uuid>
+                    <expression>last(/System Monitoring Template/health.comprehensive)<70</expression>
+                    <name>Low System Health</name>
+                    <priority>WARNING</priority>
+                    <description>System health score is below 70</description>
+                </trigger>
+                <trigger>
+                    <uuid>trigger-system-health-critical</uuid>
+                    <expression>last(/System Monitoring Template/health.comprehensive)<50</expression>
+                    <name>Critical System Health</name>
+                    <priority>HIGH</priority>
+                    <description>System health score is below 50</description>
+                </trigger>
+                <trigger>
+                    <uuid>trigger-critical-services-down</uuid>
+                    <expression>last(/System Monitoring Template/health.critical.services)>0</expression>
+                    <name>Critical Services Down</name>
+                    <priority>HIGH</priority>
+                    <description>One or more critical services are down</description>
+                </trigger>
+                <trigger>
+                    <uuid>trigger-network-issues</uuid>
+                    <expression>last(/System Monitoring Template/health.network)>0</expression>
+                    <name>Network Connectivity Issues</name>
+                    <priority>WARNING</priority>
+                    <description>Network connectivity issues detected</description>
+                </trigger>
+            </triggers>
+            
+            <graphs>
+                <graph>
+                    <uuid>graph-system-resources</uuid>
+                    <name>System Resources</name>
+                    <width>900</width>
+                    <height>200</height>
+                    <yaxismin>0.0000</yaxismin>
+                    <yaxismax>100.0000</yaxismax>
+                    <show_work_period>1</show_work_period>
+                    <show_triggers>1</show_triggers>
+                    <type>0</type>
+                    <show_legend>1</show_legend>
+                    <show_3d>0</show_3d>
+                    <percent_left>0.0000</percent_left>
+                    <percent_right>0.0000</percent_right>
+                    <ymin_type_1>0</ymin_type_1>
+                    <ymax_type_1>0</ymax_type_1>
+                    <ymin_item_1>0</ymin_item_1>
+                    <ymax_item_1>0</ymax_item_1>
+                    <graph_items>
+                        <graph_item>
+                            <sortorder>0</sortorder>
+                            <drawtype>0</drawtype>
+                            <color>C80000</color>
+                            <yaxisside>0</yaxisside>
+                            <calc_fnc>2</calc_fnc>
+                            <type>0</type>
+                            <item>
+                                <host>System Monitoring Template</host>
+                                <key>system.cpu.usage</key>
+                            </item>
+                        </graph_item>
+                        <graph_item>
+                            <sortorder>1</sortorder>
+                            <drawtype>0</drawtype>
+                            <color>00C800</color>
+                            <yaxisside>0</yaxisside>
+                            <calc_fnc>2</calc_fnc>
+                            <type>0</type>
+                            <item>
+                                <host>System Monitoring Template</host>
+                                <key>system.memory.usage</key>
+                            </item>
+                        </graph_item>
+                        <graph_item>
+                            <sortorder>2</sortorder>
+                            <drawtype>0</drawtype>
+                            <color>0000C8</color>
+                            <yaxisside>0</yaxisside>
+                            <calc_fnc>2</calc_fnc>
+                            <type>0</type>
+                            <item>
+                                <host>System Monitoring Template</host>
+                                <key>system.disk.usage</key>
+                            </item>
+                        </graph_item>
+                    </graph_items>
+                </graph>
+                
+                <graph>
+                    <uuid>graph-power-status</uuid>
+                    <name>Power Status</name>
+                    <width>900</width>
+                    <height>200</height>
+                    <yaxismin>0.0000</yaxismin>
+                    <yaxismax>100.0000</yaxismax>
+                    <show_work_period>1</show_work_period>
+                    <show_triggers>1</show_triggers>
+                    <type>0</type>
+                    <show_legend>1</show_legend>
+                    <show_3d>0</show_3d>
+                    <percent_left>0.0000</percent_left>
+                    <percent_right>0.0000</percent_right>
+                    <ymin_type_1>0</ymin_type_1>
+                    <ymax_type_1>0</ymax_type_1>
+                    <ymin_item_1>0</ymin_item_1>
+                    <ymax_item_1>0</ymax_item_1>
+                    <graph_items>
+                        <graph_item>
+                            <sortorder>0</sortorder>
+                            <drawtype>0</drawtype>
+                            <color>FF8000</color>
+                            <yaxisside>0</yaxisside>
+                            <calc_fnc>2</calc_fnc>
+                            <type>0</type>
+                            <item>
+                                <host>System Monitoring Template</host>
+                                <key>power.battery.charge</key>
+                            </item>
+                        </graph_item>
+                        <graph_item>
+                            <sortorder>1</sortorder>
+                            <drawtype>0</drawtype>
+                            <color>8000FF</color>
+                            <yaxisside>1</yaxisside>
+                            <calc_fnc>2</calc_fnc>
+                            <type>0</type>
+                            <item>
+                                <host>System Monitoring Template</host>
+                                <key>power.ups.runtime</key>
+                            </item>
+                        </graph_item>
+                    </graph_items>
+                </graph>
+            </graphs>
+        </template>
+    </templates>
+</zabbix_export>
