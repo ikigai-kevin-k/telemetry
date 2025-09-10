@@ -60,6 +60,32 @@ start_zabbix() {
     print_success "Zabbix containers started successfully"
 }
 
+# Function to start only Zabbix server components (DB, Server, Web)
+start_zabbix_server() {
+    print_status "Starting Zabbix server components (DB, Server, Web)..."
+    
+    # Change to the parent directory where docker compose .yml is located
+    cd "$(dirname "$0")/.."
+    
+    # Start only Zabbix server-related services
+    docker compose up -d zabbix-db zabbix-server zabbix-web
+    
+    print_success "Zabbix server components started successfully"
+}
+
+# Function to start only Zabbix agent
+start_zabbix_agent() {
+    print_status "Starting Zabbix agent..."
+    
+    # Change to the parent directory where docker compose .yml is located
+    cd "$(dirname "$0")/.."
+    
+    # Start only Zabbix agent
+    docker compose up -d zabbix-agent
+    
+    print_success "Zabbix agent started successfully"
+}
+
 # Function to stop Zabbix containers
 stop_zabbix() {
     print_status "Stopping Zabbix containers..."
@@ -125,29 +151,47 @@ show_help() {
     echo "Usage: $0 [COMMAND]"
     echo ""
     echo "Commands:"
-    echo "  start     Start Zabbix containers"
-    echo "  stop      Stop Zabbix containers"
-    echo "  restart   Restart Zabbix containers"
-    echo "  status    Show Zabbix containers status"
-    echo "  logs      Show logs for a specific service"
-    echo "  test      Test ZCAM API connection"
-    echo "  help      Show this help message"
+    echo "  start         Start all Zabbix containers (DB, Server, Web, Agent)"
+    echo "  start-server  Start only Zabbix server components (DB, Server, Web)"
+    echo "  start-agent   Start only Zabbix agent"
+    echo "  stop          Stop Zabbix containers"
+    echo "  restart       Restart Zabbix containers"
+    echo "  status        Show Zabbix containers status"
+    echo "  logs          Show logs for a specific service"
+    echo "  test          Test ZCAM API connection"
+    echo "  help          Show this help message"
     echo ""
     echo "Examples:"
-    echo "  $0 start                    # Start Zabbix containers"
-    echo "  $0 logs zabbix-agent       # Show agent logs"
-    echo "  $0 test                    # Test ZCAM API"
+    echo "  $0 start                    # Start all Zabbix containers"
+    echo "  $0 start-server             # Start only server components"
+    echo "  $0 start-agent              # Start only agent"
+    echo "  $0 logs zabbix-agent        # Show agent logs"
+    echo "  $0 test                     # Test ZCAM API"
 }
 
 # Main script logic
 main() {
-    # Check prerequisites
-    check_docker
-    check_docker_compose
+    case "${1:-help}" in
+        help|--help|-h)
+            show_help
+            exit 0
+            ;;
+        *)
+            # Check prerequisites for non-help commands
+            check_docker
+            check_docker_compose
+            ;;
+    esac
     
     case "${1:-help}" in
         start)
             start_zabbix
+            ;;
+        start-server)
+            start_zabbix_server
+            ;;
+        start-agent)
+            start_zabbix_agent
             ;;
         stop)
             stop_zabbix
@@ -163,9 +207,6 @@ main() {
             ;;
         test)
             test_zcam
-            ;;
-        help|--help|-h)
-            show_help
             ;;
         *)
             print_error "Unknown command: $1"
