@@ -38,13 +38,32 @@ check_docker() {
     print_success "Docker is running"
 }
 
+# Function to detect available docker compose command
+detect_docker_compose() {
+    # Try docker compose (newer format) first
+    if docker compose version &> /dev/null; then
+        echo "docker compose"
+        return 0
+    fi
+    
+    # Try docker-compose (legacy format)
+    if docker-compose version &> /dev/null; then
+        echo "docker-compose"
+        return 0
+    fi
+    
+    return 1
+}
+
 # Function to check if docker compose is available
 check_docker_compose() {
-    if ! docker compose version &> /dev/null; then
-        print_error "docker compose is not available. Please install Docker Compose first."
+    if ! detect_docker_compose &> /dev/null; then
+        print_error "Neither 'docker compose' nor 'docker-compose' is available. Please install Docker Compose first."
         exit 1
     fi
-    print_success "docker compose is available"
+    
+    local compose_cmd=$(detect_docker_compose)
+    print_success "Docker Compose is available: $compose_cmd"
 }
 
 # Function to start Zabbix containers
@@ -54,8 +73,11 @@ start_zabbix() {
     # Change to the parent directory where docker compose .yml is located
     cd "$(dirname "$0")/.."
     
+    # Get the detected docker compose command
+    local compose_cmd=$(detect_docker_compose)
+    
     # Start only Zabbix-related services
-    docker compose up -d zabbix-db zabbix-server zabbix-web zabbix-agent
+    $compose_cmd up -d zabbix-db zabbix-server zabbix-web zabbix-agent
     
     print_success "Zabbix containers started successfully"
 }
@@ -67,8 +89,11 @@ start_zabbix_server() {
     # Change to the parent directory where docker compose .yml is located
     cd "$(dirname "$0")/.."
     
+    # Get the detected docker compose command
+    local compose_cmd=$(detect_docker_compose)
+    
     # Start only Zabbix server-related services
-    docker compose up -d zabbix-db zabbix-server zabbix-web
+    $compose_cmd up -d zabbix-db zabbix-server zabbix-web
     
     print_success "Zabbix server components started successfully"
 }
@@ -80,8 +105,11 @@ start_zabbix_agent() {
     # Change to the parent directory where docker compose .yml is located
     cd "$(dirname "$0")/.."
     
+    # Get the detected docker compose command
+    local compose_cmd=$(detect_docker_compose)
+    
     # Start only Zabbix agent
-    docker compose up -d zabbix-agent
+    $compose_cmd up -d zabbix-agent
     
     print_success "Zabbix agent started successfully"
 }
@@ -92,7 +120,10 @@ stop_zabbix() {
     
     cd "$(dirname "$0")/.."
     
-    docker compose stop zabbix-agent zabbix-web zabbix-server zabbix-db
+    # Get the detected docker compose command
+    local compose_cmd=$(detect_docker_compose)
+    
+    $compose_cmd stop zabbix-agent zabbix-web zabbix-server zabbix-db
     
     print_success "Zabbix containers stopped successfully"
 }
@@ -114,7 +145,10 @@ show_status() {
     
     cd "$(dirname "$0")/.."
     
-    docker compose ps zabbix-db zabbix-server zabbix-web zabbix-agent
+    # Get the detected docker compose command
+    local compose_cmd=$(detect_docker_compose)
+    
+    $compose_cmd ps zabbix-db zabbix-server zabbix-web zabbix-agent
 }
 
 # Function to show Zabbix logs
@@ -130,7 +164,10 @@ show_logs() {
     
     cd "$(dirname "$0")/.."
     
-    docker compose logs -f "$service"
+    # Get the detected docker compose command
+    local compose_cmd=$(detect_docker_compose)
+    
+    $compose_cmd logs -f "$service"
 }
 
 # Function to test ZCAM API connection
