@@ -133,6 +133,8 @@ services:
   zabbix-agent:
     image: zabbix/zabbix-agent2:ubuntu-6.0-latest
     container_name: kevin-telemetry-zabbix-agent
+    ports:
+      - "10050:10050"
     environment:
       - ZBX_HOSTNAME=GC-ARO-001-2-agent
       - ZBX_SERVER_HOST=100.64.0.113,172.18.0.1
