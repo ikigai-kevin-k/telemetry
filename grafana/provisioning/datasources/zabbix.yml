@@ -9,10 +9,11 @@ datasources:
     jsonData:
       username: Admin
       password: zabbix
-      cacheTTL: '300'
+      cacheTTL: '300s'
       disableDataAlignment: false
       handleGrafanaManagedAlerts: false
       alerting: false
       addThresholds: false
+      tlsSkipVerify: true
     secureJsonData:
       password: zabbix
