@@ -241,14 +241,14 @@ case "${1:-help}" in
         ;;
     "system_health")
         # Overall system health score (0-100)
-        local cpu_usage=$(get_cpu_usage)
-        local memory_usage=$(get_memory_usage)
-        local disk_usage=$(get_disk_usage)
-        local load_avg=$(get_load_average)
-        local cpu_cores=$(nproc)
+        cpu_usage=$(get_cpu_usage)
+        memory_usage=$(get_memory_usage)
+        disk_usage=$(get_disk_usage)
+        load_avg=$(get_load_average)
+        cpu_cores=$(nproc)
         
         # Calculate health score (lower is better)
-        local health_score=100
+        health_score=100
         
         # Deduct points for high usage
         health_score=$((health_score - (cpu_usage / 2)))
@@ -256,10 +256,10 @@ case "${1:-help}" in
         health_score=$((health_score - (disk_usage / 2)))
         
         # Deduct points for high load
-        local load_ratio=$(echo "scale=2; $load_avg / $cpu_cores" | bc -l)
-        if (( $(echo "$load_ratio > 2" | bc -l) )); then
+        load_ratio=$(echo "scale=2; $load_avg / $cpu_cores" | awk '{print $1}')
+        if (( $(echo "$load_ratio > 2" | awk '{print ($1 > 2)}') )); then
             health_score=$((health_score - 20))
-        elif (( $(echo "$load_ratio > 1" | bc -l) )); then
+        elif (( $(echo "$load_ratio > 1" | awk '{print ($1 > 1)}') )); then
             health_score=$((health_score - 10))
         fi
         
