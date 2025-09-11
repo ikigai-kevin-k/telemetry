@@ -4,16 +4,27 @@ datasources:
   - name: Zabbix
     type: alexanderzobnin-zabbix-datasource
     access: proxy
-    url: http://kevin-telemetry-zabbix-web:8080
+    url: http://172.18.0.4:8080
     isDefault: false
     jsonData:
       username: Admin
-      password: zabbix
       cacheTTL: '300s'
       disableDataAlignment: false
       handleGrafanaManagedAlerts: false
       alerting: false
       addThresholds: false
       tlsSkipVerify: true
+      timeout: 30
+      trends: true
+      trendsFrom: '7d'
+      trendsRange: '4d'
+      dbConnectionEnable: false
+      dbConnectionDatasourceId: 0
+      dbConnectionDatasourceName: ''
+      dbConnectionRetentionPolicy: ''
+      enableDirectDBConnection: false
+      disableReadOnlyUsersAck: false
+      httpMode: 'POST'
+      queryMode: 'Metrics'
     secureJsonData:
       password: zabbix

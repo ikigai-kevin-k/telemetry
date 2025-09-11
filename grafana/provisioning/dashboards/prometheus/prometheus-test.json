@@ -1,13 +1,13 @@
 {
   "id": null,
-  "title": "Studio Web Player Dashboard",
-  "tags": ["studio", "video", "web-player"],
+  "title": "Prometheus Test Dashboard",
+  "tags": ["prometheus", "test"],
   "style": "dark",
   "timezone": "browser",
   "panels": [
     {
       "id": 1,
-      "title": "Player Status",
+      "title": "Prometheus Metrics",
       "type": "stat",
       "datasource": {
         "type": "prometheus",
