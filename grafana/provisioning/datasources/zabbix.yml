@@ -1,0 +1,18 @@
+apiVersion: 1
+
+datasources:
+  - name: Zabbix
+    type: alexanderzobnin-zabbix-datasource
+    access: proxy
+    url: http://kevin-telemetry-zabbix-web:8080
+    isDefault: false
+    jsonData:
+      username: Admin
+      password: zabbix
+      cacheTTL: '300'
+      disableDataAlignment: false
+      handleGrafanaManagedAlerts: false
+      alerting: false
+      addThresholds: false
+    secureJsonData:
+      password: zabbix

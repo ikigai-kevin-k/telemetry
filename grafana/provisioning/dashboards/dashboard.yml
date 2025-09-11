@@ -1,0 +1,21 @@
+apiVersion: 1
+
+providers:
+  - name: 'zabbix-dashboards'
+    orgId: 1
+    folder: 'Zabbix'
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 10
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/zabbix
+  - name: 'prometheus-dashboards'
+    orgId: 1
+    folder: 'Prometheus'
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 10
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/prometheus
