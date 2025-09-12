@@ -1,6 +1,6 @@
 version: '3.8'
 
-# Server Mode - Run on 100.64.0.160 (GC-ARO-002-1)
+# Server Mode - Run on 100.64.0.113 (GC-ARO-002-1)
 # This compose file runs: Loki Server, Zabbix Server/Web, Prometheus, Grafana
 
 services:
