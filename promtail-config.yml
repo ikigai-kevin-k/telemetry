@@ -6,7 +6,7 @@ positions:
   filename: /tmp/positions.yaml
 
 clients:
-  - url: http://loki:3100/loki/api/v1/push
+  - url: http://100.64.0.160:3100/loki/api/v1/push  # Connect to remote Loki server
 
 scrape_configs:
   - job_name: mock_sicbo_logs
@@ -15,6 +15,7 @@ scrape_configs:
           - localhost
         labels:
           job: mock_sicbo
+          instance: GC-ARO-001-2-agent  # Agent instance identifier
           __path__: /var/log/mock_sicbo.log
     pipeline_stages:
       - regex:
@@ -25,3 +26,32 @@ scrape_configs:
       - timestamp:
           source: timestamp
           format: "2006-01-02 15:04:05"
+          location: "Asia/Taipei"
+
+  - job_name: server_logs
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: server
+          instance: GC-ARO-001-2-agent
+          __path__: /var/log/server.log
+    pipeline_stages:
+      - timestamp:
+          source: time
+          format: RFC3339
+          location: "Asia/Taipei"
+
+  - job_name: tmux_client_logs
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: tmux_client
+          instance: GC-ARO-001-2-agent
+          __path__: /var/log/tmux-client.log
+    pipeline_stages:
+      - timestamp:
+          source: time
+          format: RFC3339
+          location: "Asia/Taipei"

@@ -1,5 +1,8 @@
 version: '3.8'
 
+# Server Mode - Run on 100.64.0.160 (GC-ARO-002-1)
+# This compose file runs: Loki Server, Zabbix Server/Web, Prometheus, Grafana
+
 services:
   prometheus:
     image: prom/prometheus:latest
@@ -29,9 +32,10 @@ services:
     networks:
       - monitoring
 
+  # Loki Server - Accepts logs from remote Promtail agents
   loki:
     image: grafana/loki:latest
-    container_name: kevin-telemetry-loki
+    container_name: kevin-telemetry-loki-server
     ports:
       - "3100:3100"
     volumes:
@@ -41,19 +45,6 @@ services:
     restart: unless-stopped
     networks:
       - monitoring
-
-  promtail:
-    image: grafana/promtail:latest
-    container_name: kevin-telemetry-promtail
-    volumes:
-      - ./promtail-config.yml:/etc/promtail/config.yml
-      - ./mock_sicbo.log:/var/log/mock_sicbo.log
-    command: -config.file=/etc/promtail/config.yml
-    restart: unless-stopped
-    networks:
-      - monitoring
-    depends_on:
-      - loki
 
   grafana:
     image: grafana/grafana:latest
@@ -128,27 +119,6 @@ services:
       - monitoring
     depends_on:
       - zabbix-db
-      - zabbix-server
-
-  # Zabbix Agent
-  zabbix-agent:
-    image: zabbix/zabbix-agent2:ubuntu-6.0-latest
-    container_name: kevin-telemetry-zabbix-agent
-    ports:
-      - "10050:10050"
-    environment:
-      - ZBX_HOSTNAME=GC-ARO-001-2-agent
-      - ZBX_SERVER_HOST=100.64.0.113,172.18.0.1
-      - ZBX_SERVER_ACTIVE=100.64.0.113
-      - ZBX_SERVER_PORT=10051
-      - ZBX_ENABLEPERSISTENTBUFFER=1
-    volumes:
-      - ./zabbix/agent2.conf:/etc/zabbix/zabbix_agent2.conf
-      - ./zabbix/scripts:/var/lib/zabbix/scripts
-    restart: unless-stopped
-    networks:
-      - monitoring
-    depends_on:
       - zabbix-server
 
 volumes:
