@@ -13,6 +13,7 @@ services:
       - ./mock_sicbo.log:/var/log/mock_sicbo.log
       - ./server.log:/var/log/server.log  # Additional log file
       - ./tmux-client-3638382.log:/var/log/tmux-client.log  # Additional log file
+      - ./sdp.log:/var/log/sdp.log  # SDP error logs
     command: -config.file=/etc/promtail/config.yml
     restart: unless-stopped
     networks:

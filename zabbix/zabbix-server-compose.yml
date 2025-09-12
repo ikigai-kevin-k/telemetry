@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  # Zabbix Database
+  zabbix-db:
+    image: mysql:8.0
+    container_name: kevin-telemetry-zabbix-db
+    environment:
+      - MYSQL_DATABASE=zabbix
+      - MYSQL_USER=zabbix
+      - MYSQL_PASSWORD=zabbix_pwd
+      - MYSQL_ROOT_PASSWORD=root_pwd
+    volumes:
+      - zabbix_db_data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+    networks:
+      - zabbix-server
+    ports:
+      - "3306:3306"  # Expose MySQL port for external access
+
+  # Zabbix Server
+  zabbix-server:
+    image: zabbix/zabbix-server-mysql:ubuntu-6.0-latest
+    container_name: kevin-telemetry-zabbix-server
+    ports:
+      - "10051:10051"  # Zabbix server port
+    environment:
+      - DB_SERVER_HOST=zabbix-db
+      - MYSQL_DATABASE=zabbix
+      - MYSQL_USER=zabbix
+      - MYSQL_PASSWORD=zabbix_pwd
+      - MYSQL_ROOT_PASSWORD=root_pwd
+    volumes:
+      - zabbix_server_data:/var/lib/zabbix
+    restart: unless-stopped
+    networks:
+      - zabbix-server
+    depends_on:
+      - zabbix-db
+
+  # Zabbix Web Interface
+  zabbix-web:
+    image: zabbix/zabbix-web-nginx-mysql:ubuntu-6.0-latest
+    container_name: kevin-telemetry-zabbix-web
+    ports:
+      - "8080:8080"  # Web interface port
+    environment:
+      - DB_SERVER_HOST=zabbix-db
+      - MYSQL_DATABASE=zabbix
+      - MYSQL_USER=zabbix
+      - MYSQL_PASSWORD=zabbix_pwd
+      - PHP_TZ=Asia/Taipei
+    restart: unless-stopped
+    networks:
+      - zabbix-server
+    depends_on:
+      - zabbix-db
+      - zabbix-server
+
+volumes:
+  zabbix_server_data:
+  zabbix_db_data:
+
+networks:
+  zabbix-server:
+    driver: bridge

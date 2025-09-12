@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  # Zabbix Agent
+  zabbix-agent:
+    image: zabbix/zabbix-agent2:ubuntu-6.0-latest
+    container_name: kevin-telemetry-zabbix-agent
+    environment:
+      - ZBX_HOSTNAME=kevin-telemetry-zabbix-agent
+      - ZBX_SERVER_HOST=${ZBX_SERVER_HOST:-zabbix-server}  # Can be overridden by environment variable
+      - ZBX_SERVER_PORT=${ZBX_SERVER_PORT:-10051}          # Can be overridden by environment variable
+      - ZBX_ENABLEPERSISTENTBUFFER=1
+    volumes:
+      - ./agent2.conf:/etc/zabbix/zabbix_agent2.conf
+      - ./scripts:/var/lib/zabbix/scripts
+    restart: unless-stopped
+    networks:
+      - zabbix-agent
+    ports:
+      - "10050:10050"  # Agent port for external access
+
+volumes:
+  zabbix_agent_data:
+
+networks:
+  zabbix-agent:
+    driver: bridge

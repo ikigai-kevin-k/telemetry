@@ -55,3 +55,26 @@ scrape_configs:
           source: time
           format: RFC3339
           location: "Asia/Taipei"
+
+  - job_name: sdp_logs
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: sdp
+          instance: GC-ARO-001-2-agent
+          service: sdp_service
+          __path__: /var/log/sdp.log
+    pipeline_stages:
+      - regex:
+          expression: '^(?P<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}) - (?P<logger>\w+) - (?P<level>\w+) - (?P<game_type>\w+) - (?P<table_name>.*?) - (?P<error_code>\w+) - (?P<error_message>.*)$'
+      - labels:
+          level:
+          logger:
+          game_type:
+          table_name:
+          error_code:
+      - timestamp:
+          source: timestamp
+          format: "2006-01-02 15:04:05"
+          location: "Asia/Taipei"
