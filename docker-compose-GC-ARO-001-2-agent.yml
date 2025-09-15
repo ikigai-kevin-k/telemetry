@@ -1,0 +1,43 @@
+version: '3.8'
+
+# Agent Mode - Run on 100.64.0.149 (GC-ARO-001-2-agent)
+# This compose file runs: Loki Agent (Promtail), Zabbix Agent
+
+services:
+  # Loki Agent (Promtail) - Collects logs and sends to remote Loki server
+  promtail:
+    image: grafana/promtail:latest
+    container_name: telemetry-promtail-GC-ARO-001-2-agent
+    volumes:
+      - ./promtail-GC-ARO-001-2-agent.yml:/etc/promtail/config.yml
+      - ./mock_sicbo.log:/var/log/mock_sicbo.log
+      - ./server.log:/var/log/server.log  # Additional log file
+      - ./tmux-client-3638382.log:/var/log/tmux-client.log  # Additional log file
+      - ./sdp.log:/var/log/sdp.log  # SDP error logs
+    command: -config.file=/etc/promtail/config.yml
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+  # Zabbix Agent - Connects to remote Zabbix server
+  zabbix-agent:
+    image: zabbix/zabbix-agent2:ubuntu-6.0-latest
+    container_name: telemetry-zabbix-agent-GC-ARO-001-2-agent
+    ports:
+      - "10050:10050"
+    environment:
+      - ZBX_HOSTNAME=GC-ARO-001-2-agent
+      - ZBX_SERVER_HOST=100.64.0.113  # Connect to remote Zabbix server
+      - ZBX_SERVER_ACTIVE=100.64.0.113
+      - ZBX_SERVER_PORT=10051
+      - ZBX_ENABLEPERSISTENTBUFFER=1
+    volumes:
+      - ./zabbix/agent2-GC-ARO-001-2-agent.conf:/etc/zabbix/zabbix_agent2.conf
+      - ./zabbix/scripts:/var/lib/zabbix/scripts
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+networks:
+  monitoring:
+    driver: bridge

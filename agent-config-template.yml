@@ -1,0 +1,27 @@
+# Agent Configuration Template
+# This template is used to generate agent-specific configurations
+
+agent_name: "AGENT_NAME_PLACEHOLDER"
+agent_ip: "AGENT_IP_PLACEHOLDER"
+server_ip: "100.64.0.113"  # Central server IP
+server_loki_port: "3100"
+server_zabbix_port: "10051"
+server_zabbix_active_port: "10051"
+
+# Container names
+promtail_container: "telemetry-promtail-{agent_name}"
+zabbix_container: "telemetry-zabbix-agent-{agent_name}"
+
+# Network configuration
+network_name: "telemetry_monitoring"
+
+# Log files to monitor
+log_files:
+  - "./mock_sicbo.log:/var/log/mock_sicbo.log"
+  - "./server.log:/var/log/server.log"
+  - "./tmux-client-3638382.log:/var/log/tmux-client.log"
+  - "./sdp.log:/var/log/sdp.log"
+
+# Configuration files
+promtail_config: "./promtail-{agent_name}.yml"
+zabbix_config: "./zabbix/agent2-{agent_name}.conf"
