@@ -10,10 +10,10 @@ services:
     container_name: telemetry-promtail-GC-ASB-001-1-agent
     volumes:
       - ./promtail-GC-ASB-001-1-agent.yml:/etc/promtail/config.yml
-      - ./mock_sicbo.log:/var/log/mock_sicbo.log
-      - ./server.log:/var/log/server.log  # Additional log file
+      - ./mock_sicbo.log/test.log:/var/log/mock_sicbo.log
+      - ./server.log/test.log:/var/log/server.log  # Additional log file
       - ./tmux-client-3638382.log:/var/log/tmux-client.log  # Additional log file
-      - ./sdp.log:/var/log/sdp.log  # SDP error logs
+      - ./sdp.log/test.log:/var/log/sdp.log  # SDP error logs
     command: -config.file=/etc/promtail/config.yml
     restart: unless-stopped
     networks:
