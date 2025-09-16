@@ -1,0 +1,33 @@
+# Agent Configuration for GC-ARO-001-1-agent
+# Generated configuration for agent running on 100.64.0.167
+
+agent_name: "GC-ARO-001-1-agent"
+agent_ip: "100.64.0.167"
+server_ip: "100.64.0.113"
+server_loki_port: "3100"
+server_zabbix_port: "10051"
+server_zabbix_active_port: "10051"
+
+# Container names
+promtail_container: "telemetry-promtail-GC-ARO-001-1-agent"
+zabbix_container: "telemetry-zabbix-agent-GC-ARO-001-1-agent"
+
+# Network configuration
+network_name: "telemetry_monitoring"
+
+# Log files to monitor
+log_files:
+  - "./mock_sicbo.log:/var/log/mock_sicbo.log"
+  - "./server.log:/var/log/server.log"
+  - "./tmux-client-3638382.log:/var/log/tmux-client.log"
+  - "./sdp.log:/var/log/sdp.log"
+
+# Configuration files
+promtail_config: "./promtail-GC-ARO-001-1-agent.yml"
+zabbix_config: "./zabbix/agent2-GC-ARO-001-1-agent.conf"
+
+# Docker compose file
+docker_compose_file: "./docker-compose-GC-ARO-001-1-agent.yml"
+
+# Created timestamp
+created_at: "2025-01-27T12:00:00Z"
