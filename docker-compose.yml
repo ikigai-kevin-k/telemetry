@@ -110,6 +110,8 @@ services:
       - "8080:8080"
     environment:
       - DB_SERVER_HOST=zabbix-db
+      - ZBX_SERVER_HOST=zabbix-server
+      - ZBX_SERVER_PORT=10051
       - MYSQL_DATABASE=zabbix
       - MYSQL_USER=zabbix
       - MYSQL_PASSWORD=zabbix_pwd
