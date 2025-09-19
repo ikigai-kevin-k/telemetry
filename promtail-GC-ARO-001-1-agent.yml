@@ -3,7 +3,7 @@ server:
   grpc_listen_port: 0
 
 positions:
-  filename: /tmp/positions.yaml
+  filename: /tmp/positions/positions.yaml
 
 clients:
   - url: http://100.64.0.113:3100/loki/api/v1/push  # Connect to remote Loki server

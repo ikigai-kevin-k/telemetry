@@ -63,7 +63,7 @@ The configuration parses log entries in the following format:
 
 ### 2. Docker Compose Configuration (`docker-compose-GC-ARO-001-1-agent.yml`)
 
-#### Volume Mount Addition
+#### Volume Mount and Persistence Configuration
 ```yaml
 volumes:
   - ./promtail-GC-ARO-001-1-agent.yml:/etc/promtail/config.yml
@@ -74,6 +74,23 @@ volumes:
   - ./server.log:/var/log/server.log
   - ./tmux-client-3638382.log:/var/log/tmux-client.log
   - ./sdp.log:/var/log/sdp.log
+  # Persistent volumes for Promtail data
+  - promtail_aro_001_1_positions:/tmp/positions  # Position tracking for log files
+  - promtail_aro_001_1_data:/var/lib/promtail    # Promtail internal data
+```
+
+#### Docker Volumes for Data Persistence
+```yaml
+volumes:
+  promtail_aro_001_1_positions:
+    name: telemetry_promtail_aro_001_1_positions
+    external: true
+  promtail_aro_001_1_data:
+    name: telemetry_promtail_aro_001_1_data
+    external: true
+  zabbix_agent_aro_001_1_data:
+    name: telemetry_zabbix_agent_aro_001_1_data
+    external: true
 ```
 
 ### 3. Loki Server Configuration (`loki-config.yml`)
@@ -204,16 +221,64 @@ The configuration successfully:
 - ✅ Applies proper labels for filtering
 - ✅ Maintains 7-day data retention policy
 
+## Data Persistence
+
+### Docker Volumes for Persistent Storage
+
+The ARO-001-1 agent now uses Docker volumes for data persistence:
+
+| Volume Name | Purpose | Mount Point | Size |
+|-------------|---------|-------------|------|
+| `telemetry_promtail_aro_001_1_positions` | Position tracking | `/tmp/positions` | ~100B |
+| `telemetry_promtail_aro_001_1_data` | Promtail internal data | `/var/lib/promtail` | Variable |
+| `telemetry_zabbix_agent_aro_001_1_data` | Zabbix agent buffer | `/var/lib/zabbix/agent` | Variable |
+
+### Volume Management
+
+Use the provided management script for volume operations:
+
+```bash
+# Check volume status
+./manage_aro_001_1_volumes.sh --status
+
+# Create volumes (if not exists)
+./manage_aro_001_1_volumes.sh --create
+
+# Backup volumes
+./manage_aro_001_1_volumes.sh --backup
+
+# Restore from backup
+./manage_aro_001_1_volumes.sh --restore 20250919_122626
+
+# Clean old backups (keep 7 days)
+./manage_aro_001_1_volumes.sh --clean
+
+# Restart agent with volumes
+./manage_aro_001_1_volumes.sh --restart
+```
+
+### Position File Tracking
+
+The position file (`/tmp/positions/positions.yaml`) tracks log reading positions:
+
+```yaml
+positions:
+  /var/log/studio-sdp-roulette/self-test-2api.log: "304259918"
+```
+
+This ensures Promtail resumes from the correct position after container restarts.
+
 ## Files Created/Modified
 
 ### Configuration Files
-- `promtail-GC-ARO-001-1-agent.yml` - Updated with Studio SDP log job
-- `docker-compose-GC-ARO-001-1-agent.yml` - Added volume mount for external log
+- `promtail-GC-ARO-001-1-agent.yml` - Updated with Studio SDP log job and persistent position path
+- `docker-compose-GC-ARO-001-1-agent.yml` - Added volume mounts and persistent volume definitions
 - `loki-config.yml` - Enhanced retention and rate limit settings
 
 ### Utility Scripts
 - `test_studio_sdp_logs.py` - Test script to verify log collection
 - `restart_aro_001_1_agent.sh` - Restart script for applying configuration
+- `manage_aro_001_1_volumes.sh` - Volume management script for backup/restore operations
 - `loki_sdp_log.md` - This documentation file
 
 ## Future Enhancements

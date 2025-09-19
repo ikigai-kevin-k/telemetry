@@ -17,6 +17,9 @@ services:
       - ./server.log:/var/log/server.log
       - ./tmux-client-3638382.log:/var/log/tmux-client.log
       - ./sdp.log:/var/log/sdp.log
+      # Persistent volumes for Promtail data
+      - promtail_aro_001_1_positions:/tmp/positions  # Position tracking for log files
+      - promtail_aro_001_1_data:/var/lib/promtail    # Promtail internal data
     command: -config.file=/etc/promtail/config.yml
     restart: unless-stopped
     networks:
@@ -37,9 +40,23 @@ services:
     volumes:
       - ./zabbix/agent2-GC-ARO-001-1-agent.conf:/etc/zabbix/zabbix_agent2.conf
       - ./zabbix/scripts:/var/lib/zabbix/scripts
+      # Persistent volume for Zabbix agent data
+      - zabbix_agent_aro_001_1_data:/var/lib/zabbix/agent  # Zabbix agent persistent buffer
     restart: unless-stopped
     networks:
       - monitoring
+
+# Docker volumes for data persistence
+volumes:
+  promtail_aro_001_1_positions:
+    name: telemetry_promtail_aro_001_1_positions
+    external: true
+  promtail_aro_001_1_data:
+    name: telemetry_promtail_aro_001_1_data
+    external: true
+  zabbix_agent_aro_001_1_data:
+    name: telemetry_zabbix_agent_aro_001_1_data
+    external: true
 
 networks:
   monitoring:
