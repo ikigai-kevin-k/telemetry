@@ -52,13 +52,24 @@ services:
     ports:
       - "3000:3000"
     volumes:
+      # Persistent data storage for Grafana
       - grafana_data:/var/lib/grafana
-      - ./grafana/provisioning:/etc/grafana/provisioning
-      - ./grafana/grafana.ini:/etc/grafana/grafana.ini
+      # Configuration and provisioning files - persistent mount
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/grafana.ini:/etc/grafana/grafana.ini:ro
+      # Ensure provisioning directories are accessible
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_USERS_ALLOW_SIGN_UP=false
+      # Enable provisioning and auto-reload
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - GF_PROVISIONING_DATASOURCES_PATH=/etc/grafana/provisioning/datasources
+      - GF_PROVISIONING_DASHBOARDS_PATH=/etc/grafana/provisioning/dashboards
+      # Timezone setting for ARO-001-1 SDP logs
+      - TZ=Asia/Taipei
     restart: unless-stopped
     networks:
       - monitoring
