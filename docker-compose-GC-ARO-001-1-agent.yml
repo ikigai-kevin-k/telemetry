@@ -10,10 +10,13 @@ services:
     container_name: telemetry-promtail-GC-ARO-001-1-agent
     volumes:
       - ./promtail-GC-ARO-001-1-agent.yml:/etc/promtail/config.yml
+      # Studio SDP Roulette logs - Main monitoring target
+      - /home/rnd/studio-sdp-roulette/self-test-2api.log:/var/log/studio-sdp-roulette/self-test-2api.log:ro
+      # Existing logs for backward compatibility
       - ./mock_sicbo.log:/var/log/mock_sicbo.log
-      - ./server.log:/var/log/server.log  # Additional log file
-      - ./tmux-client-3638382.log:/var/log/tmux-client.log  # Additional log file
-      - ./sdp.log:/var/log/sdp.log  # SDP error logs
+      - ./server.log:/var/log/server.log
+      - ./tmux-client-3638382.log:/var/log/tmux-client.log
+      - ./sdp.log:/var/log/sdp.log
     command: -config.file=/etc/promtail/config.yml
     restart: unless-stopped
     networks:
