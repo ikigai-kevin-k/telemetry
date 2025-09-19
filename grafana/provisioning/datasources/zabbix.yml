@@ -5,7 +5,7 @@ datasources:
   - name: Zabbix-New
     type: alexanderzobnin-zabbix-datasource
     access: proxy
-    url: http://172.18.0.7:8080
+    url: http://172.18.0.7:8080/api_jsonrpc.php
     basicAuth: false
     isDefault: false
     jsonData:
