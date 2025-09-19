@@ -39,3 +39,11 @@ scrape_configs:
     static_configs:
       - targets: ['pushgateway:9091']
     scrape_interval: 15s
+
+  # Telegraf ZCAM HTTP Response metrics
+  - job_name: 'telegraf-zcam'
+    static_configs:
+      - targets: ['kevin-telemetry-telegraf-zcam:9273']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+    scrape_timeout: 10s
