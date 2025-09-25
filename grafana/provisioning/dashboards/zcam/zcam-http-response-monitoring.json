@@ -306,24 +306,32 @@
             },
             "properties": [
               {
-                "id": "mappings",
-                "value": [
-                  {
-                    "options": {
-                      "0": {
-                        "color": "green",
-                        "index": 0,
-                        "text": "SUCCESS"
-                      },
-                      "1": {
-                        "color": "red",
-                        "index": 1,
-                        "text": "FAILED"
-                      }
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "decimals",
+                "value": 0
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
                     },
-                    "type": "value"
-                  }
-                ]
+                    {
+                      "color": "green",
+                      "value": 200
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "basic"
               }
             ]
           },
@@ -472,7 +480,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "http_response_result_code{job=\"telegraf-zcam\", endpoint_type=\"rtmp_status\"}",
+          "expr": "http_response_http_response_code{job=\"telegraf-zcam\", endpoint_type=\"rtmp_status\"}",
           "instant": true,
           "legendFormat": "{{device_name}} - {{endpoint_type}}",
           "range": false,
