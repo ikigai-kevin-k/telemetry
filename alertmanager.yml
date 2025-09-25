@@ -1,5 +1,5 @@
 global:
-  slack_api_url: 'https://hooks.slack.com/services/PLACEHOLDER'  # Set via environment variable
+  slack_api_url: '${SLACK_WEBHOOK_URL}'  # Set via environment variable
 
 route:
   group_by: ['alertname', 'device_name']
@@ -11,7 +11,7 @@ route:
 receivers:
 - name: 'slack-notifications'
   slack_configs:
-  - channel: '#monitoring'  # Replace with your Slack channel
+  - channel: '#ge-studio'  # Replace with your Slack channel
     title: 'ZCAM Temperature Alert'
     text: |
       {{ range .Alerts }}
