@@ -472,7 +472,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "http_response_result_code{job=\"telegraf-zcam\", endpoint_type=\"rtmp_status\"}",
+          "expr": "http_response_result_code{job=\"telegraf-zcam\", endpoint_type=\"rtmp_status\", result=\"success\"}",
           "instant": false,
           "legendFormat": "{{device_name}} - {{endpoint_type}}",
           "range": true,
