@@ -314,28 +314,34 @@
                 "value": 0
               },
               {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "red",
-                      "value": null
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "200": {
+                        "color": "green",
+                        "index": 0,
+                        "text": "200"
+                      },
+                      "403": {
+                        "color": "red",
+                        "index": 1,
+                        "text": "403"
+                      },
+                      "404": {
+                        "color": "red",
+                        "index": 2,
+                        "text": "404"
+                      },
+                      "500": {
+                        "color": "red",
+                        "index": 3,
+                        "text": "500"
+                      }
                     },
-                    {
-                      "color": "green",
-                      "value": 199
-                    },
-                    {
-                      "color": "green",
-                      "value": 200
-                    },
-                    {
-                      "color": "red",
-                      "value": 201
-                    }
-                  ]
-                }
+                    "type": "value"
+                  }
+                ]
               },
               {
                 "id": "custom.displayMode",
@@ -915,7 +921,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "http_response_response_time{job=\"telegraf-zcam\", endpoint_type=\"temperature\"}",
+          "expr": "zcam_temperature{job=\"zcam-values\"}",
           "instant": false,
           "legendFormat": "{{device_name}} Temperature",
           "range": true,
