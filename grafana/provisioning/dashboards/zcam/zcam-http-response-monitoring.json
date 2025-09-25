@@ -515,23 +515,6 @@
           "refId": "D"
         }
       ],
-      "transformations": [
-        {
-          "id": "groupBy",
-          "options": {
-            "fields": {
-              "device_name": {
-                "aggregations": [],
-                "operation": "groupby"
-              },
-              "Value": {
-                "aggregations": ["lastNotNull"],
-                "operation": "aggregate"
-              }
-            }
-          }
-        }
-      ],
       "title": "ZCAM API Health Status",
       "type": "stat"
     },
