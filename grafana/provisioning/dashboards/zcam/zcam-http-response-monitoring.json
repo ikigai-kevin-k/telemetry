@@ -329,8 +329,8 @@
           },
           {
             "matcher": {
-              "id": "byName",
-              "options": "battery"
+              "id": "byRegexp",
+              "options": "/.*Battery.*/"
             },
             "properties": [
               {
@@ -365,8 +365,8 @@
           },
           {
             "matcher": {
-              "id": "byName",
-              "options": "camera_mode"
+              "id": "byRegexp",
+              "options": "/.*Mode.*/"
             },
             "properties": [
               {
@@ -397,8 +397,8 @@
           },
           {
             "matcher": {
-              "id": "byName",
-              "options": "temperature"
+              "id": "byRegexp",
+              "options": "/.*Temperature.*/"
             },
             "properties": [
               {
