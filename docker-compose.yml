@@ -31,7 +31,7 @@ services:
     ports:
       - "9093:9093"
     volumes:
-      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+      - ./alertmanager-production.yml:/etc/alertmanager/alertmanager.yml:ro
       - alertmanager_data:/alertmanager
     environment:
       - SLACK_WEBHOOK_URL=${SLACK_WEBHOOK_URL}

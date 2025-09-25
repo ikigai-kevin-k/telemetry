@@ -1,5 +1,5 @@
 global:
-  slack_api_url: 'https://hooks.slack.com/services/PLACEHOLDER'  # Set via environment variable
+  slack_api_url: 'https://hooks.slack.com/services/PLACEHOLDER'  # Production webhook URL - replace with actual URL
 
 route:
   group_by: ['alertname', 'device_name']
