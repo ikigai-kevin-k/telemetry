@@ -47,3 +47,11 @@ scrape_configs:
     metrics_path: '/metrics'
     scrape_interval: 30s
     scrape_timeout: 10s
+
+  # ZCAM Values Exporter metrics
+  - job_name: 'zcam-values'
+    static_configs:
+      - targets: ['kevin-telemetry-zcam-values-exporter:9274']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+    scrape_timeout: 10s

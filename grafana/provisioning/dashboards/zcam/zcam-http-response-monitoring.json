@@ -329,15 +329,147 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "http_response_result_code{job=\"telegraf-zcam\"}",
+          "expr": "http_response_result_code{job=\"telegraf-zcam\", endpoint_type=\"rtmp_status\"}",
           "instant": false,
           "legendFormat": "{{device_name}} - {{endpoint_type}}",
           "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "zcam_battery_level{job=\"zcam-values\"}",
+          "instant": false,
+          "legendFormat": "{{device_name}} - Battery {{value}}%",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "zcam_camera_mode{job=\"zcam-values\"}",
+          "instant": false,
+          "legendFormat": "{{device_name}} - Mode {{value}}",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "zcam_temperature{job=\"zcam-values\"}",
+          "instant": false,
+          "legendFormat": "{{device_name}} - {{value}}°C",
+          "range": true,
+          "refId": "D"
         }
       ],
       "title": "ZCAM API Health Status",
       "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 40
+      },
+      "id": 9,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "9.5.21",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "http_response_response_time{job=\"telegraf-zcam\", endpoint_type=~\"battery|camera_mode|temperature\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "ZCAM Device Values (Battery, Mode, Temperature)",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "__name__": true,
+              "environment": true,
+              "host": true,
+              "job": true,
+              "method": true,
+              "result": true,
+              "result_type": true,
+              "server": true,
+              "service": true,
+              "status_code": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "Value": "Response Time (s)",
+              "agent_name": "Agent",
+              "device_ip": "IP Address",
+              "device_name": "Device Name",
+              "endpoint_type": "Endpoint Type"
+            }
+          }
+        }
+      ],
+      "type": "table"
     },
     {
       "datasource": {

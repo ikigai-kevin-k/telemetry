@@ -1,0 +1,18 @@
+services:
+  zcam-values-exporter:
+    image: python:3.11-alpine
+    container_name: kevin-telemetry-zcam-values-exporter
+    restart: unless-stopped
+    working_dir: /app
+    command: sh -c "pip install prometheus-client requests && python zcam-values-exporter.py"
+    volumes:
+      - ./scripts/zcam-values-exporter.py:/app/zcam-values-exporter.py:ro
+    ports:
+      - "9274:9274"  # Prometheus metrics endpoint
+    networks:
+      - monitoring
+
+networks:
+  monitoring:
+    external: true
+    name: telemetry_monitoring
