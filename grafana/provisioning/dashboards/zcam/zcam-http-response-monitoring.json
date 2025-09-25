@@ -423,6 +423,10 @@
                       "value": null
                     },
                     {
+                      "color": "yellow",
+                      "value": 40
+                    },
+                    {
                       "color": "red",
                       "value": 45
                     }
@@ -482,7 +486,7 @@
           "editorMode": "code",
           "expr": "zcam_battery_level{job=\"zcam-values\"}",
           "instant": false,
-          "legendFormat": "{{device_name}} - Battery {{value}}%",
+          "legendFormat": "{{device_name}} - Battery",
           "range": true,
           "refId": "B"
         },
@@ -494,7 +498,7 @@
           "editorMode": "code",
           "expr": "zcam_camera_mode{job=\"zcam-values\"}",
           "instant": false,
-          "legendFormat": "{{device_name}} - Mode {{value}}",
+          "legendFormat": "{{device_name}} - Mode",
           "range": true,
           "refId": "C"
         },
@@ -506,7 +510,7 @@
           "editorMode": "code",
           "expr": "zcam_temperature{job=\"zcam-values\"}",
           "instant": false,
-          "legendFormat": "{{device_name}} - {{value}}°C",
+          "legendFormat": "{{device_name}} - Temperature",
           "range": true,
           "refId": "D"
         }
