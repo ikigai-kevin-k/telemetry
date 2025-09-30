@@ -1,6 +1,8 @@
 {
   "id": null,
+  "uid": "master-agents-monitoring-dashboard",
   "title": "Master Agents Monitoring Dashboard",
+  "folderId": 90,
   "tags": ["zabbix", "system", "monitoring", "master", "agents"],
   "style": "dark",
   "timezone": "browser",

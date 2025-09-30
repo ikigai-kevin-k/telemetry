@@ -1,6 +1,8 @@
 {
   "id": null,
+  "uid": "studio-web-player-dashboard",
   "title": "Studio Web Player Dashboard",
+  "folderId": 83,
   "tags": ["studio", "video", "web-player"],
   "style": "dark",
   "timezone": "browser",
