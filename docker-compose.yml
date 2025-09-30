@@ -1,7 +1,9 @@
 version: '3.8'
 
-# Server Mode - Run on 100.64.0.113 (GC-ARO-002-1)
+# Server Mode - Run on ${SERVER_IP:-100.64.0.113} (GE/TPE)
 # This compose file runs: Loki Server, Zabbix Server/Web, Prometheus, Grafana
+# Usage: SERVER_IP=100.64.0.160 docker compose up -d (for TPE)
+#        docker compose up -d (default GE server)
 
 services:
   prometheus:
@@ -20,7 +22,7 @@ services:
       - '--web.console.templates=/etc/prometheus/consoles'
       - '--storage.tsdb.retention.time=200h'
       - '--web.enable-lifecycle'
-      - '--web.external-url=http://100.64.0.113:9090'
+      - '--web.external-url=http://${SERVER_IP:-100.64.0.113}:9090'
     restart: unless-stopped
     networks:
       - monitoring
@@ -38,7 +40,7 @@ services:
     command:
       - '--config.file=/etc/alertmanager/alertmanager.yml'
       - '--storage.path=/alertmanager'
-      - '--web.external-url=http://100.64.0.113:9093'
+      - '--web.external-url=http://${SERVER_IP:-100.64.0.113}:9093'
     restart: unless-stopped
     networks:
       - monitoring
