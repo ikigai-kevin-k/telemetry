@@ -301,8 +301,8 @@
         "overrides": [
           {
             "matcher": {
-              "id": "byName",
-              "options": "rtmp_status"
+              "id": "byRegexp",
+              "options": "/.*rtmp_status.*/"
             },
             "properties": [
               {

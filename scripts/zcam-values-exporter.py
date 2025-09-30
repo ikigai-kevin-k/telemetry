@@ -17,7 +17,7 @@ ZCAM_DEVICES = {
     "zcam-aro-002-1": "192.168.88.183",
     "zcam-aro-002-2": "192.168.88.34",
     "zcam-asb-001-1": "192.168.88.212",
-    "zcam-tpe-001-1": "192.168.20.8"
+    "zcam-tpe": "192.168.20.8"
 }
 
 # Prometheus metrics
