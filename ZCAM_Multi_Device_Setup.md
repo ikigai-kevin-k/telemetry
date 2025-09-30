@@ -1,7 +1,7 @@
 # ZCAM 多設備監控設定指南
 
 ## 📋 概述
-本指南說明如何設定和使用 5 台 ZCAM 設備的監控系統，對應到不同的 Zabbix agents。
+本指南說明如何設定和使用 6 台 ZCAM 設備的監控系統，對應到不同的 Zabbix agents。
 
 ## 🎯 設備對應關係
 
@@ -12,6 +12,7 @@
 | zcam-aro-002-1 | 192.168.88.183 | aro-002-1 | 192.168.88.84 | r183_vr |
 | zcam-aro-002-2 | 192.168.88.34 | aro-002-2 | 192.168.88.50 | r034_vr |
 | zcam-asb-001-1 | 192.168.88.212 | asb-001-1 | 192.168.88.10 | r212_sb |
+| zcam-tpe-001-1 | 192.168.20.8 | tpe-001-1 | 192.168.20.10 | r008_tpe |
 
 ## 📁 建立的檔案
 
@@ -32,14 +33,14 @@
 
 ### **多設備監控**
 ```bash
-# 監控所有 5 台 ZCAM 設備
+# 監控所有 6 台 ZCAM 設備
 ./zabbix/zcam_multi_monitor.sh
 
 # 輸出範例：
 # === ZCAM Multi-Device Monitor ===
 # === GLOBAL SUMMARY ===
-# Total Devices: 5
-# Healthy: 5
+# Total Devices: 6
+# Healthy: 6
 # Warning: 0  
 # Critical: 0
 # Overall Status: SYSTEM HEALTHY (100%)
@@ -113,6 +114,16 @@
 - 📊 頻寬: 5.81 Mbps
 - 🎥 解析度: 1920x1080
 - 📷 ISO: Auto
+
+### **ZCAM TPE-001-1 (192.168.20.8) - New TPE Server**
+- ✅ RTMP 狀態: busy (正在串流)
+- ✅ 電池電量: 100%
+- ✅ 攝影機模式: rec (錄影)
+- 📊 頻寬: 5.81 Mbps
+- 🌡️ 溫度: 46°C
+- 🎥 解析度: 1920x1080
+- 📷 ISO: Auto
+- 🔄 自動重啟: 啟用
 
 ## 🚨 告警建議
 
