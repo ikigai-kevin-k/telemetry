@@ -59,13 +59,10 @@ services:
       context: .
       dockerfile: Dockerfile.webhook
     container_name: kevin-telemetry-webhook
-    ports:
-      - "5000:5000"
+    network_mode: "host"
     volumes:
       - ./grafana_webhook_service.py:/app/grafana_webhook_service.py
     restart: unless-stopped
-    networks:
-      - monitoring
 
   # Loki Server - Accepts logs from remote Promtail agents
   loki:
@@ -84,8 +81,7 @@ services:
   grafana:
     image: grafana/grafana:9.5.21
     container_name: kevin-telemetry-grafana
-    ports:
-      - "3000:3000"
+    network_mode: "host"
     volumes:
       # Persistent data storage for Grafana
       - grafana_data:/var/lib/grafana
@@ -106,17 +102,6 @@ services:
       # Timezone setting for ARO-001-1 SDP logs
       - TZ=Asia/Taipei
     restart: unless-stopped
-    networks:
-      - monitoring
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    depends_on:
-      - prometheus
-      - loki
-      - zabbix-web
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
 
   # Zabbix Server
   zabbix-server:

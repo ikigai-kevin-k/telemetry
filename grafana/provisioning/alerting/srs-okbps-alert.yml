@@ -8,7 +8,7 @@ contactPoints:
       - uid: webhook-srs-api
         type: webhook
         settings:
-          url: http://webhook-service:5000/webhook/grafana
+          url: http://localhost:5000/webhook/grafana
           httpMethod: POST
         disableResolveMessage: false
 
@@ -25,15 +25,15 @@ groups:
         data:
           - refId: A
             relativeTimeRange:
-              from: 10800
+              from: 300
               to: 0
             datasourceUid: fewqf9pkx0p34c
             model:
-              expr: 'count_over_time({job="srs_test", instance="telemetry-promtail-test-agent"} |= "okbps=0,0,0" [3h])'
+              expr: 'count_over_time({job="srs_test", instance="telemetry-promtail-test-agent"} |= "okbps=0,0,0" [5m])'
               refId: A
           - refId: B
             relativeTimeRange:
-              from: 10800
+              from: 300
               to: 0
             datasourceUid: __expr__
             model:
@@ -63,7 +63,7 @@ groups:
               type: reduce
           - refId: C
             relativeTimeRange:
-              from: 10800
+              from: 300
               to: 0
             datasourceUid: __expr__
             model:

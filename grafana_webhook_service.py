@@ -23,7 +23,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Configuration
-API_ENDPOINT = "http://100.64.0.160:8085/v1/service/status"
+API_ENDPOINT = "http://localhost:8085/v1/service/status"
 API_SIGNATURE = "rgs-local-signature"
 
 
@@ -61,10 +61,15 @@ def grafana_webhook():
                 alert_name = alert.get('labels', {}).get('alertname', 'Unknown')
                 logger.info(f"Processing alert: {alert_name}")
                 
-                # Check if it's the okbps alert
-                if 'okbps' in alert_name.lower() or alert_name == 'SRSNoDataAlert':
+                # Check if it's the SRS alert (check rulename or service label)
+                rule_name = alert.get('labels', {}).get('rulename', '')
+                service = alert.get('labels', {}).get('service', '')
+                
+                if 'okbps' in alert_name.lower() or 'okbps' in rule_name.lower() or service == 'srs':
                     # Extract table ID from annotations or labels
                     table_id = alert.get('annotations', {}).get('table_id', 'ARO-001')
+                    
+                    logger.info(f"Triggering API call for SRS alert - table: {table_id}")
                     
                     # Send API request
                     success = send_status_update(table_id, 'down')
