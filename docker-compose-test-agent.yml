@@ -14,7 +14,7 @@ services:
     network_mode: "host"  # Use host network to access remote Loki servers
     volumes:
       - ./promtail-telemetry-promtail-test-agent.yml:/etc/promtail/config.yml
-      - /home/ella/kevin/telemetry/test_logs/srs.log:/var/log/srs.log:ro  # Read-only mount of test log
+      - /home/ella/share_folder/srs.log:/var/log/srs.log:ro  # Read-only mount of test log
     environment:
       - LOKI_URL=http://${LOKI_SERVER_IP:-100.64.0.113}:3100/loki/api/v1/push
     command: -config.file=/etc/promtail/config.yml -config.expand-env=true
