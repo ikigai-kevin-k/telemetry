@@ -1,0 +1,95 @@
+apiVersion: 1
+
+# Alert rules for FFmpeg frame monitoring
+groups:
+  - orgId: 1
+    name: FFmpeg Frame Monitoring
+    folder: loki
+    interval: 5s
+    rules:
+      - uid: ffmpeg-frame-stuck-alert
+        title: FFmpeg Frame Not Increasing (ZCAM Down)
+        condition: C
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 10
+              to: 0
+            datasourceUid: fewqf9pkx0p34c
+            model:
+              expr: 'rate({job="ffmpeg_debug", instance="telemetry-promtail-test-agent"} |~ "frame=" [5s])'
+              refId: A
+          - refId: B
+            relativeTimeRange:
+              from: 10
+              to: 0
+            datasourceUid: __expr__
+            model:
+              conditions:
+                - evaluator:
+                    params:
+                      - 0
+                    type: lt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - B
+                  reducer:
+                    params: []
+                    type: last
+                  type: query
+              datasource:
+                type: __expr__
+                uid: __expr__
+              expression: A
+              hide: false
+              intervalMs: 1000
+              maxDataPoints: 43200
+              reducer: last
+              refId: B
+              type: reduce
+          - refId: C
+            relativeTimeRange:
+              from: 10
+              to: 0
+            datasourceUid: __expr__
+            model:
+              conditions:
+                - evaluator:
+                    params:
+                      - 0.01
+                      - 0
+                    type: lt
+                  operator:
+                    type: and
+                  query:
+                    params: []
+                  reducer:
+                    params: []
+                    type: avg
+                  type: query
+              datasource:
+                name: Expression
+                type: __expr__
+                uid: __expr__
+              expression: B
+              hide: false
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: C
+              type: threshold
+        noDataState: Alerting
+        execErrState: Error
+        for: 5s
+        annotations:
+          description: 'FFmpeg frame log rate dropped to zero for more than 5 seconds. Frame numbers are not increasing, indicating ZCAM may be down or frozen.'
+          summary: 'FFmpeg frame progression stopped for {{ $labels.instance }}'
+          table_id: 'ARO-001'
+        labels:
+          severity: critical
+          service: ffmpeg
+          alert_type: frame_stuck
+          device: zcam
+        isPaused: false
+

@@ -61,23 +61,33 @@ def grafana_webhook():
                 alert_name = alert.get('labels', {}).get('alertname', 'Unknown')
                 logger.info(f"Processing alert: {alert_name}")
                 
-                # Check if it's the SRS alert (check rulename or service label)
+                # Check if it's an alert we should handle (SRS or FFmpeg/ZCAM)
                 rule_name = alert.get('labels', {}).get('rulename', '')
                 service = alert.get('labels', {}).get('service', '')
+                alert_type = alert.get('labels', {}).get('alert_type', '')
+                device = alert.get('labels', {}).get('device', '')
                 
+                # Handle SRS alerts (okbps=0,0,0)
                 if 'okbps' in alert_name.lower() or 'okbps' in rule_name.lower() or service == 'srs':
-                    # Extract table ID from annotations or labels
                     table_id = alert.get('annotations', {}).get('table_id', 'ARO-001')
-                    
                     logger.info(f"Triggering API call for SRS alert - table: {table_id}")
-                    
-                    # Send API request
                     success = send_status_update(table_id, 'down')
                     
                     if success:
                         logger.info(f"Successfully sent status update for table {table_id}")
                     else:
                         logger.error(f"Failed to send status update for table {table_id}")
+                
+                # Handle FFmpeg/ZCAM alerts (frame not increasing)
+                elif service == 'ffmpeg' or device == 'zcam' or alert_type == 'frame_stuck':
+                    table_id = alert.get('annotations', {}).get('table_id', 'ARO-001')
+                    logger.info(f"Triggering API call for FFmpeg/ZCAM alert - table: {table_id}")
+                    success = send_status_update(table_id, 'down')
+                    
+                    if success:
+                        logger.info(f"Successfully sent ZCAM status update for table {table_id}")
+                    else:
+                        logger.error(f"Failed to send ZCAM status update for table {table_id}")
         
         elif status == 'resolved':
             # Optional: Handle resolved alerts (set status to 'up')
