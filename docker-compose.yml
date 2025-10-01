@@ -54,6 +54,19 @@ services:
     networks:
       - monitoring
 
+  webhook-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.webhook
+    container_name: kevin-telemetry-webhook
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./grafana_webhook_service.py:/app/grafana_webhook_service.py
+    restart: unless-stopped
+    networks:
+      - monitoring
+
   # Loki Server - Accepts logs from remote Promtail agents
   loki:
     image: grafana/loki:latest
@@ -95,6 +108,8 @@ services:
     restart: unless-stopped
     networks:
       - monitoring
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     depends_on:
       - prometheus
       - loki

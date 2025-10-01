@@ -1,0 +1,10 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+RUN pip install flask requests
+
+COPY grafana_webhook_service.py /app/
+
+CMD ["python3", "grafana_webhook_service.py"]
+
