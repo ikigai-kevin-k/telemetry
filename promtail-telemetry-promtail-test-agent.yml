@@ -28,3 +28,19 @@ scrape_configs:
           format: "2006-01-02 15:04:05"
           location: "Asia/Taipei"
 
+  # FFmpeg debug logs
+  - job_name: ffmpeg_logs
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: ffmpeg_debug
+          instance: telemetry-promtail-test-agent
+          __path__: /var/log/ffmpeg_debug.log
+    pipeline_stages:
+      # FFmpeg logs don't have standard timestamps, so we'll use ingestion time
+      - regex:
+          expression: '(?P<message>.*)'
+      - labels:
+          level:
+
