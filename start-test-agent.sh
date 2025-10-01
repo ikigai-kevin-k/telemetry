@@ -32,12 +32,12 @@ echo "==============================================="
 echo "Starting Telemetry Test Agent Mode..."
 echo "==============================================="
 echo "Agent Name: telemetry-promtail-test-agent"
-echo "Log Path: /home/ella/share_folder/srs.log"
+echo "Log Path: /home/rnd/share_folder/srs.log"
 echo "Loki Server: $LOKI_SERVER_IP:$LOKI_PORT"
 echo ""
 
 # Check if log file exists
-LOG_FILE="/home/ella/share_folder/srs.log"
+LOG_FILE="/home/rnd/share_folder/srs.log"
 if [ ! -f "$LOG_FILE" ]; then
     echo "Warning: Log file does not exist: $LOG_FILE"
     echo "Creating share_folder directory and log file..."
