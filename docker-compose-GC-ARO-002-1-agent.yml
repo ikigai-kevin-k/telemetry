@@ -12,6 +12,11 @@ services:
       - ./promtail-GC-ARO-002-1-agent.yml:/etc/promtail/config.yml
       # Studio SDP Roulette logs - Main monitoring target
       - /home/rnd/studio-sdp-roulette/self-test-2api.log:/var/log/studio-sdp-roulette/self-test-2api.log:ro
+      # SRS and FFmpeg logs - New monitoring targets
+      - /home/rnd/share_folder/srs.log:/home/rnd/share_folder/srs.log:ro
+      - /home/rnd/share_folder/FFmpeg/ffmpeg_debug.log:/home/rnd/share_folder/FFmpeg/ffmpeg_debug.log:ro
+      # Test SRS log file
+      - /tmp/test_srs.log:/tmp/test_srs.log:ro
       # Existing logs for backward compatibility
       - ./mock_sicbo.log:/var/log/mock_sicbo.log
       - ./server.log:/var/log/server.log
