@@ -110,17 +110,9 @@ scrape_configs:
         labels:
           job: srs_test
           instance: GC-ARO-001-1-agent
-          __path__: ~/share_folder/srs.log
+          __path__: /home/rnd/share_folder/srs.log
     pipeline_stages:
-      # Parse common log formats
-      - regex:
-          expression: '^(?P<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})(,\d{3})?\s*-?\s*(?P<level>\w+)?\s*-?\s*(?P<message>.*)$'
-      - labels:
-          level:
-      - timestamp:
-          source: timestamp
-          format: "2006-01-02 15:04:05"
-          location: "Asia/Taipei"
+      # Simple pipeline for SRS logs - just pass through without complex parsing
       - drop:
           older_than: 168h
 
@@ -132,7 +124,7 @@ scrape_configs:
         labels:
           job: ffmpeg_debug
           instance: GC-ARO-001-1-agent
-          __path__: ~/share_folder/FFmpeg/ffmpeg_debug.log
+          __path__: /home/rnd/share_folder/FFmpeg/ffmpeg_debug.log
     pipeline_stages:
       # FFmpeg logs don't have standard timestamps, so we'll use ingestion time
       - regex:
