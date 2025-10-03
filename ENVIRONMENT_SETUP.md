@@ -57,5 +57,5 @@ You can test the Slack integration by triggering a test alert:
   "zcam-aro-001-1" \
   "42" \
   "warning" \
-  "192.168.88.184"
+  "192.168.88.10"
 ```

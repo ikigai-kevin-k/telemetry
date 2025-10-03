@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Test script for ZCAM Temperature API exploration
-ZCAM_IP="192.168.88.184"
+ZCAM_IP="192.168.88.10"
 BASE_URL="http://${ZCAM_IP}"
 TIMEOUT=5
 

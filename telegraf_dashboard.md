@@ -20,11 +20,11 @@ ZCAM Devices (5x) → Telegraf (http_response plugin) → Prometheus → Grafana
 
 | Device Name | IP Address | Agent | RTMP Server | Stream Key |
 |-------------|------------|-------|-------------|------------|
-| zcam-aro-001-1 | 192.168.88.184 | aro-001-1 | 192.168.88.26 | r184_sr |
+| zcam-aro-001-1 | 192.168.88.10 | aro-001-1 | 192.168.88.26 | r184_sr |
 | zcam-aro-001-2 | 192.168.88.186 | aro-001-2 | 192.168.88.27 | r186_sr |
-| zcam-aro-002-1 | 192.168.88.183 | aro-002-1 | 192.168.88.84 | r183_vr |
+| zcam-aro-002-1 | 192.168.88.12 | aro-002-1 | 192.168.88.84 | r183_vr |
 | zcam-aro-002-2 | 192.168.88.34 | aro-002-2 | 192.168.88.50 | r034_vr |
-| zcam-asb-001-1 | 192.168.88.212 | asb-001-1 | 192.168.88.10 | r212_sb |
+| zcam-asb-001-1 | 192.168.88.14 | asb-001-1 | 192.168.88.10 | r212_sb |
 
 ## 📁 Configuration Files
 
@@ -49,7 +49,7 @@ Key configuration sections:
 
 # HTTP Response monitoring for each ZCAM device (3 endpoints per device)
 [[inputs.http_response]]
-  urls = ["http://192.168.88.184/ctrl/rtmp?action=query&index=0"]
+  urls = ["http://192.168.88.10/ctrl/rtmp?action=query&index=0"]
   response_timeout = "5s"
   method = "GET"
   [inputs.http_response.tags]
@@ -355,7 +355,7 @@ Since ZCAM devices do not provide temperature APIs, consider these alternatives:
 
 ### **Per-Device Status**
 
-#### **ZCAM ARO-001-1 (192.168.88.184)**
+#### **ZCAM ARO-001-1 (192.168.88.10)**
 - ✅ RTMP API: 200 OK (1.025s response time)
 - ✅ Battery API: 200 OK (0.002s response time)
 - ✅ Mode API: 200 OK (0.002s response time)
@@ -365,7 +365,7 @@ Since ZCAM devices do not provide temperature APIs, consider these alternatives:
 - ✅ Battery API: 200 OK (1.025s response time)
 - ✅ Mode API: 200 OK (0.002s response time)
 
-#### **ZCAM ARO-002-1 (192.168.88.183)**
+#### **ZCAM ARO-002-1 (192.168.88.12)**
 - ✅ RTMP API: 200 OK (1.025s response time)
 - ✅ Battery API: 200 OK (0.002s response time)
 - ✅ Mode API: 200 OK (0.002s response time)
@@ -375,7 +375,7 @@ Since ZCAM devices do not provide temperature APIs, consider these alternatives:
 - ✅ Battery API: 200 OK (0.002s response time)
 - ✅ Mode API: 200 OK (1.025s response time)
 
-#### **ZCAM ASB-001-1 (192.168.88.212)**
+#### **ZCAM ASB-001-1 (192.168.88.14)**
 - ✅ RTMP API: 200 OK (1.026s response time)
 - ✅ Battery API: 200 OK (0.002s response time)
 - ✅ Mode API: 200 OK (0.002s response time)
@@ -441,9 +441,9 @@ curl -s "http://localhost:9090/api/v1/query?query=http_response_response_time" |
 
 ### **Test Individual ZCAM APIs**
 ```bash
-curl -s "http://192.168.88.184/ctrl/rtmp?action=query&index=0"
-curl -s "http://192.168.88.184/ctrl/get?k=battery"
-curl -s "http://192.168.88.184/ctrl/mode"
+curl -s "http://192.168.88.10/ctrl/rtmp?action=query&index=0"
+curl -s "http://192.168.88.10/ctrl/get?k=battery"
+curl -s "http://192.168.88.10/ctrl/mode"
 ```
 
 ## 🚀 Access Information
