@@ -101,3 +101,57 @@ scrape_configs:
           location: "Asia/Taipei"
       - drop:
           older_than: 168h
+
+  # SRS logs monitoring - Optimized for storage efficiency
+  - job_name: srs_logs
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: srs_test
+          instance: GC-ARO-002-1-agent
+          __path__: /home/rnd/share_folder/srs.log
+    pipeline_stages:
+      # Filter out noisy/less important SRS logs to reduce storage
+      - match:
+          selector: '{job="srs_test"}'
+          stages:
+            - regex:
+                expression: '^(?P<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})(,\d{3})?\s*-?\s*(?P<level>\w+)?\s*-?\s*(?P<message>.*)$'
+            - labels:
+                level:
+            - timestamp:
+                source: timestamp
+                format: "2006-01-02 15:04:05"
+                location: "Asia/Taipei"
+            # Drop verbose debug logs to save space
+            - drop:
+                expression: '.*debug.*|.*trace.*'
+            # Keep only recent logs (reduced from 168h to 72h)
+            - drop:
+                older_than: 72h
+
+  # FFmpeg debug logs monitoring - Optimized for storage efficiency
+  - job_name: ffmpeg_logs
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: ffmpeg_debug
+          instance: GC-ARO-002-1-agent
+          __path__: /home/rnd/share_folder/FFmpeg/ffmpeg_debug.log
+    pipeline_stages:
+      # Filter FFmpeg logs to reduce storage usage
+      - match:
+          selector: '{job="ffmpeg_debug"}'
+          stages:
+            - regex:
+                expression: '(?P<message>.*)'
+            - labels:
+                level:
+            # Drop verbose/less important FFmpeg logs
+            - drop:
+                expression: '.*debug.*|.*trace.*|.*verbose.*'
+            # Keep only recent logs (reduced from 168h to 48h for FFmpeg)
+            - drop:
+                older_than: 48h
