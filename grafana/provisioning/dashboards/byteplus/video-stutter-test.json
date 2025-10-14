@@ -1,0 +1,133 @@
+{
+  "id": null,
+  "uid": "video-stutter-test-dashboard",
+  "title": "Video Stutter Test Dashboard",
+  "folderId": 84,
+  "tags": ["byteplus", "prometheus", "vmp", "test"],
+  "style": "dark",
+  "timezone": "browser",
+  "panels": [
+    {
+      "id": 1,
+      "title": "Video Stutter Test",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "byteplus-vmp-prometheus"
+      },
+      "targets": [
+        {
+          "expr": "video_stutter",
+          "refId": "A",
+          "legendFormat": "{{client_ip}} - {{server_ip}}",
+          "interval": "",
+          "intervalFactor": 1,
+          "maxDataPoints": 43200,
+          "step": "",
+          "exemplar": false,
+          "instant": false,
+          "range": true,
+          "editorMode": "code",
+          "format": "time_series",
+          "queryType": "",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "byteplus-vmp-prometheus"
+          }
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "vis": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 5
+              },
+              {
+                "color": "red",
+                "value": 15
+              }
+            ]
+          },
+          "unit": "short",
+          "min": 0,
+          "max": 20
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "width": null
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "graphMode": "lines",
+        "stacking": {
+          "group": "A",
+          "mode": "none"
+        }
+      },
+      "transformations": [],
+      "transparent": false,
+      "type": "timeseries"
+    }
+  ],
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "refresh": "30s",
+  "schemaVersion": 27,
+  "version": 1,
+  "links": []
+}
