@@ -63,56 +63,6 @@
           {
             "matcher": {
               "id": "byRegexp",
-              "options": "/.*rtmp_status.*/"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "short"
-              },
-              {
-                "id": "decimals",
-                "value": 0
-              },
-              {
-                "id": "mappings",
-                "value": [
-                  {
-                    "options": {
-                      "200": {
-                        "color": "green",
-                        "index": 0,
-                        "text": "200"
-                      },
-                      "403": {
-                        "color": "red",
-                        "index": 1,
-                        "text": "403"
-                      },
-                      "404": {
-                        "color": "red",
-                        "index": 2,
-                        "text": "404"
-                      },
-                      "500": {
-                        "color": "red",
-                        "index": 3,
-                        "text": "500"
-                      }
-                    },
-                    "type": "value"
-                  }
-                ]
-              },
-              {
-                "id": "custom.displayMode",
-                "value": "basic"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byRegexp",
               "options": "/.*Battery.*/"
             },
             "properties": [
@@ -177,58 +127,12 @@
                 ]
               }
             ]
-          },
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": "/.*Temperature.*/"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "celsius"
-              },
-              {
-                "id": "decimals",
-                "value": 0
-              },
-              {
-                "id": "custom.displayMode",
-                "value": "basic"
-              },
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green",
-                      "value": null
-                    },
-                    {
-                      "color": "yellow",
-                      "value": 40
-                    },
-                    {
-                      "color": "red",
-                      "value": 45
-                    }
-                  ]
-                }
-              },
-              {
-                "id": "color",
-                "value": {
-                  "mode": "thresholds"
-                }
-              }
-            ]
           }
         ]
       },
       "gridPos": {
         "h": 8,
-        "w": 24,
+        "w": 12,
         "x": 0,
         "y": 0
       },
@@ -255,23 +159,11 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "http_response_http_response_code{job=\"telegraf-zcam\", endpoint_type=\"rtmp_status\"}",
-          "instant": true,
-          "legendFormat": "{{device_name}} - {{endpoint_type}}",
-          "range": false,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "code",
           "expr": "zcam_battery_level{job=\"zcam-values\"}",
           "instant": true,
           "legendFormat": "{{device_name}} - Battery",
           "range": false,
-          "refId": "B"
+          "refId": "A"
         },
         {
           "datasource": {
@@ -283,8 +175,95 @@
           "instant": true,
           "legendFormat": "{{device_name}} - Mode",
           "range": false,
-          "refId": "C"
+          "refId": "B"
+        }
+      ],
+      "title": "ZCAM API Health Status",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "vis": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 40
+              },
+              {
+                "color": "red",
+                "value": 45
+              }
+            ]
+          },
+          "unit": "celsius"
         },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 10,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
         {
           "datasource": {
             "type": "prometheus",
@@ -292,14 +271,14 @@
           },
           "editorMode": "code",
           "expr": "zcam_temperature{job=\"zcam-values\"}",
-          "instant": true,
+          "instant": false,
           "legendFormat": "{{device_name}} - Temperature",
-          "range": false,
-          "refId": "D"
+          "range": true,
+          "refId": "A"
         }
       ],
-      "title": "ZCAM API Health Status",
-      "type": "stat"
+      "title": "ZCAM Temperature Trend",
+      "type": "timeseries"
     },
     {
       "datasource": {
