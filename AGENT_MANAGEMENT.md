@@ -12,8 +12,8 @@ This telemetry system now supports multiple agents running on different hosts. E
 # Basic usage
 ./start-agent.sh <agent_name> <agent_ip>
 
-# Example: Start GC-ASB-001-1-agent on 100.64.0.166
-./start-agent.sh GC-ASB-001-1-agent 100.64.0.166
+# Example: Start GC-asb11-agent on 100.64.0.166
+./start-agent.sh GC-asb11-agent 100.64.0.166
 
 # Example: Start original agent (backward compatibility)
 ./start-agent.sh
@@ -31,14 +31,14 @@ When you start a new agent, the following files are automatically generated:
 
 ```
 agent-configs/
-├── GC-ASB-001-1-agent.yml          # Agent configuration
-├── GC-ARO-001-2-agent.yml          # Original agent config
+├── GC-asb11-agent.yml          # Agent configuration
+├── GC-aro12-agent.yml          # Original agent config
 
-promtail-GC-ASB-001-1-agent.yml     # Promtail configuration
-docker-compose-GC-ASB-001-1-agent.yml  # Docker Compose file
+promtail-GC-asb11-agent.yml     # Promtail configuration
+docker-compose-GC-asb11-agent.yml  # Docker Compose file
 
 zabbix/
-├── agent2-GC-ASB-001-1-agent.conf  # Zabbix Agent configuration
+├── agent2-GC-asb11-agent.conf  # Zabbix Agent configuration
 └── scripts/                         # Monitoring scripts
 ```
 
@@ -102,7 +102,7 @@ docker compose -f docker-compose-<agent_name>.yml logs -f
 
 ```bash
 # Agent on host 1
-./start-agent.sh GC-ASB-001-1-agent 100.64.0.166
+./start-agent.sh GC-asb11-agent 100.64.0.166
 
 # Agent on host 2
 ./start-agent.sh GC-ASB-001-2-agent 100.64.0.167
@@ -118,17 +118,17 @@ docker compose -f docker-compose-<agent_name>.yml logs -f
 ./list-agents.sh
 
 # Check specific agent containers
-docker ps | grep GC-ASB-001-1-agent
+docker ps | grep GC-asb11-agent
 ```
 
 ## Backward Compatibility
 
-The original agent (GC-ARO-001-2-agent) configuration is preserved. You can still start it using:
+The original agent (GC-aro12-agent) configuration is preserved. You can still start it using:
 
 ```bash
 ./start-agent.sh
 # or
-./start-agent.sh GC-ARO-001-2-agent 100.64.0.149
+./start-agent.sh GC-aro12-agent 100.64.0.149
 ```
 
 ## Troubleshooting

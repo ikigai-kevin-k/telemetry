@@ -54,7 +54,7 @@ You can test the Slack integration by triggering a test alert:
 # Test warning alert
 ./temperature-slack-alert.sh \
   "$SLACK_WEBHOOK_URL" \
-  "zcam-aro-001-1" \
+  "zcam-aro11" \
   "42" \
   "warning" \
   "192.168.88.10"

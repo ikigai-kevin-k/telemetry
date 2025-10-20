@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Test script to verify Studio SDP Roulette log collection
-Tests the new Promtail configuration for ARO-001-1 agent
+Tests the new Promtail configuration for aro11 agent
 """
 
 import requests
@@ -14,7 +14,7 @@ def check_promtail_status():
     """Check if Promtail container is running and healthy"""
     try:
         result = subprocess.run([
-            'docker', 'ps', '--filter', 'name=telemetry-promtail-GC-ARO-001-1-agent',
+            'docker', 'ps', '--filter', 'name=telemetry-promtail-GC-aro11-agent',
             '--format', 'table {{.Names}}\t{{.Status}}'
         ], capture_output=True, text=True, check=True)
         
@@ -47,7 +47,7 @@ def query_studio_sdp_logs():
         start_time = end_time - timedelta(hours=1)
         
         query_params = {
-            'query': '{job="studio_sdp_roulette", instance="GC-ARO-001-1-agent"}',
+            'query': '{job="studio_sdp_roulette", instance="GC-aro11-agent"}',
             'start': int(start_time.timestamp() * 1000000000),  # nanoseconds
             'end': int(end_time.timestamp() * 1000000000),
             'limit': 100

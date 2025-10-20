@@ -85,7 +85,7 @@ fi
 
 echo "Template ID: $TEMPLATE_ID"
 
-echo "Adding template to host GC-ARO-001-2-agent..."
+echo "Adding template to host GC-aro12-agent..."
 add_template_to_host "$AUTH_TOKEN" "10643" "$TEMPLATE_ID"
 
 echo "Template added successfully!"

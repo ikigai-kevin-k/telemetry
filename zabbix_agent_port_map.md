@@ -46,7 +46,7 @@ docker rm kevin-telemetry-zabbix-agent
 # 允許來自 Zabbix Server 的連接
 Server=100.64.0.113,172.18.0.1
 ServerActive=100.64.0.113,172.18.0.1
-Hostname=GC-ARO-001-2-agent
+Hostname=GC-aro12-agent
 
 # 其他配置...
 ListenPort=10050
@@ -60,7 +60,7 @@ docker run -d \
   --name kevin-telemetry-zabbix-agent \
   --network telemetry_monitoring \
   -p 10050:10050 \
-  -e ZBX_HOSTNAME=GC-ARO-001-2-agent \
+  -e ZBX_HOSTNAME=GC-aro12-agent \
   -e ZBX_SERVER_HOST=100.64.0.113 \
   -e ZBX_SERVER_PORT=10051 \
   -e ZBX_ENABLEPERSISTENTBUFFER=1 \
@@ -99,7 +99,7 @@ zabbix-agent:
   ports:
     - "10050:10050"  # 重要：添加端口映射
   environment:
-    - ZBX_HOSTNAME=GC-ARO-001-2-agent
+    - ZBX_HOSTNAME=GC-aro12-agent
     - ZBX_SERVER_HOST=100.64.0.113
     - ZBX_SERVER_PORT=10051
     - ZBX_ENABLEPERSISTENTBUFFER=1
@@ -121,7 +121,7 @@ zabbix-agent:
 # 基本配置
 Server=100.64.0.113,172.18.0.1  # 允許多個 Server IP
 ServerActive=100.64.0.113,172.18.0.1
-Hostname=GC-ARO-001-2-agent
+Hostname=GC-aro12-agent
 
 # 網路設定
 ListenPort=10050

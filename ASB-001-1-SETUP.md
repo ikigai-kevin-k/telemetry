@@ -1,7 +1,7 @@
-# ASB-001-1 Agent Setup
+# asb11 Agent Setup
 
 ## Overview
-ASB-001-1 agent has been configured to monitor SBO001 log files with dynamic date patterns, based on the configuration from ARO-001-1 and ARO-002-1 agents.
+asb11 agent has been configured to monitor SBO001 log files with dynamic date patterns, based on the configuration from aro11 and aro21 agents.
 
 ## Key Features
 
@@ -14,7 +14,7 @@ ASB-001-1 agent has been configured to monitor SBO001 log files with dynamic dat
 - **Regex parsing** for timestamp, direction, and message extraction
 - **Timezone**: Asia/Taipei
 - **Retention**: Drops entries older than 168 hours (7 days)
-- **Labels**: job=studio_sdp_roulette, instance=GC-ASB-001-1-agent
+- **Labels**: job=studio_sdp_roulette, instance=GC-asb11-agent
 
 ### 3. Persistent Storage
 - **Promtail positions**: `promtail_asb_001_1_positions` volume
@@ -24,18 +24,18 @@ ASB-001-1 agent has been configured to monitor SBO001 log files with dynamic dat
 ## Files Modified
 
 ### Configuration Files
-- `promtail-GC-ASB-001-1-agent.yml` - Updated with studio_sdp_roulette_logs job
-- `docker-compose-GC-ASB-001-1-agent.yml` - Added dynamic log volume mounting
+- `promtail-GC-asb11-agent.yml` - Updated with studio_sdp_roulette_logs job
+- `docker-compose-GC-asb11-agent.yml` - Added dynamic log volume mounting
 
 ### Scripts Created
 - `scripts/get-latest-sbo-log.sh` - Find latest SBO001 log file
-- `start-asb-001-1-agent.sh` - Start agent with log validation
+- `start-asb11-agent.sh` - Start agent with log validation
 
 ## Usage
 
 ### Start Agent
 ```bash
-./start-asb-001-1-agent.sh
+./start-asb11-agent.sh
 ```
 
 ### Check Latest Log
@@ -45,12 +45,12 @@ ASB-001-1 agent has been configured to monitor SBO001 log files with dynamic dat
 
 ### View Logs
 ```bash
-docker compose -f docker-compose-GC-ASB-001-1-agent.yml logs -f promtail
+docker compose -f docker-compose-GC-asb11-agent.yml logs -f promtail
 ```
 
 ### Stop Agent
 ```bash
-docker compose -f docker-compose-GC-ASB-001-1-agent.yml down
+docker compose -f docker-compose-GC-asb11-agent.yml down
 ```
 
 ## Log Monitoring Status
@@ -64,7 +64,7 @@ The agent automatically monitors all SBO001_*.log files in the logs directory:
 
 ### Check Promtail Status
 ```bash
-docker compose -f docker-compose-GC-ASB-001-1-agent.yml logs promtail
+docker compose -f docker-compose-GC-asb11-agent.yml logs promtail
 ```
 
 ### Verify Log Files
@@ -74,7 +74,7 @@ ls -la /home/rnd/studio-sdp-roulette/logs/SBO001_*.log
 
 ### Test Configuration
 ```bash
-docker run --rm -v $(pwd)/promtail-GC-ASB-001-1-agent.yml:/etc/promtail/config.yml grafana/promtail:latest -config.file=/etc/promtail/config.yml -dry-run
+docker run --rm -v $(pwd)/promtail-GC-asb11-agent.yml:/etc/promtail/config.yml grafana/promtail:latest -config.file=/etc/promtail/config.yml -dry-run
 ```
 
 ## Integration Details
@@ -82,11 +82,11 @@ docker run --rm -v $(pwd)/promtail-GC-ASB-001-1-agent.yml:/etc/promtail/config.y
 ### Loki Server
 - **URL**: http://100.64.0.113:3100/loki/api/v1/push
 - **Job Labels**: studio_sdp_roulette, mock_sicbo, server, tmux_client, sdp
-- **Instance**: GC-ASB-001-1-agent
+- **Instance**: GC-asb11-agent
 
 ### Zabbix Agent
 - **Server**: 100.64.0.113:10051
-- **Hostname**: GC-ASB-001-1-agent
+- **Hostname**: GC-asb11-agent
 - **Port**: 10050
 
 ## Success Confirmation

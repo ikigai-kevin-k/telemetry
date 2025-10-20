@@ -16,7 +16,7 @@ scrape_configs:
           - localhost
         labels:
           job: studio_sdp_roulette
-          instance: GC-ARO-002-1-agent
+          instance: GC-aro21-agent
           __path__: /var/log/studio-sdp-roulette/self-test-2api.log
     pipeline_stages:
       # Parse timestamp format: [2025-09-19 11:57:22.362]
@@ -39,7 +39,7 @@ scrape_configs:
           - localhost
         labels:
           job: mock_sicbo
-          instance: GC-ARO-002-1-agent  # Agent instance identifier
+          instance: GC-aro21-agent  # Agent instance identifier
           __path__: /var/log/mock_sicbo.log
     pipeline_stages:
       - regex:
@@ -60,7 +60,7 @@ scrape_configs:
           - localhost
         labels:
           job: server
-          instance: GC-ARO-002-1-agent
+          instance: GC-aro21-agent
           __path__: /var/log/server.log
     pipeline_stages:
       - timestamp:
@@ -76,7 +76,7 @@ scrape_configs:
           - localhost
         labels:
           job: tmux_client
-          instance: GC-ARO-002-1-agent
+          instance: GC-aro21-agent
           __path__: /var/log/tmux-client.log
     pipeline_stages:
       - timestamp:
@@ -92,7 +92,7 @@ scrape_configs:
           - localhost
         labels:
           job: sdp
-          instance: GC-ARO-002-1-agent
+          instance: GC-aro21-agent
           __path__: /var/log/sdp.log
     pipeline_stages:
       - timestamp:
@@ -109,7 +109,7 @@ scrape_configs:
           - localhost
         labels:
           job: srs_test
-          instance: GC-ARO-002-1-agent
+          instance: GC-aro21-agent
           __path__: /home/rnd/share_folder/srs.log
     pipeline_stages:
       # Filter out noisy/less important SRS logs to reduce storage
@@ -138,7 +138,7 @@ scrape_configs:
           - localhost
         labels:
           job: ffmpeg_debug
-          instance: GC-ARO-002-1-agent
+          instance: GC-aro21-agent
           __path__: /home/rnd/share_folder/FFmpeg/ffmpeg_debug.log
     pipeline_stages:
       # Filter FFmpeg logs to reduce storage usage

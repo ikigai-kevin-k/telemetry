@@ -2,7 +2,7 @@
 
 # Generate agent configuration files
 # Usage: ./generate-agent-configs.sh <agent_name> <agent_ip>
-# Example: ./generate-agent-configs.sh GC-ASB-001-1-agent 100.64.0.166
+# Example: ./generate-agent-configs.sh GC-asb11-agent 100.64.0.166
 
 AGENT_NAME="$1"
 AGENT_IP="$2"
@@ -10,7 +10,7 @@ AGENT_IP="$2"
 if [ -z "$AGENT_NAME" ] || [ -z "$AGENT_IP" ]; then
     echo "Error: Missing required parameters"
     echo "Usage: $0 <agent_name> <agent_ip>"
-    echo "Example: $0 GC-ASB-001-1-agent 100.64.0.166"
+    echo "Example: $0 GC-asb11-agent 100.64.0.166"
     exit 1
 fi
 

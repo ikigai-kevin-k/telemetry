@@ -147,7 +147,7 @@ chmod +x temperature-slack-alert.sh
 # Test warning alert
 ./temperature-slack-alert.sh \
   "$SLACK_WEBHOOK_URL" \
-  "zcam-aro-001-1" \
+  "zcam-aro11" \
   "42" \
   "warning" \
   "192.168.88.10"

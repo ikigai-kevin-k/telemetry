@@ -78,7 +78,7 @@ fi
 
 echo "Authentication successful"
 
-echo "Getting interface ID for host GC-ARO-001-2-agent..."
+echo "Getting interface ID for host GC-aro12-agent..."
 INTERFACE_ID=$(get_interface_id "$AUTH_TOKEN" "10643")
 
 if [ "$INTERFACE_ID" = "null" ] || [ -z "$INTERFACE_ID" ]; then

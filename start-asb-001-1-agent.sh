@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Start ASB-001-1 Agent with dynamic SBO001 log file monitoring
+# Start asb11 Agent with dynamic SBO001 log file monitoring
 # This script ensures the latest SBO001 log file is available before starting the agent
 
-AGENT_NAME="GC-ASB-001-1-agent"
+AGENT_NAME="GC-asb11-agent"
 LOG_DIR="/home/rnd/studio-sdp-roulette/logs"
-COMPOSE_FILE="docker-compose-GC-ASB-001-1-agent.yml"
+COMPOSE_FILE="docker-compose-GC-asb11-agent.yml"
 
 echo "Starting Telemetry Agent: $AGENT_NAME"
 echo "Monitoring SBO001 logs in: $LOG_DIR"

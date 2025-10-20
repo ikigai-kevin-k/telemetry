@@ -1,30 +1,30 @@
-# Grafana ARO-001-1 SDP Log 持久化儲存設定
+# Grafana aro11 SDP Log 持久化儲存設定
 
 ## 概述
 
-此設定將 Grafana 中關於 Loki datasource 的 ARO-001-1 SDP log 配置進行 Docker 持久化儲存，確保容器重啟後設定和資料不會遺失。
+此設定將 Grafana 中關於 Loki datasource 的 aro11 SDP log 配置進行 Docker 持久化儲存，確保容器重啟後設定和資料不會遺失。
 
 ## 架構說明
 
-- **主伺服器**: 100.64.0.113 (GC-ARO-002-1) - 運行 Grafana、Loki Server
-- **ARO-001-1 Agent**: 100.64.0.167 (GC-ARO-001-1-agent) - 運行 Promtail，收集 SDP logs
+- **主伺服器**: 100.64.0.113 (GC-aro21) - 運行 Grafana、Loki Server
+- **aro11 Agent**: 100.64.0.167 (GC-aro11-agent) - 運行 Promtail，收集 SDP logs
 
 ## 已完成的設定
 
 ### 1. Grafana Datasource 設定 (`grafana/provisioning/datasources/loki.yml`)
 
-新增了專門針對 ARO-001-1 SDP logs 的 Loki datasource:
+新增了專門針對 aro11 SDP logs 的 Loki datasource:
 
 ```yaml
-# Dedicated datasource for ARO-001-1 SDP logs with specific configuration
-- name: Loki-ARO-001-1-SDP
+# Dedicated datasource for aro11 SDP logs with specific configuration
+- name: Loki-aro11-SDP
   type: loki
   access: proxy
   url: http://loki:3100
   isDefault: false
   editable: true
   jsonData:
-    # Default query settings for ARO-001-1 SDP logs
+    # Default query settings for aro11 SDP logs
     derivedFields:
       - name: "Timestamp"
         matcherRegex: "\\[([0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{3})\\]"
@@ -35,16 +35,16 @@
     # Pre-configured filters for SDP logs
     maxLines: 5000
     timeout: "30s"
-  # Default query for ARO-001-1 SDP logs
-  uid: loki-aro-001-1-sdp
+  # Default query for aro11 SDP logs
+  uid: loki-aro11-sdp
 ```
 
 ### 2. Grafana Dashboard 設定
 
-建立了專門的 ARO-001-1 SDP Log Dashboard:
+建立了專門的 aro11 SDP Log Dashboard:
 
-- **檔案位置**: `grafana/provisioning/dashboards/aro-001-1-sdp-logs.json`
-- **Dashboard ID**: `aro-001-1-sdp-dashboard`
+- **檔案位置**: `grafana/provisioning/dashboards/aro11-sdp-logs.json`
+- **Dashboard ID**: `aro11-sdp-dashboard`
 - **資料夾**: SDP Monitoring
 
 #### Dashboard 功能:
@@ -80,13 +80,13 @@ grafana:
     - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
     - GF_PROVISIONING_DATASOURCES_PATH=/etc/grafana/provisioning/datasources
     - GF_PROVISIONING_DASHBOARDS_PATH=/etc/grafana/provisioning/dashboards
-    # Timezone setting for ARO-001-1 SDP logs
+    # Timezone setting for aro11 SDP logs
     - TZ=Asia/Taipei
 ```
 
-### 4. ARO-001-1 Agent 持久化設定
+### 4. aro11 Agent 持久化設定
 
-ARO-001-1 agent 的 `docker-compose-GC-ARO-001-1-agent.yml` 已包含持久化 volumes:
+aro11 agent 的 `docker-compose-GC-aro11-agent.yml` 已包含持久化 volumes:
 
 ```yaml
 volumes:
@@ -137,7 +137,7 @@ volumes:
    docker logs kevin-telemetry-grafana
    ```
 
-2. **確認 ARO-001-1 agent volumes 存在**:
+2. **確認 aro11 agent volumes 存在**:
    ```bash
    # 檢查 volumes
    docker volume ls | grep aro_001_1
@@ -158,18 +158,18 @@ volumes:
 
 前往 Configuration > Data Sources，應該看到:
 - Loki (原有的)
-- **Loki-ARO-001-1-SDP** (新增的)
+- **Loki-aro11-SDP** (新增的)
 
 ### 2. 檢查 Dashboard
 
 前往 Dashboards，在 "SDP Monitoring" 資料夾中應該看到:
-- **ARO-001-1 SDP Log Dashboard**
+- **aro11 SDP Log Dashboard**
 
 ### 3. 檢查 Log 資料
 
-在 dashboard 中應該能看到來自 ARO-001-1 的 SDP log 資料:
+在 dashboard 中應該能看到來自 aro11 的 SDP log 資料:
 - Job: studio_sdp_roulette
-- Instance: GC-ARO-001-1-agent
+- Instance: GC-aro11-agent
 
 ## 故障排除
 
@@ -184,10 +184,10 @@ ls -la grafana/provisioning/datasources/
 ls -la grafana/provisioning/dashboards/
 ```
 
-### 2. 看不到 ARO-001-1 的 Log 資料
+### 2. 看不到 aro11 的 Log 資料
 
 ```bash
-# 檢查 ARO-001-1 agent 是否運行
+# 檢查 aro11 agent 是否運行
 ping 100.64.0.167
 
 # 檢查 Promtail 是否正常運行
@@ -200,7 +200,7 @@ curl -G -s "http://localhost:3100/loki/api/v1/label" | jq
 ### 3. Dashboard 顯示異常
 
 - 檢查時區設定是否為 Asia/Taipei
-- 確認 Loki-ARO-001-1-SDP datasource 是否正常連接
+- 確認 Loki-aro11-SDP datasource 是否正常連接
 - 檢查 log 格式是否符合 regex 設定
 
 ## 備份和恢復
@@ -234,15 +234,15 @@ docker-compose up -d grafana
 
 1. **定期備份**: 建議每週備份 Grafana 資料
 2. **監控磁碟空間**: 監控 Docker volumes 的磁碟使用量
-3. **日誌輪轉**: 確保 ARO-001-1 的 SDP log 檔案有適當的輪轉機制
-4. **網路連線**: 定期檢查主伺服器與 ARO-001-1 之間的網路連線
+3. **日誌輪轉**: 確保 aro11 的 SDP log 檔案有適當的輪轉機制
+4. **網路連線**: 定期檢查主伺服器與 aro11 之間的網路連線
 
 ## 相關檔案
 
 - `docker-compose.yml` - 主伺服器 Docker Compose 設定
-- `docker-compose-GC-ARO-001-1-agent.yml` - ARO-001-1 agent Docker Compose 設定
+- `docker-compose-GC-aro11-agent.yml` - aro11 agent Docker Compose 設定
 - `grafana/provisioning/datasources/loki.yml` - Loki datasource 設定
-- `grafana/provisioning/dashboards/aro-001-1-sdp-logs.json` - ARO-001-1 SDP dashboard
+- `grafana/provisioning/dashboards/aro11-sdp-logs.json` - aro11 SDP dashboard
 - `grafana/provisioning/dashboards/dashboards.yml` - Dashboard provisioning 設定
-- `promtail-GC-ARO-001-1-agent.yml` - ARO-001-1 Promtail 設定
+- `promtail-GC-aro11-agent.yml` - aro11 Promtail 設定
 - `manage-grafana-persistence.sh` - 管理腳本

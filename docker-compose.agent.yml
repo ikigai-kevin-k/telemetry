@@ -1,6 +1,6 @@
 version: '3.8'
 
-# Agent Mode - Run on 100.64.0.149 (GC-ARO-001-2)
+# Agent Mode - Run on 100.64.0.149 (GC-aro12)
 # This compose file runs: Loki Agent (Promtail), Zabbix Agent
 
 services:
@@ -26,7 +26,7 @@ services:
     ports:
       - "10050:10050"
     environment:
-      - ZBX_HOSTNAME=GC-ARO-001-2-agent
+      - ZBX_HOSTNAME=GC-aro12-agent
       - ZBX_SERVER_HOST=100.64.0.113  # Connect to remote Zabbix server
       - ZBX_SERVER_ACTIVE=100.64.0.113
       - ZBX_SERVER_PORT=10051

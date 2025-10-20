@@ -1,7 +1,7 @@
-# Agent Configuration for GC-ARO-002-1-agent
+# Agent Configuration for GC-aro21-agent
 # Generated configuration for agent running on 100.64.0.143
 
-agent_name: "GC-ARO-002-1-agent"
+agent_name: "GC-aro21-agent"
 agent_ip: "100.64.0.143"
 server_ip: "100.64.0.113"
 server_loki_port: "3100"
@@ -9,8 +9,8 @@ server_zabbix_port: "10051"
 server_zabbix_active_port: "10051"
 
 # Container names
-promtail_container: "telemetry-promtail-GC-ARO-002-1-agent"
-zabbix_container: "telemetry-zabbix-agent-GC-ARO-002-1-agent"
+promtail_container: "telemetry-promtail-GC-aro21-agent"
+zabbix_container: "telemetry-zabbix-agent-GC-aro21-agent"
 
 # Network configuration
 network_name: "telemetry_monitoring"
@@ -23,11 +23,11 @@ log_files:
   - "./sdp.log:/var/log/sdp.log"
 
 # Configuration files
-promtail_config: "./promtail-GC-ARO-002-1-agent.yml"
-zabbix_config: "./zabbix/agent2-GC-ARO-002-1-agent.conf"
+promtail_config: "./promtail-GC-aro21-agent.yml"
+zabbix_config: "./zabbix/agent2-GC-aro21-agent.conf"
 
 # Docker compose file
-docker_compose_file: "./docker-compose-GC-ARO-002-1-agent.yml"
+docker_compose_file: "./docker-compose-GC-aro21-agent.yml"
 
 # Created timestamp
 created_at: "2025-01-27T12:00:00Z"

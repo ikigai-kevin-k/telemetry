@@ -4,7 +4,7 @@
 
 本專案已將 Loki 架構分離為 **Server 端** 和 **Agent 端**，類似於 Zabbix 的 server/agent 模式。
 
-### 🖥️ Server 端 (100.64.0.160 - GC-ARO-002-1)
+### 🖥️ Server 端 (100.64.0.160 - GC-aro21)
 **運行服務：**
 - Loki Server (Port 3100)
 - Zabbix Server (Port 10051)
@@ -19,7 +19,7 @@
 docker-compose up -d
 ```
 
-### 📱 Agent 端 (100.64.0.149 - GC-ARO-001-2)
+### 📱 Agent 端 (100.64.0.149 - GC-aro12)
 **運行服務：**
 - Loki Agent (Promtail)
 - Zabbix Agent (Port 10050)
@@ -71,7 +71,7 @@ Promtail 在 Agent 端收集以下日誌檔案：
 ### 日誌標籤
 每個日誌來源都會被標記：
 - `job`: 日誌來源類型 (mock_sicbo, server, tmux_client)
-- `instance`: Agent 實例識別碼 (GC-ARO-001-2-agent)
+- `instance`: Agent 實例識別碼 (GC-aro12-agent)
 - `level`: 日誌級別 (僅限 mock_sicbo)
 - `logger`: 記錄器名稱 (僅限 mock_sicbo)
 

@@ -15,7 +15,7 @@ scrape_configs:
           - localhost
         labels:
           job: mock_sicbo
-          instance: GC-ARO-002-2-agent  # Agent instance identifier
+          instance: GC-aro22-agent  # Agent instance identifier
           __path__: /var/log/mock_sicbo.log
     pipeline_stages:
       - regex:
@@ -34,7 +34,7 @@ scrape_configs:
           - localhost
         labels:
           job: server
-          instance: GC-ARO-002-2-agent
+          instance: GC-aro22-agent
           __path__: /var/log/server.log
     pipeline_stages:
       - timestamp:
@@ -48,7 +48,7 @@ scrape_configs:
           - localhost
         labels:
           job: tmux_client
-          instance: GC-ARO-002-2-agent
+          instance: GC-aro22-agent
           __path__: /var/log/tmux-client.log
     pipeline_stages:
       - timestamp:
@@ -62,7 +62,7 @@ scrape_configs:
           - localhost
         labels:
           job: sdp
-          instance: GC-ARO-002-2-agent
+          instance: GC-aro22-agent
           __path__: /var/log/sdp.log
     pipeline_stages:
       - timestamp:

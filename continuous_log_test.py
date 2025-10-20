@@ -37,7 +37,7 @@ def push_continuous_logs():
             stream = {
                 "stream": {
                     "job": log_type,
-                    "instance": "GC-ARO-001-2-agent",
+                    "instance": "GC-aro12-agent",
                     "level": level,
                     "logger": f"{log_type}_logger",
                     "service_name": "telemetry_agent"

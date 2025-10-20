@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# ARO-001-1 Agent Volume Management Script
-# This script manages Docker volumes for ARO-001-1 agent data persistence
+# aro11 Agent Volume Management Script
+# This script manages Docker volumes for aro11 agent data persistence
 
 set -e
 
-AGENT_NAME="GC-ARO-001-1-agent"
+AGENT_NAME="GC-aro11-agent"
 COMPOSE_FILE="docker-compose-${AGENT_NAME}.yml"
-BACKUP_DIR="./backups/aro-001-1-volumes"
+BACKUP_DIR="./backups/aro11-volumes"
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 
 # Volume names
@@ -57,7 +57,7 @@ get_volume_size() {
 
 # Function to show volume status
 show_volume_status() {
-    print_status "ARO-001-1 Agent Volume Status:"
+    print_status "aro11 Agent Volume Status:"
     echo "================================================="
     
     printf "%-40s %-10s %-10s\n" "Volume Name" "Status" "Size"
@@ -78,7 +78,7 @@ show_volume_status() {
 
 # Function to create volumes
 create_volumes() {
-    print_status "Creating Docker volumes for ARO-001-1 agent..."
+    print_status "Creating Docker volumes for aro11 agent..."
     
     for volume in "$PROMTAIL_POSITIONS_VOLUME" "$PROMTAIL_DATA_VOLUME" "$ZABBIX_AGENT_DATA_VOLUME"; do
         if ! volume_exists "$volume"; then
@@ -93,7 +93,7 @@ create_volumes() {
 
 # Function to backup volumes
 backup_volumes() {
-    print_status "Backing up ARO-001-1 agent volumes..."
+    print_status "Backing up aro11 agent volumes..."
     
     # Create backup directory
     mkdir -p "$BACKUP_DIR/$TIMESTAMP"
@@ -119,7 +119,7 @@ backup_volumes() {
     
     # Create backup metadata
     cat > "$BACKUP_DIR/$TIMESTAMP/backup_info.txt" << EOF
-ARO-001-1 Agent Volume Backup
+aro11 Agent Volume Backup
 =============================
 Backup Date: $(date)
 Agent: $AGENT_NAME
@@ -153,10 +153,10 @@ restore_volumes() {
         exit 1
     fi
     
-    print_status "Restoring ARO-001-1 agent volumes from backup: $backup_timestamp"
+    print_status "Restoring aro11 agent volumes from backup: $backup_timestamp"
     
     # Stop containers first
-    print_status "Stopping ARO-001-1 agent containers..."
+    print_status "Stopping aro11 agent containers..."
     docker compose -f "$COMPOSE_FILE" down
     
     # Restore each volume
@@ -188,7 +188,7 @@ restore_volumes() {
     done
     
     # Restart containers
-    print_status "Starting ARO-001-1 agent containers..."
+    print_status "Starting aro11 agent containers..."
     docker compose -f "$COMPOSE_FILE" up -d
     
     print_success "Restore completed from backup: $backup_timestamp"
@@ -210,7 +210,7 @@ clean_old_backups() {
 
 # Function to restart agent with volumes
 restart_agent() {
-    print_status "Restarting ARO-001-1 agent with persistent volumes..."
+    print_status "Restarting aro11 agent with persistent volumes..."
     
     # Stop current containers
     docker compose -f "$COMPOSE_FILE" down
@@ -227,12 +227,12 @@ restart_agent() {
     # Show status
     docker compose -f "$COMPOSE_FILE" ps
     
-    print_success "ARO-001-1 agent restarted with persistent volumes"
+    print_success "aro11 agent restarted with persistent volumes"
 }
 
 # Function to show help
 show_help() {
-    echo "ARO-001-1 Agent Volume Management Script"
+    echo "aro11 Agent Volume Management Script"
     echo "========================================"
     echo ""
     echo "Usage: $0 [OPTION]"

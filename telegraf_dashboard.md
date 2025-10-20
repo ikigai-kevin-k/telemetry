@@ -20,11 +20,11 @@ ZCAM Devices (5x) → Telegraf (http_response plugin) → Prometheus → Grafana
 
 | Device Name | IP Address | Agent | RTMP Server | Stream Key |
 |-------------|------------|-------|-------------|------------|
-| zcam-aro-001-1 | 192.168.88.10 | aro-001-1 | 192.168.88.26 | r184_sr |
-| zcam-aro-001-2 | 192.168.88.186 | aro-001-2 | 192.168.88.27 | r186_sr |
-| zcam-aro-002-1 | 192.168.88.12 | aro-002-1 | 192.168.88.84 | r183_vr |
-| zcam-aro-002-2 | 192.168.88.34 | aro-002-2 | 192.168.88.50 | r034_vr |
-| zcam-asb-001-1 | 192.168.88.14 | asb-001-1 | 192.168.88.10 | r212_sb |
+| zcam-aro11 | 192.168.88.10 | aro11 | 192.168.88.26 | r184_sr |
+| zcam-aro12 | 192.168.88.186 | aro12 | 192.168.88.27 | r186_sr |
+| zcam-aro21 | 192.168.88.12 | aro21 | 192.168.88.84 | r183_vr |
+| zcam-aro22 | 192.168.88.34 | aro22 | 192.168.88.50 | r034_vr |
+| zcam-asb11 | 192.168.88.14 | asb11 | 192.168.88.10 | r212_sb |
 
 ## 📁 Configuration Files
 
@@ -53,8 +53,8 @@ Key configuration sections:
   response_timeout = "5s"
   method = "GET"
   [inputs.http_response.tags]
-    device_name = "zcam-aro-001-1"
-    agent_name = "aro-001-1"
+    device_name = "zcam-aro11"
+    agent_name = "aro11"
     endpoint_type = "rtmp_status"
 ```
 
@@ -355,27 +355,27 @@ Since ZCAM devices do not provide temperature APIs, consider these alternatives:
 
 ### **Per-Device Status**
 
-#### **ZCAM ARO-001-1 (192.168.88.10)**
+#### **ZCAM aro11 (192.168.88.10)**
 - ✅ RTMP API: 200 OK (1.025s response time)
 - ✅ Battery API: 200 OK (0.002s response time)
 - ✅ Mode API: 200 OK (0.002s response time)
 
-#### **ZCAM ARO-001-2 (192.168.88.186)**
+#### **ZCAM aro12 (192.168.88.186)**
 - ✅ RTMP API: 200 OK (0.002s response time)
 - ✅ Battery API: 200 OK (1.025s response time)
 - ✅ Mode API: 200 OK (0.002s response time)
 
-#### **ZCAM ARO-002-1 (192.168.88.12)**
+#### **ZCAM aro21 (192.168.88.12)**
 - ✅ RTMP API: 200 OK (1.025s response time)
 - ✅ Battery API: 200 OK (0.002s response time)
 - ✅ Mode API: 200 OK (0.002s response time)
 
-#### **ZCAM ARO-002-2 (192.168.88.34)**
+#### **ZCAM aro22 (192.168.88.34)**
 - ✅ RTMP API: 200 OK (0.002s response time)
 - ✅ Battery API: 200 OK (0.002s response time)
 - ✅ Mode API: 200 OK (1.025s response time)
 
-#### **ZCAM ASB-001-1 (192.168.88.14)**
+#### **ZCAM asb11 (192.168.88.14)**
 - ✅ RTMP API: 200 OK (1.026s response time)
 - ✅ Battery API: 200 OK (0.002s response time)
 - ✅ Mode API: 200 OK (0.002s response time)

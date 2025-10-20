@@ -16,7 +16,7 @@ scrape_configs:
           - localhost
         labels:
           job: studio_sdp_roulette
-          instance: GC-ASB-001-1-agent
+          instance: GC-asb11-agent
           __path__: /var/log/studio-sdp-roulette/SBO001_*.log
     pipeline_stages:
       # Parse timestamp format: [2025-09-19 11:57:22.362]
@@ -39,7 +39,7 @@ scrape_configs:
           - localhost
         labels:
           job: mock_sicbo
-          instance: GC-ASB-001-1-agent  # Agent instance identifier
+          instance: GC-asb11-agent  # Agent instance identifier
           __path__: /var/log/mock_sicbo.log
     pipeline_stages:
       - regex:
@@ -60,7 +60,7 @@ scrape_configs:
           - localhost
         labels:
           job: server
-          instance: GC-ASB-001-1-agent
+          instance: GC-asb11-agent
           __path__: /var/log/server.log
     pipeline_stages:
       - timestamp:
@@ -74,7 +74,7 @@ scrape_configs:
           - localhost
         labels:
           job: tmux_client
-          instance: GC-ASB-001-1-agent
+          instance: GC-asb11-agent
           __path__: /var/log/tmux-client.log
     pipeline_stages:
       - timestamp:
@@ -88,7 +88,7 @@ scrape_configs:
           - localhost
         labels:
           job: sdp
-          instance: GC-ASB-001-1-agent
+          instance: GC-asb11-agent
           service: sdp_service
           __path__: /var/log/sdp.log
     pipeline_stages:

@@ -2,12 +2,12 @@
 
 ## Overview
 
-This document describes the configuration and setup process for collecting Studio SDP Roulette logs using the ARO-001-1 Loki agent. The system monitors large log files from `/home/rnd/studio-sdp-roulette/self-test-2api.log` and sends them to a central Loki server for analysis in Grafana.
+This document describes the configuration and setup process for collecting Studio SDP Roulette logs using the aro11 Loki agent. The system monitors large log files from `/home/rnd/studio-sdp-roulette/self-test-2api.log` and sends them to a central Loki server for analysis in Grafana.
 
 ## Architecture
 
 ```
-Studio SDP Roulette                ARO-001-1 Agent               Central Server
+Studio SDP Roulette                aro11 Agent               Central Server
 ┌─────────────────────┐            ┌─────────────────────┐        ┌─────────────────┐
 │                     │            │                     │        │                 │
 │ self-test-2api.log  │ ──────────▶│  Promtail Container │ ──────▶│  Loki Server    │
@@ -27,7 +27,7 @@ Studio SDP Roulette                ARO-001-1 Agent               Central Server
 
 ## Configuration Files Modified
 
-### 1. Promtail Configuration (`promtail-GC-ARO-001-1-agent.yml`)
+### 1. Promtail Configuration (`promtail-GC-aro11-agent.yml`)
 
 #### New Job Configuration
 ```yaml
@@ -38,7 +38,7 @@ Studio SDP Roulette                ARO-001-1 Agent               Central Server
         - localhost
       labels:
         job: studio_sdp_roulette
-        instance: GC-ARO-001-1-agent
+        instance: GC-aro11-agent
         __path__: /var/log/studio-sdp-roulette/self-test-2api.log
   pipeline_stages:
     # Parse timestamp format: [2025-09-19 11:57:22.362]
@@ -61,12 +61,12 @@ The configuration parses log entries in the following format:
 - `[2025-09-19 11:57:22.362] Send <<< *u 1`
 - `[2025-09-19 11:57:22.362] WebSocket >>> Stop recording`
 
-### 2. Docker Compose Configuration (`docker-compose-GC-ARO-001-1-agent.yml`)
+### 2. Docker Compose Configuration (`docker-compose-GC-aro11-agent.yml`)
 
 #### Volume Mount and Persistence Configuration
 ```yaml
 volumes:
-  - ./promtail-GC-ARO-001-1-agent.yml:/etc/promtail/config.yml
+  - ./promtail-GC-aro11-agent.yml:/etc/promtail/config.yml
   # Studio SDP Roulette logs - Main monitoring target
   - /home/rnd/studio-sdp-roulette/self-test-2api.log:/var/log/studio-sdp-roulette/self-test-2api.log:ro
   # Existing logs for backward compatibility
@@ -121,23 +121,23 @@ table_manager:
 cd /home/rnd/telemetry
 
 # Stop current agent
-docker compose -f docker-compose-GC-ARO-001-1-agent.yml down
+docker compose -f docker-compose-GC-aro11-agent.yml down
 
 # Restart Loki server with new retention policy
 docker compose -f docker-compose.yml restart loki
 
 # Start agent with new configuration
-docker compose -f docker-compose-GC-ARO-001-1-agent.yml up -d
+docker compose -f docker-compose-GC-aro11-agent.yml up -d
 ```
 
 ### 2. Verify Configuration
 
 ```bash
 # Check container status
-docker compose -f docker-compose-GC-ARO-001-1-agent.yml ps
+docker compose -f docker-compose-GC-aro11-agent.yml ps
 
 # Monitor Promtail logs
-docker compose -f docker-compose-GC-ARO-001-1-agent.yml logs -f promtail
+docker compose -f docker-compose-GC-aro11-agent.yml logs -f promtail
 
 # Run test script
 python3 test_studio_sdp_logs.py
@@ -186,17 +186,17 @@ du -h /home/rnd/studio-sdp-roulette/self-test-2api.log
 ### Grafana Query Examples
 
 ```logql
-# All Studio SDP logs from ARO-001-1
-{job="studio_sdp_roulette", instance="GC-ARO-001-1-agent"}
+# All Studio SDP logs from aro11
+{job="studio_sdp_roulette", instance="GC-aro11-agent"}
 
 # Only Receive messages
-{job="studio_sdp_roulette", instance="GC-ARO-001-1-agent"} |= "Receive >>>"
+{job="studio_sdp_roulette", instance="GC-aro11-agent"} |= "Receive >>>"
 
 # Only WebSocket messages
-{job="studio_sdp_roulette", instance="GC-ARO-001-1-agent"} |= "WebSocket >>>"
+{job="studio_sdp_roulette", instance="GC-aro11-agent"} |= "WebSocket >>>"
 
 # Filter by time range (last 1 hour)
-{job="studio_sdp_roulette", instance="GC-ARO-001-1-agent"}[1h]
+{job="studio_sdp_roulette", instance="GC-aro11-agent"}[1h]
 ```
 
 ### Access Points
@@ -207,7 +207,7 @@ du -h /home/rnd/studio-sdp-roulette/self-test-2api.log
 ### Labels Applied
 Each log entry is automatically tagged with:
 - `job`: `studio_sdp_roulette`
-- `instance`: `GC-ARO-001-1-agent`
+- `instance`: `GC-aro11-agent`
 - `direction`: `Receive`, `Send`, or `WebSocket`
 - `filename`: `/var/log/studio-sdp-roulette/self-test-2api.log`
 
@@ -225,7 +225,7 @@ The configuration successfully:
 
 ### Docker Volumes for Persistent Storage
 
-The ARO-001-1 agent now uses Docker volumes for data persistence:
+The aro11 agent now uses Docker volumes for data persistence:
 
 | Volume Name | Purpose | Mount Point | Size |
 |-------------|---------|-------------|------|
@@ -271,8 +271,8 @@ This ensures Promtail resumes from the correct position after container restarts
 ## Files Created/Modified
 
 ### Configuration Files
-- `promtail-GC-ARO-001-1-agent.yml` - Updated with Studio SDP log job and persistent position path
-- `docker-compose-GC-ARO-001-1-agent.yml` - Added volume mounts and persistent volume definitions
+- `promtail-GC-aro11-agent.yml` - Updated with Studio SDP log job and persistent position path
+- `docker-compose-GC-aro11-agent.yml` - Added volume mounts and persistent volume definitions
 - `loki-config.yml` - Enhanced retention and rate limit settings
 
 ### Utility Scripts

@@ -13,7 +13,7 @@ SERVER_TYPE=${1:-ge}
 case $SERVER_TYPE in
     "ge"|"GE")
         SERVER_IP="100.64.0.113"
-        SERVER_NAME="GE (GC-ARO-002-1)"
+        SERVER_NAME="GE (GC-aro21)"
         ;;
     "tpe"|"TPE")
         SERVER_IP="100.64.0.160"

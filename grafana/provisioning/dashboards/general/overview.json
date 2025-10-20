@@ -110,7 +110,7 @@
     {
       "datasource": {
         "type": "loki",
-        "uid": "loki-aro-001-1-sdp"
+        "uid": "loki-aro11-sdp"
       },
       "fieldConfig": {
         "defaults": {
@@ -186,14 +186,14 @@
         {
           "datasource": {
             "type": "loki",
-            "uid": "loki-aro-001-1-sdp"
+            "uid": "loki-aro11-sdp"
           },
-          "expr": "rate({job=\"studio_sdp_roulette\", instance=\"GC-ARO-001-1-agent\"}[1m])",
+          "expr": "rate({job=\"studio_sdp_roulette\", instance=\"GC-aro11-agent\"}[1m])",
           "refId": "A",
-          "legendFormat": "ARO-001-1 SDP Log Rate"
+          "legendFormat": "aro11 SDP Log Rate"
         }
       ],
-      "title": "ARO-001-1 SDP Log Rate (logs/min)",
+      "title": "aro11 SDP Log Rate (logs/min)",
       "type": "timeseries"
     },
     {
@@ -262,7 +262,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-001-1-agent"
+            "filter": "GC-aro11-agent"
           },
           "item": {
             "filter": "zabbix[host,agent,available]"
@@ -280,7 +280,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-001-2-agent"
+            "filter": "GC-aro12-agent"
           },
           "item": {
             "filter": "zabbix[host,agent,available]"
@@ -298,7 +298,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-002-1-agent"
+            "filter": "GC-aro21-agent"
           },
           "item": {
             "filter": "zabbix[host,agent,available]"
@@ -316,7 +316,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-002-2-agent"
+            "filter": "GC-aro22-agent"
           },
           "item": {
             "filter": "zabbix[host,agent,available]"
@@ -334,7 +334,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ASB-001-1-agent"
+            "filter": "GC-asb11-agent"
           },
           "item": {
             "filter": "zabbix[host,agent,available]"
@@ -499,7 +499,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-001-1-agent"
+            "filter": "GC-aro11-agent"
           },
           "item": {
             "filter": "system.cpu.util"
@@ -517,7 +517,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-001-2-agent"
+            "filter": "GC-aro12-agent"
           },
           "item": {
             "filter": "system.cpu.util"
@@ -535,7 +535,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-002-1-agent"
+            "filter": "GC-aro21-agent"
           },
           "item": {
             "filter": "system.cpu.util"
@@ -553,7 +553,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-002-2-agent"
+            "filter": "GC-aro22-agent"
           },
           "item": {
             "filter": "system.cpu.util"
@@ -571,7 +571,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ASB-001-1-agent"
+            "filter": "GC-asb11-agent"
           },
           "item": {
             "filter": "system.cpu.util"
@@ -673,7 +673,7 @@
     {
       "datasource": {
         "type": "loki",
-        "uid": "loki-aro-001-1-sdp"
+        "uid": "loki-aro11-sdp"
       },
       "fieldConfig": {
         "defaults": {
@@ -758,13 +758,13 @@
         {
           "datasource": {
             "type": "loki",
-            "uid": "loki-aro-001-1-sdp"
+            "uid": "loki-aro11-sdp"
           },
-          "expr": "{job=\"studio_sdp_roulette\", instance=\"GC-ARO-001-1-agent\"} | json | line_format \"{{.timestamp}} | {{.direction}} | {{.message}}\"",
+          "expr": "{job=\"studio_sdp_roulette\", instance=\"GC-aro11-agent\"} | json | line_format \"{{.timestamp}} | {{.direction}} | {{.message}}\"",
           "refId": "A"
         }
       ],
-      "title": "ARO-001-1 SDP Logs - Recent Activity",
+      "title": "aro11 SDP Logs - Recent Activity",
       "transformations": [
         {
           "id": "organize",

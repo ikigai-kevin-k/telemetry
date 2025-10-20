@@ -185,11 +185,11 @@ volumes:
 
 目前配置的監控主機：
 - **Zabbix server** (hostid: 10084)
-- **GC-ARO-001-2-agent** (hostid: 10643)
-- **GC-ASB-001-1-agent**
-- **GC-ARO-001-1-agent**  
-- **GC-ARO-002-2-agent**
-- **GC-ARO-002-1-agent**
+- **GC-aro12-agent** (hostid: 10643)
+- **GC-asb11-agent**
+- **GC-aro11-agent**  
+- **GC-aro22-agent**
+- **GC-aro21-agent**
 
 ## 🔍 故障排除
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Grafana Loki ARO-001-1 SDP Log Persistence Management Script
+# Grafana Loki aro11 SDP Log Persistence Management Script
 # This script helps manage Docker persistent storage for Grafana datasource configuration
 
 set -e
@@ -61,9 +61,9 @@ backup_grafana_data() {
     fi
 }
 
-# Function to verify ARO-001-1 agent volumes
+# Function to verify aro11 agent volumes
 verify_agent_volumes() {
-    print_header "Verifying ARO-001-1 Agent Volumes"
+    print_header "Verifying aro11 Agent Volumes"
     
     volumes=(
         "telemetry_promtail_aro_001_1_positions"
@@ -113,13 +113,13 @@ verify_datasource() {
     sleep 5
     
     # Check if Loki datasource is configured
-    response=$(curl -s -u admin:admin http://localhost:3000/api/datasources/name/Loki-ARO-001-1-SDP 2>/dev/null || echo "error")
+    response=$(curl -s -u admin:admin http://localhost:3000/api/datasources/name/Loki-aro11-SDP 2>/dev/null || echo "error")
     
     if [[ "$response" == "error" ]] || [[ "$response" == *"Not found"* ]]; then
-        print_warning "ARO-001-1 SDP Loki datasource not found. It may take a few moments to provision."
+        print_warning "aro11 SDP Loki datasource not found. It may take a few moments to provision."
         print_status "You can check the provisioning status in Grafana UI at http://localhost:3000"
     else
-        print_status "✓ ARO-001-1 SDP Loki datasource is configured"
+        print_status "✓ aro11 SDP Loki datasource is configured"
     fi
 }
 
@@ -137,17 +137,17 @@ show_status() {
     ls -la grafana/provisioning/datasources/
     ls -la grafana/provisioning/dashboards/
     
-    echo -e "\nARO-001-1 Agent Status:"
+    echo -e "\naro11 Agent Status:"
     if ping -c 1 100.64.0.167 > /dev/null 2>&1; then
-        print_status "✓ ARO-001-1 agent (100.64.0.167) is reachable"
+        print_status "✓ aro11 agent (100.64.0.167) is reachable"
     else
-        print_warning "✗ ARO-001-1 agent (100.64.0.167) is not reachable"
+        print_warning "✗ aro11 agent (100.64.0.167) is not reachable"
     fi
 }
 
 # Function to display help
 show_help() {
-    echo "Grafana Loki ARO-001-1 SDP Log Persistence Management"
+    echo "Grafana Loki aro11 SDP Log Persistence Management"
     echo ""
     echo "Usage: $0 [COMMAND]"
     echo ""
@@ -188,7 +188,7 @@ main() {
             show_status
             ;;
         "setup")
-            print_header "Complete Grafana ARO-001-1 SDP Log Setup"
+            print_header "Complete Grafana aro11 SDP Log Setup"
             check_server
             backup_grafana_data
             verify_agent_volumes
@@ -196,7 +196,7 @@ main() {
             verify_datasource
             show_status
             print_status "Setup completed! Access Grafana at http://localhost:3000"
-            print_status "Look for 'ARO-001-1 SDP Log Dashboard' in the SDP Monitoring folder"
+            print_status "Look for 'aro11 SDP Log Dashboard' in the SDP Monitoring folder"
             ;;
         "help"|"--help"|"-h"|"")
             show_help

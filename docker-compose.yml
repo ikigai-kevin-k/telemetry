@@ -102,7 +102,7 @@ services:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
       - GF_PROVISIONING_DATASOURCES_PATH=/etc/grafana/provisioning/datasources
       - GF_PROVISIONING_DASHBOARDS_PATH=/etc/grafana/provisioning/dashboards
-      # Timezone setting for ARO-001-1 SDP logs
+      # Timezone setting for aro11 SDP logs
       - TZ=Asia/Taipei
       # BytePlus VMP 認證憑證 (使用環境變數)
       - BYTEPLUS_ACCESS_KEY=${BYTEPLUS_ACCESS_KEY}

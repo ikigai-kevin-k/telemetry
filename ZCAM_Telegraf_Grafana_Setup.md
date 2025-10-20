@@ -50,8 +50,8 @@ Telegraf 為每個 API 端點收集以下 metrics：
 ### **Labels/Tags**
 
 每個 metric 包含以下標籤：
-- `device_name`: ZCAM 設備名稱 (如 zcam-aro-001-1)
-- `agent_name`: 對應的 Zabbix agent (如 aro-001-1)
+- `device_name`: ZCAM 設備名稱 (如 zcam-aro11)
+- `agent_name`: 對應的 Zabbix agent (如 aro11)
 - `device_ip`: 設備 IP 位址
 - `endpoint_type`: API 端點類型 (rtmp_status, battery, camera_mode)
 - `environment`: 環境標籤 (production)
@@ -118,11 +118,11 @@ docker restart kevin-telemetry-grafana
 
 | 設備 | IP | RTMP API | Battery API | Mode API |
 |------|----|---------|-----------|---------| 
-| zcam-aro-001-1 | 192.168.88.10 | ✅ 200 OK | ✅ 200 OK | ✅ 200 OK |
-| zcam-aro-001-2 | 192.168.88.186 | ✅ 200 OK | ✅ 200 OK | ✅ 200 OK |
-| zcam-aro-002-1 | 192.168.88.12 | ✅ 200 OK | ✅ 200 OK | ✅ 200 OK |
-| zcam-aro-002-2 | 192.168.88.34 | ✅ 200 OK | ✅ 200 OK | ✅ 200 OK |
-| zcam-asb-001-1 | 192.168.88.14 | ✅ 200 OK | ✅ 200 OK | ✅ 200 OK |
+| zcam-aro11 | 192.168.88.10 | ✅ 200 OK | ✅ 200 OK | ✅ 200 OK |
+| zcam-aro12 | 192.168.88.186 | ✅ 200 OK | ✅ 200 OK | ✅ 200 OK |
+| zcam-aro21 | 192.168.88.12 | ✅ 200 OK | ✅ 200 OK | ✅ 200 OK |
+| zcam-aro22 | 192.168.88.34 | ✅ 200 OK | ✅ 200 OK | ✅ 200 OK |
+| zcam-asb11 | 192.168.88.14 | ✅ 200 OK | ✅ 200 OK | ✅ 200 OK |
 
 ## 🚨 告警建議
 

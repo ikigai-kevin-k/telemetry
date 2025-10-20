@@ -6,7 +6,7 @@
   "tags": ["zabbix", "system", "monitoring", "master", "agents"],
   "style": "dark",
   "timezone": "browser",
-  "description": "Comprehensive monitoring dashboard for all Zabbix agents: GC-ARO-001-1, GC-ARO-001-2, GC-ARO-002-1, GC-ARO-002-2, and GC-ASB-001-1",
+  "description": "Comprehensive monitoring dashboard for all Zabbix agents: GC-aro11, GC-aro12, GC-aro21, GC-aro22, and GC-asb11",
   "panels": [
     {
       "id": 1,
@@ -24,7 +24,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-001-1-agent"
+            "filter": "GC-aro11-agent"
           },
           "item": {
             "filter": "zabbix[host,agent,available]"
@@ -42,7 +42,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-001-2-agent"
+            "filter": "GC-aro12-agent"
           },
           "item": {
             "filter": "zabbix[host,agent,available]"
@@ -60,7 +60,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-002-1-agent"
+            "filter": "GC-aro21-agent"
           },
           "item": {
             "filter": "zabbix[host,agent,available]"
@@ -78,7 +78,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-002-2-agent"
+            "filter": "GC-aro22-agent"
           },
           "item": {
             "filter": "zabbix[host,agent,available]"
@@ -96,7 +96,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ASB-001-1-agent"
+            "filter": "GC-asb11-agent"
           },
           "item": {
             "filter": "zabbix[host,agent,available]"
@@ -162,7 +162,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-001-1-agent"
+            "filter": "GC-aro11-agent"
           },
           "item": {
             "filter": "system.cpu.util"
@@ -180,7 +180,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-001-2-agent"
+            "filter": "GC-aro12-agent"
           },
           "item": {
             "filter": "system.cpu.util"
@@ -198,7 +198,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-002-1-agent"
+            "filter": "GC-aro21-agent"
           },
           "item": {
             "filter": "system.cpu.util"
@@ -216,7 +216,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-002-2-agent"
+            "filter": "GC-aro22-agent"
           },
           "item": {
             "filter": "system.cpu.util"
@@ -234,7 +234,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ASB-001-1-agent"
+            "filter": "GC-asb11-agent"
           },
           "item": {
             "filter": "system.cpu.util"
@@ -292,7 +292,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-001-1-agent"
+            "filter": "GC-aro11-agent"
           },
           "item": {
             "filter": "vm.memory.utilization"
@@ -310,7 +310,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-001-2-agent"
+            "filter": "GC-aro12-agent"
           },
           "item": {
             "filter": "vm.memory.utilization"
@@ -328,7 +328,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-002-1-agent"
+            "filter": "GC-aro21-agent"
           },
           "item": {
             "filter": "vm.memory.utilization"
@@ -346,7 +346,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-002-2-agent"
+            "filter": "GC-aro22-agent"
           },
           "item": {
             "filter": "vm.memory.utilization"
@@ -364,7 +364,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ASB-001-1-agent"
+            "filter": "GC-asb11-agent"
           },
           "item": {
             "filter": "vm.memory.utilization"
@@ -422,7 +422,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-001-1-agent"
+            "filter": "GC-aro11-agent"
           },
           "item": {
             "filter": "system.cpu.load[all,avg1]"
@@ -440,7 +440,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-001-2-agent"
+            "filter": "GC-aro12-agent"
           },
           "item": {
             "filter": "system.cpu.load[all,avg1]"
@@ -458,7 +458,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-002-1-agent"
+            "filter": "GC-aro21-agent"
           },
           "item": {
             "filter": "system.cpu.load[all,avg1]"
@@ -476,7 +476,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-002-2-agent"
+            "filter": "GC-aro22-agent"
           },
           "item": {
             "filter": "system.cpu.load[all,avg1]"
@@ -494,7 +494,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ASB-001-1-agent"
+            "filter": "GC-asb11-agent"
           },
           "item": {
             "filter": "system.cpu.load[all,avg1]"
@@ -550,7 +550,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-001-1-agent"
+            "filter": "GC-aro11-agent"
           },
           "item": {
             "filter": "system.uptime"
@@ -568,7 +568,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-001-2-agent"
+            "filter": "GC-aro12-agent"
           },
           "item": {
             "filter": "system.uptime"
@@ -586,7 +586,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-002-1-agent"
+            "filter": "GC-aro21-agent"
           },
           "item": {
             "filter": "system.uptime"
@@ -604,7 +604,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-002-2-agent"
+            "filter": "GC-aro22-agent"
           },
           "item": {
             "filter": "system.uptime"
@@ -622,7 +622,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ASB-001-1-agent"
+            "filter": "GC-asb11-agent"
           },
           "item": {
             "filter": "system.uptime"
@@ -662,7 +662,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-001-1-agent"
+            "filter": "GC-aro11-agent"
           },
           "item": {
             "filter": "vfs.fs.size[/etc/hostname,pused]"
@@ -680,7 +680,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-001-2-agent"
+            "filter": "GC-aro12-agent"
           },
           "item": {
             "filter": "vfs.fs.size[/etc/hostname,pused]"
@@ -698,7 +698,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-002-1-agent"
+            "filter": "GC-aro21-agent"
           },
           "item": {
             "filter": "vfs.fs.size[/etc/hostname,pused]"
@@ -716,7 +716,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-002-2-agent"
+            "filter": "GC-aro22-agent"
           },
           "item": {
             "filter": "vfs.fs.size[/etc/hostname,pused]"
@@ -734,7 +734,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ASB-001-1-agent"
+            "filter": "GC-asb11-agent"
           },
           "item": {
             "filter": "vfs.fs.size[/etc/hostname,pused]"
@@ -792,7 +792,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-001-1-agent"
+            "filter": "GC-aro11-agent"
           },
           "item": {
             "filter": "net.if.in[\"eth0\"]"
@@ -810,7 +810,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-001-1-agent"
+            "filter": "GC-aro11-agent"
           },
           "item": {
             "filter": "net.if.out[\"eth0\"]"
@@ -828,7 +828,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-001-2-agent"
+            "filter": "GC-aro12-agent"
           },
           "item": {
             "filter": "net.if.in[\"eth0\"]"
@@ -846,7 +846,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-001-2-agent"
+            "filter": "GC-aro12-agent"
           },
           "item": {
             "filter": "net.if.out[\"eth0\"]"
@@ -864,7 +864,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-002-1-agent"
+            "filter": "GC-aro21-agent"
           },
           "item": {
             "filter": "net.if.in[\"eth0\"]"
@@ -882,7 +882,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-002-1-agent"
+            "filter": "GC-aro21-agent"
           },
           "item": {
             "filter": "net.if.out[\"eth0\"]"
@@ -900,7 +900,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-002-2-agent"
+            "filter": "GC-aro22-agent"
           },
           "item": {
             "filter": "net.if.in[\"eth0\"]"
@@ -918,7 +918,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-002-2-agent"
+            "filter": "GC-aro22-agent"
           },
           "item": {
             "filter": "net.if.out[\"eth0\"]"
@@ -936,7 +936,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ASB-001-1-agent"
+            "filter": "GC-asb11-agent"
           },
           "item": {
             "filter": "net.if.in[\"eth0\"]"
@@ -954,7 +954,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ASB-001-1-agent"
+            "filter": "GC-asb11-agent"
           },
           "item": {
             "filter": "net.if.out[\"eth0\"]"
@@ -994,7 +994,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-001-1-agent"
+            "filter": "GC-aro11-agent"
           },
           "item": {
             "filter": "proc.num[]"
@@ -1012,7 +1012,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-001-2-agent"
+            "filter": "GC-aro12-agent"
           },
           "item": {
             "filter": "proc.num[]"
@@ -1030,7 +1030,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-002-1-agent"
+            "filter": "GC-aro21-agent"
           },
           "item": {
             "filter": "proc.num[]"
@@ -1048,7 +1048,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ARO-002-2-agent"
+            "filter": "GC-aro22-agent"
           },
           "item": {
             "filter": "proc.num[]"
@@ -1066,7 +1066,7 @@
             "filter": ""
           },
           "host": {
-            "filter": "GC-ASB-001-1-agent"
+            "filter": "GC-asb11-agent"
           },
           "item": {
             "filter": "proc.num[]"
