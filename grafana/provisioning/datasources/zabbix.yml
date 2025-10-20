@@ -9,7 +9,7 @@ datasources:
     basicAuth: false
     isDefault: false
     jsonData:
-      username: Admin
+      username: admin
       cacheTTL: 300s
       timeout: 30
       trends: true
@@ -23,5 +23,5 @@ datasources:
       queryMode: Metrics
       tlsSkipVerify: true
     secureJsonData:
-      password: zabbix
+      password: admin
     editable: true
