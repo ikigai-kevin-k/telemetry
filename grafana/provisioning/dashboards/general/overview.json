@@ -203,6 +203,8 @@
       },
       "targets": [
         {
+          "alias": "GC-aro12-agent",
+          "aliasBy": "GC-aro12-agent",
           "application": {
             "filter": ""
           },
@@ -212,7 +214,26 @@
             "uid": "zabbix-datasource"
           },
           "evaltype": "0",
-          "functions": [],
+          "functions": [
+            {
+              "def": {
+                "name": "setAlias",
+                "category": "Alias",
+                "params": [
+                  {
+                    "name": "alias",
+                    "type": "string"
+                  }
+                ],
+                "defaultParams": []
+              },
+              "params": [
+                "ARO12"
+              ],
+              "text": "setAlias()",
+              "added": true
+            }
+          ],
           "group": {
             "filter": "Linux servers"
           },
@@ -255,6 +276,8 @@
           }
         },
         {
+          "alias": "GC-ARO-001-1-agent",
+          "aliasBy": "GC-ARO-001-1-agent",
           "application": {
             "filter": ""
           },
@@ -264,7 +287,26 @@
             "uid": "zabbix-datasource"
           },
           "evaltype": "0",
-          "functions": [],
+          "functions": [
+            {
+              "def": {
+                "name": "setAlias",
+                "category": "Alias",
+                "params": [
+                  {
+                    "name": "alias",
+                    "type": "string"
+                  }
+                ],
+                "defaultParams": []
+              },
+              "params": [
+                "ARO11"
+              ],
+              "text": "setAlias()",
+              "added": true
+            }
+          ],
           "group": {
             "filter": "Linux servers"
           },
@@ -308,6 +350,8 @@
           }
         },
         {
+          "alias": "GC-ARO-002-1-agent",
+          "aliasBy": "GC-ARO-002-1-agent",
           "application": {
             "filter": ""
           },
@@ -317,7 +361,26 @@
             "uid": "zabbix-datasource"
           },
           "evaltype": "0",
-          "functions": [],
+          "functions": [
+            {
+              "def": {
+                "name": "setAlias",
+                "category": "Alias",
+                "params": [
+                  {
+                    "name": "alias",
+                    "type": "string"
+                  }
+                ],
+                "defaultParams": []
+              },
+              "params": [
+                "ARO21"
+              ],
+              "text": "setAlias()",
+              "added": true
+            }
+          ],
           "group": {
             "filter": "Linux servers"
           },
@@ -361,6 +424,8 @@
           }
         },
         {
+          "alias": "GC-ARO-002-2-agent",
+          "aliasBy": "GC-ARO-002-2-agent",
           "application": {
             "filter": ""
           },
@@ -370,7 +435,26 @@
             "uid": "zabbix-datasource"
           },
           "evaltype": "0",
-          "functions": [],
+          "functions": [
+            {
+              "def": {
+                "name": "setAlias",
+                "category": "Alias",
+                "params": [
+                  {
+                    "name": "alias",
+                    "type": "string"
+                  }
+                ],
+                "defaultParams": []
+              },
+              "params": [
+                "ARO22"
+              ],
+              "text": "setAlias()",
+              "added": true
+            }
+          ],
           "group": {
             "filter": "Linux servers"
           },
@@ -414,6 +498,8 @@
           }
         },
         {
+          "alias": "GC-ASB-001-1-agent",
+          "aliasBy": "GC-ASB-001-1-agent",
           "application": {
             "filter": ""
           },
@@ -423,7 +509,26 @@
             "uid": "zabbix-datasource"
           },
           "evaltype": "0",
-          "functions": [],
+          "functions": [
+            {
+              "def": {
+                "name": "setAlias",
+                "category": "Alias",
+                "params": [
+                  {
+                    "name": "alias",
+                    "type": "string"
+                  }
+                ],
+                "defaultParams": []
+              },
+              "params": [
+                "ASB11"
+              ],
+              "text": "setAlias()",
+              "added": true
+            }
+          ],
           "group": {
             "filter": "Linux servers"
           },
@@ -549,6 +654,8 @@
       },
       "targets": [
         {
+          "alias": "GC-aro12-agent",
+          "aliasBy": "GC-aro12-agent",
           "application": {
             "filter": ""
           },
@@ -558,7 +665,26 @@
             "uid": "zabbix-datasource"
           },
           "evaltype": "0",
-          "functions": [],
+          "functions": [
+            {
+              "def": {
+                "name": "setAlias",
+                "category": "Alias",
+                "params": [
+                  {
+                    "name": "alias",
+                    "type": "string"
+                  }
+                ],
+                "defaultParams": []
+              },
+              "params": [
+                "ARO12"
+              ],
+              "text": "setAlias()",
+              "added": true
+            }
+          ],
           "group": {
             "filter": "Linux servers"
           },
@@ -601,6 +727,8 @@
           }
         },
         {
+          "alias": "GC-ARO-001-1-agent",
+          "aliasBy": "GC-ARO-001-1-agent",
           "application": {
             "filter": ""
           },
@@ -610,7 +738,26 @@
             "uid": "zabbix-datasource"
           },
           "evaltype": "0",
-          "functions": [],
+          "functions": [
+            {
+              "def": {
+                "name": "setAlias",
+                "category": "Alias",
+                "params": [
+                  {
+                    "name": "alias",
+                    "type": "string"
+                  }
+                ],
+                "defaultParams": []
+              },
+              "params": [
+                "ARO11"
+              ],
+              "text": "setAlias()",
+              "added": true
+            }
+          ],
           "group": {
             "filter": "Linux servers"
           },
@@ -653,6 +800,8 @@
           }
         },
         {
+          "alias": "GC-ARO-002-1-agent",
+          "aliasBy": "GC-ARO-002-1-agent",
           "application": {
             "filter": ""
           },
@@ -662,7 +811,26 @@
             "uid": "zabbix-datasource"
           },
           "evaltype": "0",
-          "functions": [],
+          "functions": [
+            {
+              "def": {
+                "name": "setAlias",
+                "category": "Alias",
+                "params": [
+                  {
+                    "name": "alias",
+                    "type": "string"
+                  }
+                ],
+                "defaultParams": []
+              },
+              "params": [
+                "ARO21"
+              ],
+              "text": "setAlias()",
+              "added": true
+            }
+          ],
           "group": {
             "filter": "Linux servers"
           },
@@ -706,6 +874,8 @@
           }
         },
         {
+          "alias": "GC-ARO-002-2-agent",
+          "aliasBy": "GC-ARO-002-2-agent",
           "application": {
             "filter": ""
           },
@@ -715,7 +885,26 @@
             "uid": "zabbix-datasource"
           },
           "evaltype": "0",
-          "functions": [],
+          "functions": [
+            {
+              "def": {
+                "name": "setAlias",
+                "category": "Alias",
+                "params": [
+                  {
+                    "name": "alias",
+                    "type": "string"
+                  }
+                ],
+                "defaultParams": []
+              },
+              "params": [
+                "ARO22"
+              ],
+              "text": "setAlias()",
+              "added": true
+            }
+          ],
           "group": {
             "filter": "Linux servers"
           },
@@ -759,6 +948,8 @@
           }
         },
         {
+          "alias": "GC-ASB-001-1-agent",
+          "aliasBy": "GC-ASB-001-1-agent",
           "application": {
             "filter": ""
           },
@@ -768,7 +959,26 @@
             "uid": "zabbix-datasource"
           },
           "evaltype": "0",
-          "functions": [],
+          "functions": [
+            {
+              "def": {
+                "name": "setAlias",
+                "category": "Alias",
+                "params": [
+                  {
+                    "name": "alias",
+                    "type": "string"
+                  }
+                ],
+                "defaultParams": []
+              },
+              "params": [
+                "ASB11"
+              ],
+              "text": "setAlias()",
+              "added": true
+            }
+          ],
           "group": {
             "filter": "Linux servers"
           },
@@ -1452,6 +1662,6 @@
   "timezone": "Asia/Taipei",
   "title": "System Overview",
   "uid": "overview-dashboard",
-  "version": 40,
+  "version": 60,
   "weekStart": ""
 }
