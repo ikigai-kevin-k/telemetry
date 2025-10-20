@@ -20,769 +20,6 @@
   "panels": [
     {
       "datasource": {
-        "type": "loki",
-        "uid": "fewqf9pkx0p34c"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "vis": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 0
-      },
-      "id": 1,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "9.5.21",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "fewqf9pkx0p34c"
-          },
-          "expr": "rate({job=\"srs_test\", instance=\"telemetry-promtail-test-agent\"}[1m])",
-          "refId": "A",
-          "legendFormat": "Test Agent SRS Log Rate"
-        }
-      ],
-      "title": "Test Agent SRS Log Rate (logs/min)",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "loki-aro11-sdp"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "vis": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 0
-      },
-      "id": 2,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "9.5.21",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "loki-aro11-sdp"
-          },
-          "expr": "rate({job=\"studio_sdp_roulette\", instance=\"GC-aro11-agent\"}[1m])",
-          "refId": "A",
-          "legendFormat": "aro11 SDP Log Rate"
-        }
-      ],
-      "title": "aro11 SDP Log Rate (logs/min)",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "alexanderzobnin-zabbix-datasource",
-        "uid": "deyb4mbky1tz4d"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "thresholds": {
-            "steps": [
-              {
-                "color": "red",
-                "value": 0
-              },
-              {
-                "color": "green",
-                "value": 1
-              }
-            ]
-          },
-          "mappings": [
-            {
-              "type": "value",
-              "value": "0",
-              "text": "Offline"
-            },
-            {
-              "type": "value",
-              "value": "1",
-              "text": "Online"
-            }
-          ]
-        }
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 24,
-        "x": 0,
-        "y": 8
-      },
-      "id": 3,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "values": false,
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": ""
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.5.21",
-      "targets": [
-        {
-          "queryType": "",
-          "refId": "A",
-          "group": {
-            "filter": ""
-          },
-          "host": {
-            "filter": "GC-aro11-agent"
-          },
-          "item": {
-            "filter": "zabbix[host,agent,available]"
-          },
-          "functions": [],
-          "options": {
-            "showDisabledItems": false,
-            "skipEmptyValues": false
-          }
-        },
-        {
-          "queryType": "",
-          "refId": "B",
-          "group": {
-            "filter": ""
-          },
-          "host": {
-            "filter": "GC-aro12-agent"
-          },
-          "item": {
-            "filter": "zabbix[host,agent,available]"
-          },
-          "functions": [],
-          "options": {
-            "showDisabledItems": false,
-            "skipEmptyValues": false
-          }
-        },
-        {
-          "queryType": "",
-          "refId": "C",
-          "group": {
-            "filter": ""
-          },
-          "host": {
-            "filter": "GC-aro21-agent"
-          },
-          "item": {
-            "filter": "zabbix[host,agent,available]"
-          },
-          "functions": [],
-          "options": {
-            "showDisabledItems": false,
-            "skipEmptyValues": false
-          }
-        },
-        {
-          "queryType": "",
-          "refId": "D",
-          "group": {
-            "filter": ""
-          },
-          "host": {
-            "filter": "GC-aro22-agent"
-          },
-          "item": {
-            "filter": "zabbix[host,agent,available]"
-          },
-          "functions": [],
-          "options": {
-            "showDisabledItems": false,
-            "skipEmptyValues": false
-          }
-        },
-        {
-          "queryType": "",
-          "refId": "E",
-          "group": {
-            "filter": ""
-          },
-          "host": {
-            "filter": "GC-asb11-agent"
-          },
-          "item": {
-            "filter": "zabbix[host,agent,available]"
-          },
-          "functions": [],
-          "options": {
-            "showDisabledItems": false,
-            "skipEmptyValues": false
-          }
-        }
-      ],
-      "title": "Zabbix Agents Status Overview",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "vis": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "s"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 14
-      },
-      "id": 4,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "code",
-          "expr": "http_response_response_time{job=\"telegraf-zcam\"}",
-          "instant": false,
-          "legendFormat": "{{device_name}} - {{endpoint_type}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "ZCAM API Response Time",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "alexanderzobnin-zabbix-datasource",
-        "uid": "deyb4mbky1tz4d"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "unit": "percent",
-          "min": 0,
-          "max": 100,
-          "thresholds": {
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "yellow",
-                "value": 70
-              },
-              {
-                "color": "red",
-                "value": 90
-              }
-            ]
-          }
-        }
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 14
-      },
-      "id": 5,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "queryType": "",
-          "refId": "A",
-          "group": {
-            "filter": ""
-          },
-          "host": {
-            "filter": "GC-aro11-agent"
-          },
-          "item": {
-            "filter": "system.cpu.util"
-          },
-          "functions": [],
-          "options": {
-            "showDisabledItems": false,
-            "skipEmptyValues": false
-          }
-        },
-        {
-          "queryType": "",
-          "refId": "B",
-          "group": {
-            "filter": ""
-          },
-          "host": {
-            "filter": "GC-aro12-agent"
-          },
-          "item": {
-            "filter": "system.cpu.util"
-          },
-          "functions": [],
-          "options": {
-            "showDisabledItems": false,
-            "skipEmptyValues": false
-          }
-        },
-        {
-          "queryType": "",
-          "refId": "C",
-          "group": {
-            "filter": ""
-          },
-          "host": {
-            "filter": "GC-aro21-agent"
-          },
-          "item": {
-            "filter": "system.cpu.util"
-          },
-          "functions": [],
-          "options": {
-            "showDisabledItems": false,
-            "skipEmptyValues": false
-          }
-        },
-        {
-          "queryType": "",
-          "refId": "D",
-          "group": {
-            "filter": ""
-          },
-          "host": {
-            "filter": "GC-aro22-agent"
-          },
-          "item": {
-            "filter": "system.cpu.util"
-          },
-          "functions": [],
-          "options": {
-            "showDisabledItems": false,
-            "skipEmptyValues": false
-          }
-        },
-        {
-          "queryType": "",
-          "refId": "E",
-          "group": {
-            "filter": ""
-          },
-          "host": {
-            "filter": "GC-asb11-agent"
-          },
-          "item": {
-            "filter": "system.cpu.util"
-          },
-          "functions": [],
-          "options": {
-            "showDisabledItems": false,
-            "skipEmptyValues": false
-          }
-        }
-      ],
-      "title": "CPU Usage - All Agents",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "fewqf9pkx0p34c"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "auto",
-            "displayMode": "auto",
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "level"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 100
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 22
-      },
-      "id": 6,
-      "options": {
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": true,
-            "displayName": "Time"
-          }
-        ]
-      },
-      "pluginVersion": "9.5.21",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "fewqf9pkx0p34c"
-          },
-          "expr": "{job=\"srs_test\", instance=\"telemetry-promtail-test-agent\"}",
-          "refId": "A"
-        }
-      ],
-      "title": "Test Agent SRS Logs - Recent Activity",
-      "transformations": [
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {},
-            "indexByName": {},
-            "renameByName": {
-              "Line": "Log Message",
-              "Time": "Timestamp"
-            }
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "loki-aro11-sdp"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "auto",
-            "displayMode": "auto",
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "direction"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "mode": "thresholds"
-                }
-              },
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "blue",
-                      "value": null
-                    },
-                    {
-                      "color": "green",
-                      "value": "Receive"
-                    },
-                    {
-                      "color": "orange",
-                      "value": "Send"
-                    },
-                    {
-                      "color": "red",
-                      "value": "WebSocket"
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 22
-      },
-      "id": 7,
-      "options": {
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": true,
-            "displayName": "Time"
-          }
-        ]
-      },
-      "pluginVersion": "9.5.21",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "loki-aro11-sdp"
-          },
-          "expr": "{job=\"studio_sdp_roulette\", instance=\"GC-aro11-agent\"} | json | line_format \"{{.timestamp}} | {{.direction}} | {{.message}}\"",
-          "refId": "A"
-        }
-      ],
-      "title": "aro11 SDP Logs - Recent Activity",
-      "transformations": [
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {},
-            "indexByName": {},
-            "renameByName": {
-              "Line": "Log Message",
-              "Time": "Timestamp",
-              "direction": "Direction"
-            }
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "datasource": {
         "type": "prometheus",
         "uid": "PBFA97CFB590B2093"
       },
@@ -993,7 +230,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 30
+        "y": 0
       },
       "id": 8,
       "options": {
@@ -1063,6 +300,888 @@
       ],
       "title": "ZCAM API Health Status",
       "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "deyb4mbky1tz4d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "thresholds": {
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 90
+              }
+            ]
+          }
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 5,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "queryType": "",
+          "refId": "A",
+          "group": {
+            "filter": ""
+          },
+          "host": {
+            "filter": "GC-aro11-agent"
+          },
+          "item": {
+            "filter": "system.cpu.util"
+          },
+          "functions": [],
+          "options": {
+            "showDisabledItems": false,
+            "skipEmptyValues": false
+          }
+        },
+        {
+          "queryType": "",
+          "refId": "B",
+          "group": {
+            "filter": ""
+          },
+          "host": {
+            "filter": "GC-aro12-agent"
+          },
+          "item": {
+            "filter": "system.cpu.util"
+          },
+          "functions": [],
+          "options": {
+            "showDisabledItems": false,
+            "skipEmptyValues": false
+          }
+        },
+        {
+          "queryType": "",
+          "refId": "C",
+          "group": {
+            "filter": ""
+          },
+          "host": {
+            "filter": "GC-aro21-agent"
+          },
+          "item": {
+            "filter": "system.cpu.util"
+          },
+          "functions": [],
+          "options": {
+            "showDisabledItems": false,
+            "skipEmptyValues": false
+          }
+        },
+        {
+          "queryType": "",
+          "refId": "D",
+          "group": {
+            "filter": ""
+          },
+          "host": {
+            "filter": "GC-aro22-agent"
+          },
+          "item": {
+            "filter": "system.cpu.util"
+          },
+          "functions": [],
+          "options": {
+            "showDisabledItems": false,
+            "skipEmptyValues": false
+          }
+        },
+        {
+          "queryType": "",
+          "refId": "E",
+          "group": {
+            "filter": ""
+          },
+          "host": {
+            "filter": "GC-asb11-agent"
+          },
+          "item": {
+            "filter": "system.cpu.util"
+          },
+          "functions": [],
+          "options": {
+            "showDisabledItems": false,
+            "skipEmptyValues": false
+          }
+        }
+      ],
+      "title": "CPU Usage - All Agents",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "deyb4mbky1tz4d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bps"
+        }
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "id": 9,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "queryType": "",
+          "refId": "A",
+          "group": {
+            "filter": ""
+          },
+          "host": {
+            "filter": "GC-aro11-agent"
+          },
+          "item": {
+            "filter": "net.if.in[\"eth0\"]"
+          },
+          "functions": [],
+          "options": {
+            "showDisabledItems": false,
+            "skipEmptyValues": false
+          }
+        },
+        {
+          "queryType": "",
+          "refId": "B",
+          "group": {
+            "filter": ""
+          },
+          "host": {
+            "filter": "GC-aro11-agent"
+          },
+          "item": {
+            "filter": "net.if.out[\"eth0\"]"
+          },
+          "functions": [],
+          "options": {
+            "showDisabledItems": false,
+            "skipEmptyValues": false
+          }
+        },
+        {
+          "queryType": "",
+          "refId": "C",
+          "group": {
+            "filter": ""
+          },
+          "host": {
+            "filter": "GC-aro12-agent"
+          },
+          "item": {
+            "filter": "net.if.in[\"eth0\"]"
+          },
+          "functions": [],
+          "options": {
+            "showDisabledItems": false,
+            "skipEmptyValues": false
+          }
+        },
+        {
+          "queryType": "",
+          "refId": "D",
+          "group": {
+            "filter": ""
+          },
+          "host": {
+            "filter": "GC-aro12-agent"
+          },
+          "item": {
+            "filter": "net.if.out[\"eth0\"]"
+          },
+          "functions": [],
+          "options": {
+            "showDisabledItems": false,
+            "skipEmptyValues": false
+          }
+        },
+        {
+          "queryType": "",
+          "refId": "E",
+          "group": {
+            "filter": ""
+          },
+          "host": {
+            "filter": "GC-aro21-agent"
+          },
+          "item": {
+            "filter": "net.if.in[\"eth0\"]"
+          },
+          "functions": [],
+          "options": {
+            "showDisabledItems": false,
+            "skipEmptyValues": false
+          }
+        },
+        {
+          "queryType": "",
+          "refId": "F",
+          "group": {
+            "filter": ""
+          },
+          "host": {
+            "filter": "GC-aro21-agent"
+          },
+          "item": {
+            "filter": "net.if.out[\"eth0\"]"
+          },
+          "functions": [],
+          "options": {
+            "showDisabledItems": false,
+            "skipEmptyValues": false
+          }
+        },
+        {
+          "queryType": "",
+          "refId": "G",
+          "group": {
+            "filter": ""
+          },
+          "host": {
+            "filter": "GC-aro22-agent"
+          },
+          "item": {
+            "filter": "net.if.in[\"eth0\"]"
+          },
+          "functions": [],
+          "options": {
+            "showDisabledItems": false,
+            "skipEmptyValues": false
+          }
+        },
+        {
+          "queryType": "",
+          "refId": "H",
+          "group": {
+            "filter": ""
+          },
+          "host": {
+            "filter": "GC-aro22-agent"
+          },
+          "item": {
+            "filter": "net.if.out[\"eth0\"]"
+          },
+          "functions": [],
+          "options": {
+            "showDisabledItems": false,
+            "skipEmptyValues": false
+          }
+        },
+        {
+          "queryType": "",
+          "refId": "I",
+          "group": {
+            "filter": ""
+          },
+          "host": {
+            "filter": "GC-asb11-agent"
+          },
+          "item": {
+            "filter": "net.if.in[\"eth0\"]"
+          },
+          "functions": [],
+          "options": {
+            "showDisabledItems": false,
+            "skipEmptyValues": false
+          }
+        },
+        {
+          "queryType": "",
+          "refId": "J",
+          "group": {
+            "filter": ""
+          },
+          "host": {
+            "filter": "GC-asb11-agent"
+          },
+          "item": {
+            "filter": "net.if.out[\"eth0\"]"
+          },
+          "functions": [],
+          "options": {
+            "showDisabledItems": false,
+            "skipEmptyValues": false
+          }
+        }
+      ],
+      "title": "Network Traffic - All Agents",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "deyb4mbky1tz4d"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "steps": [
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          },
+          "mappings": [
+            {
+              "type": "value",
+              "value": "0",
+              "text": "Offline"
+            },
+            {
+              "type": "value",
+              "value": "1",
+              "text": "Online"
+            }
+          ]
+        }
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "id": 3,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "values": false,
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": ""
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.21",
+      "targets": [
+        {
+          "queryType": "",
+          "refId": "A",
+          "group": {
+            "filter": ""
+          },
+          "host": {
+            "filter": "GC-aro11-agent"
+          },
+          "item": {
+            "filter": "zabbix[host,agent,available]"
+          },
+          "functions": [],
+          "options": {
+            "showDisabledItems": false,
+            "skipEmptyValues": false
+          }
+        },
+        {
+          "queryType": "",
+          "refId": "B",
+          "group": {
+            "filter": ""
+          },
+          "host": {
+            "filter": "GC-aro12-agent"
+          },
+          "item": {
+            "filter": "zabbix[host,agent,available]"
+          },
+          "functions": [],
+          "options": {
+            "showDisabledItems": false,
+            "skipEmptyValues": false
+          }
+        },
+        {
+          "queryType": "",
+          "refId": "C",
+          "group": {
+            "filter": ""
+          },
+          "host": {
+            "filter": "GC-aro21-agent"
+          },
+          "item": {
+            "filter": "zabbix[host,agent,available]"
+          },
+          "functions": [],
+          "options": {
+            "showDisabledItems": false,
+            "skipEmptyValues": false
+          }
+        },
+        {
+          "queryType": "",
+          "refId": "D",
+          "group": {
+            "filter": ""
+          },
+          "host": {
+            "filter": "GC-aro22-agent"
+          },
+          "item": {
+            "filter": "zabbix[host,agent,available]"
+          },
+          "functions": [],
+          "options": {
+            "showDisabledItems": false,
+            "skipEmptyValues": false
+          }
+        },
+        {
+          "queryType": "",
+          "refId": "E",
+          "group": {
+            "filter": ""
+          },
+          "host": {
+            "filter": "GC-asb11-agent"
+          },
+          "item": {
+            "filter": "zabbix[host,agent,available]"
+          },
+          "functions": [],
+          "options": {
+            "showDisabledItems": false,
+            "skipEmptyValues": false
+          }
+        }
+      ],
+      "title": "Zabbix Agents Status Overview",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "fewqf9pkx0p34c"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "vis": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 22
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.5.21",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "fewqf9pkx0p34c"
+          },
+          "expr": "rate({job=\"srs_test\", instance=\"telemetry-promtail-test-agent\"}[1m])",
+          "refId": "A",
+          "legendFormat": "Test Agent SRS Log Rate"
+        }
+      ],
+      "title": "Test Agent SRS Log Rate (logs/min)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki-aro11-sdp"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "vis": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 22
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.5.21",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki-aro11-sdp"
+          },
+          "expr": "rate({job=\"studio_sdp_roulette\", instance=\"GC-aro11-agent\"}[1m])",
+          "refId": "A",
+          "legendFormat": "aro11 SDP Log Rate"
+        }
+      ],
+      "title": "aro11 SDP Log Rate (logs/min)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "fewqf9pkx0p34c"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "level"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 100
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 30
+      },
+      "id": 6,
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Time"
+          }
+        ]
+      },
+      "pluginVersion": "9.5.21",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "fewqf9pkx0p34c"
+          },
+          "expr": "{job=\"srs_test\", instance=\"telemetry-promtail-test-agent\"}",
+          "refId": "A"
+        }
+      ],
+      "title": "Test Agent SRS Logs - Recent Activity",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "Line": "Log Message",
+              "Time": "Timestamp"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "loki-aro11-sdp"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "direction"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "thresholds"
+                }
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    },
+                    {
+                      "color": "green",
+                      "value": "Receive"
+                    },
+                    {
+                      "color": "orange",
+                      "value": "Send"
+                    },
+                    {
+                      "color": "red",
+                      "value": "WebSocket"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 30
+      },
+      "id": 7,
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Time"
+          }
+        ]
+      },
+      "pluginVersion": "9.5.21",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki-aro11-sdp"
+          },
+          "expr": "{job=\"studio_sdp_roulette\", instance=\"GC-aro11-agent\"} | json | line_format \"{{.timestamp}} | {{.direction}} | {{.message}}\"",
+          "refId": "A"
+        }
+      ],
+      "title": "aro11 SDP Logs - Recent Activity",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "Line": "Log Message",
+              "Time": "Timestamp",
+              "direction": "Direction"
+            }
+          }
+        }
+      ],
+      "type": "table"
     }
   ],
   "refresh": "30s",
