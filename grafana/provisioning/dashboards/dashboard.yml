@@ -66,3 +66,14 @@ providers:
     allowUiUpdates: true
     options:
       path: /etc/grafana/provisioning/dashboards/general
+      
+  # BytePlus monitoring dashboards
+  - name: 'byteplus-dashboards'
+    orgId: 1
+    folder: 'BytePlus'
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 10
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/byteplus

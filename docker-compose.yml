@@ -91,6 +91,9 @@ services:
       # Ensure provisioning directories are accessible
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
       - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
+    env_file:
+      # Load environment variables from file
+      - ./byteplus-credentials.env
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
@@ -101,6 +104,9 @@ services:
       - GF_PROVISIONING_DASHBOARDS_PATH=/etc/grafana/provisioning/dashboards
       # Timezone setting for ARO-001-1 SDP logs
       - TZ=Asia/Taipei
+      # BytePlus VMP 認證憑證 (使用環境變數)
+      - BYTEPLUS_ACCESS_KEY=${BYTEPLUS_ACCESS_KEY}
+      - BYTEPLUS_SECRET_KEY=${BYTEPLUS_SECRET_KEY}
     restart: unless-stopped
 
   # Zabbix Server
