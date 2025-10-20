@@ -13,174 +13,12 @@
     ]
   },
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": null,
+  "id": 46,
   "links": [],
+  "liveNow": false,
   "panels": [
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [
-            {
-              "options": {
-                "0": {
-                  "color": "green",
-                  "index": 0,
-                  "text": "SUCCESS"
-                },
-                "1": {
-                  "color": "red",
-                  "index": 1,
-                  "text": "FAILED"
-                }
-              },
-              "type": "value"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 1
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": "/.*Battery.*/"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "percent"
-              },
-              {
-                "id": "decimals",
-                "value": 0
-              },
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "red",
-                      "value": null
-                    },
-                    {
-                      "color": "green",
-                      "value": 100
-                    }
-                  ]
-                }
-              },
-              {
-                "id": "custom.displayMode",
-                "value": "basic"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": "/.*Mode.*/"
-            },
-            "properties": [
-              {
-                "id": "custom.displayMode",
-                "value": "basic"
-              },
-              {
-                "id": "mappings",
-                "value": [
-                  {
-                    "options": {
-                      "1": {
-                        "color": "green",
-                        "index": 0,
-                        "text": "REC"
-                      },
-                      "0": {
-                        "color": "red",
-                        "index": 1,
-                        "text": "PHOTO"
-                      }
-                    },
-                    "type": "value"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 0
-      },
-      "id": 8,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.5.21",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "code",
-          "expr": "zcam_battery_level{job=\"zcam-values\"}",
-          "instant": true,
-          "legendFormat": "{{device_name}} - Battery",
-          "range": false,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "code",
-          "expr": "zcam_camera_mode{job=\"zcam-values\"}",
-          "instant": true,
-          "legendFormat": "{{device_name}} - Mode",
-          "range": false,
-          "refId": "B"
-        }
-      ],
-      "title": "ZCAM API Health Status",
-      "type": "stat"
-    },
     {
       "datasource": {
         "type": "prometheus",
@@ -203,9 +41,9 @@
             "hideFrom": {
               "legend": false,
               "tooltip": false,
-              "vis": false
+              "vis": false,
+              "viz": false
             },
-            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -247,7 +85,7 @@
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 12,
+        "x": 4,
         "y": 0
       },
       "id": 10,
@@ -283,18 +121,52 @@
     {
       "datasource": {
         "type": "alexanderzobnin-zabbix-datasource",
-        "uid": "deyb4mbky1tz4d"
+        "uid": "zabbix-datasource"
       },
       "fieldConfig": {
         "defaults": {
-          "unit": "percent",
-          "min": 0,
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
           "max": 100,
+          "min": 0,
           "thresholds": {
+            "mode": "absolute",
             "steps": [
               {
                 "color": "green",
-                "value": 0
+                "value": null
               },
               {
                 "color": "yellow",
@@ -305,8 +177,10 @@
                 "value": 90
               }
             ]
-          }
-        }
+          },
+          "unit": "percent"
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
@@ -329,93 +203,267 @@
       },
       "targets": [
         {
-          "queryType": "",
-          "refId": "A",
-          "group": {
+          "application": {
             "filter": ""
           },
-          "host": {
-            "filter": "GC-aro11-agent"
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "zabbix-datasource"
           },
-          "item": {
-            "filter": "system.cpu.util"
-          },
+          "evaltype": "0",
           "functions": [],
-          "options": {
-            "showDisabledItems": false,
-            "skipEmptyValues": false
-          }
-        },
-        {
-          "queryType": "",
-          "refId": "B",
           "group": {
-            "filter": ""
+            "filter": "Linux servers"
           },
           "host": {
             "filter": "GC-aro12-agent"
           },
           "item": {
-            "filter": "system.cpu.util"
+            "filter": "Linux: CPU utilization"
           },
-          "functions": [],
+          "itemTag": {
+            "filter": ""
+          },
+          "macro": {
+            "filter": ""
+          },
           "options": {
+            "count": false,
+            "disableDataAlignment": false,
             "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "schema": 12,
+          "table": {
             "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
           }
         },
         {
-          "queryType": "",
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "zabbix-datasource"
+          },
+          "evaltype": "0",
+          "functions": [],
+          "group": {
+            "filter": "Linux servers"
+          },
+          "hide": false,
+          "host": {
+            "filter": "GC-ARO-001-1-agent"
+          },
+          "item": {
+            "filter": "Linux: CPU utilization"
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "count": false,
+            "disableDataAlignment": false,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "schema": 12,
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
+          }
+        },
+        {
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "zabbix-datasource"
+          },
+          "evaltype": "0",
+          "functions": [],
+          "group": {
+            "filter": "Linux servers"
+          },
+          "hide": false,
+          "host": {
+            "filter": "GC-ARO-002-1-agent"
+          },
+          "item": {
+            "filter": "Linux: CPU utilization"
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "count": false,
+            "disableDataAlignment": false,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
           "refId": "C",
-          "group": {
+          "resultFormat": "time_series",
+          "schema": 12,
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
             "filter": ""
           },
-          "host": {
-            "filter": "GC-aro21-agent"
-          },
-          "item": {
-            "filter": "system.cpu.util"
-          },
-          "functions": [],
-          "options": {
-            "showDisabledItems": false,
-            "skipEmptyValues": false
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
           }
         },
         {
-          "queryType": "",
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "zabbix-datasource"
+          },
+          "evaltype": "0",
+          "functions": [],
+          "group": {
+            "filter": "Linux servers"
+          },
+          "hide": false,
+          "host": {
+            "filter": "GC-ARO-002-2-agent"
+          },
+          "item": {
+            "filter": "Linux: CPU utilization"
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "count": false,
+            "disableDataAlignment": false,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
           "refId": "D",
-          "group": {
+          "resultFormat": "time_series",
+          "schema": 12,
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
             "filter": ""
           },
-          "host": {
-            "filter": "GC-aro22-agent"
-          },
-          "item": {
-            "filter": "system.cpu.util"
-          },
-          "functions": [],
-          "options": {
-            "showDisabledItems": false,
-            "skipEmptyValues": false
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
           }
         },
         {
-          "queryType": "",
-          "refId": "E",
-          "group": {
+          "application": {
             "filter": ""
           },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "zabbix-datasource"
+          },
+          "evaltype": "0",
+          "functions": [],
+          "group": {
+            "filter": "Linux servers"
+          },
+          "hide": false,
           "host": {
-            "filter": "GC-asb11-agent"
+            "filter": "GC-ASB-001-1-agent"
           },
           "item": {
-            "filter": "system.cpu.util"
+            "filter": "Linux: CPU utilization"
           },
-          "functions": [],
+          "itemTag": {
+            "filter": ""
+          },
+          "macro": {
+            "filter": ""
+          },
           "options": {
+            "count": false,
+            "disableDataAlignment": false,
             "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
+          "refId": "E",
+          "resultFormat": "time_series",
+          "schema": 12,
+          "table": {
             "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
           }
         }
       ],
@@ -425,12 +473,60 @@
     {
       "datasource": {
         "type": "alexanderzobnin-zabbix-datasource",
-        "uid": "deyb4mbky1tz4d"
+        "uid": "zabbix-datasource"
       },
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
           "unit": "bps"
-        }
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
@@ -453,183 +549,266 @@
       },
       "targets": [
         {
-          "queryType": "",
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "zabbix-datasource"
+          },
+          "evaltype": "0",
+          "functions": [],
+          "group": {
+            "filter": "Linux servers"
+          },
+          "host": {
+            "filter": "GC-aro12-agent"
+          },
+          "item": {
+            "filter": "Interface eth0: Bits received"
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "count": false,
+            "disableDataAlignment": false,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
           "refId": "A",
-          "group": {
+          "resultFormat": "time_series",
+          "schema": 12,
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
             "filter": ""
           },
-          "host": {
-            "filter": "GC-aro11-agent"
-          },
-          "item": {
-            "filter": "net.if.in[\"eth0\"]"
-          },
-          "functions": [],
-          "options": {
-            "showDisabledItems": false,
-            "skipEmptyValues": false
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
           }
         },
         {
-          "queryType": "",
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "zabbix-datasource"
+          },
+          "evaltype": "0",
+          "functions": [],
+          "group": {
+            "filter": "Linux servers"
+          },
+          "host": {
+            "filter": "GC-ARO-001-1-agent"
+          },
+          "item": {
+            "filter": "Interface eth0: Bits received"
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "count": false,
+            "disableDataAlignment": false,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
           "refId": "B",
-          "group": {
+          "resultFormat": "time_series",
+          "schema": 12,
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
             "filter": ""
           },
-          "host": {
-            "filter": "GC-aro11-agent"
-          },
-          "item": {
-            "filter": "net.if.out[\"eth0\"]"
-          },
-          "functions": [],
-          "options": {
-            "showDisabledItems": false,
-            "skipEmptyValues": false
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
           }
         },
         {
-          "queryType": "",
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "zabbix-datasource"
+          },
+          "evaltype": "0",
+          "functions": [],
+          "group": {
+            "filter": "Linux servers"
+          },
+          "hide": false,
+          "host": {
+            "filter": "GC-ARO-002-1-agent"
+          },
+          "item": {
+            "filter": "Interface eth0: Bits received"
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "count": false,
+            "disableDataAlignment": false,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
           "refId": "C",
-          "group": {
+          "resultFormat": "time_series",
+          "schema": 12,
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
             "filter": ""
           },
-          "host": {
-            "filter": "GC-aro12-agent"
-          },
-          "item": {
-            "filter": "net.if.in[\"eth0\"]"
-          },
-          "functions": [],
-          "options": {
-            "showDisabledItems": false,
-            "skipEmptyValues": false
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
           }
         },
         {
-          "queryType": "",
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "zabbix-datasource"
+          },
+          "evaltype": "0",
+          "functions": [],
+          "group": {
+            "filter": "Linux servers"
+          },
+          "hide": false,
+          "host": {
+            "filter": "GC-ARO-002-2-agent"
+          },
+          "item": {
+            "filter": "Interface eth0: Bits received"
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "count": false,
+            "disableDataAlignment": false,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
           "refId": "D",
-          "group": {
+          "resultFormat": "time_series",
+          "schema": 12,
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
             "filter": ""
           },
-          "host": {
-            "filter": "GC-aro12-agent"
-          },
-          "item": {
-            "filter": "net.if.out[\"eth0\"]"
-          },
-          "functions": [],
-          "options": {
-            "showDisabledItems": false,
-            "skipEmptyValues": false
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
           }
         },
         {
-          "queryType": "",
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "zabbix-datasource"
+          },
+          "evaltype": "0",
+          "functions": [],
+          "group": {
+            "filter": "Linux servers"
+          },
+          "hide": false,
+          "host": {
+            "filter": "GC-ASB-001-1-agent"
+          },
+          "item": {
+            "filter": "Interface eth0: Bits received"
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "count": false,
+            "disableDataAlignment": false,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
           "refId": "E",
-          "group": {
+          "resultFormat": "time_series",
+          "schema": 12,
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
             "filter": ""
           },
-          "host": {
-            "filter": "GC-aro21-agent"
-          },
-          "item": {
-            "filter": "net.if.in[\"eth0\"]"
-          },
-          "functions": [],
-          "options": {
-            "showDisabledItems": false,
-            "skipEmptyValues": false
-          }
-        },
-        {
-          "queryType": "",
-          "refId": "F",
-          "group": {
+          "textFilter": "",
+          "trigger": {
             "filter": ""
-          },
-          "host": {
-            "filter": "GC-aro21-agent"
-          },
-          "item": {
-            "filter": "net.if.out[\"eth0\"]"
-          },
-          "functions": [],
-          "options": {
-            "showDisabledItems": false,
-            "skipEmptyValues": false
-          }
-        },
-        {
-          "queryType": "",
-          "refId": "G",
-          "group": {
-            "filter": ""
-          },
-          "host": {
-            "filter": "GC-aro22-agent"
-          },
-          "item": {
-            "filter": "net.if.in[\"eth0\"]"
-          },
-          "functions": [],
-          "options": {
-            "showDisabledItems": false,
-            "skipEmptyValues": false
-          }
-        },
-        {
-          "queryType": "",
-          "refId": "H",
-          "group": {
-            "filter": ""
-          },
-          "host": {
-            "filter": "GC-aro22-agent"
-          },
-          "item": {
-            "filter": "net.if.out[\"eth0\"]"
-          },
-          "functions": [],
-          "options": {
-            "showDisabledItems": false,
-            "skipEmptyValues": false
-          }
-        },
-        {
-          "queryType": "",
-          "refId": "I",
-          "group": {
-            "filter": ""
-          },
-          "host": {
-            "filter": "GC-asb11-agent"
-          },
-          "item": {
-            "filter": "net.if.in[\"eth0\"]"
-          },
-          "functions": [],
-          "options": {
-            "showDisabledItems": false,
-            "skipEmptyValues": false
-          }
-        },
-        {
-          "queryType": "",
-          "refId": "J",
-          "group": {
-            "filter": ""
-          },
-          "host": {
-            "filter": "GC-asb11-agent"
-          },
-          "item": {
-            "filter": "net.if.out[\"eth0\"]"
-          },
-          "functions": [],
-          "options": {
-            "showDisabledItems": false,
-            "skipEmptyValues": false
           }
         }
       ],
@@ -639,38 +818,40 @@
     {
       "datasource": {
         "type": "alexanderzobnin-zabbix-datasource",
-        "uid": "deyb4mbky1tz4d"
+        "uid": "zabbix-datasource"
       },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
+          "mappings": [
+            {
+              "text": "Offline",
+              "type": "value",
+              "value": "0"
+            },
+            {
+              "text": "Online",
+              "type": "value",
+              "value": "1"
+            }
+          ],
           "thresholds": {
+            "mode": "absolute",
             "steps": [
               {
                 "color": "red",
-                "value": 0
+                "value": null
               },
               {
                 "color": "green",
                 "value": 1
               }
             ]
-          },
-          "mappings": [
-            {
-              "type": "value",
-              "value": "0",
-              "text": "Offline"
-            },
-            {
-              "type": "value",
-              "value": "1",
-              "text": "Online"
-            }
-          ]
-        }
+          }
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 6,
@@ -685,19 +866,18 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "values": false,
           "calcs": [
             "lastNotNull"
           ],
-          "fields": ""
+          "fields": "",
+          "values": false
         },
         "textMode": "auto"
       },
       "pluginVersion": "9.5.21",
       "targets": [
         {
-          "queryType": "",
-          "refId": "A",
+          "functions": [],
           "group": {
             "filter": ""
           },
@@ -707,15 +887,15 @@
           "item": {
             "filter": "zabbix[host,agent,available]"
           },
-          "functions": [],
           "options": {
             "showDisabledItems": false,
             "skipEmptyValues": false
-          }
+          },
+          "queryType": "",
+          "refId": "A"
         },
         {
-          "queryType": "",
-          "refId": "B",
+          "functions": [],
           "group": {
             "filter": ""
           },
@@ -725,15 +905,15 @@
           "item": {
             "filter": "zabbix[host,agent,available]"
           },
-          "functions": [],
           "options": {
             "showDisabledItems": false,
             "skipEmptyValues": false
-          }
+          },
+          "queryType": "",
+          "refId": "B"
         },
         {
-          "queryType": "",
-          "refId": "C",
+          "functions": [],
           "group": {
             "filter": ""
           },
@@ -743,15 +923,15 @@
           "item": {
             "filter": "zabbix[host,agent,available]"
           },
-          "functions": [],
           "options": {
             "showDisabledItems": false,
             "skipEmptyValues": false
-          }
+          },
+          "queryType": "",
+          "refId": "C"
         },
         {
-          "queryType": "",
-          "refId": "D",
+          "functions": [],
           "group": {
             "filter": ""
           },
@@ -761,15 +941,15 @@
           "item": {
             "filter": "zabbix[host,agent,available]"
           },
-          "functions": [],
           "options": {
             "showDisabledItems": false,
             "skipEmptyValues": false
-          }
+          },
+          "queryType": "",
+          "refId": "D"
         },
         {
-          "queryType": "",
-          "refId": "E",
+          "functions": [],
           "group": {
             "filter": ""
           },
@@ -779,11 +959,12 @@
           "item": {
             "filter": "zabbix[host,agent,available]"
           },
-          "functions": [],
           "options": {
             "showDisabledItems": false,
             "skipEmptyValues": false
-          }
+          },
+          "queryType": "",
+          "refId": "E"
         }
       ],
       "title": "Zabbix Agents Status Overview",
@@ -800,6 +981,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -809,7 +992,8 @@
             "hideFrom": {
               "legend": false,
               "tooltip": false,
-              "vis": false
+              "vis": false,
+              "viz": false
             },
             "lineInterpolation": "linear",
             "lineWidth": 1,
@@ -856,7 +1040,8 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -871,8 +1056,8 @@
             "uid": "fewqf9pkx0p34c"
           },
           "expr": "rate({job=\"srs_test\", instance=\"telemetry-promtail-test-agent\"}[1m])",
-          "refId": "A",
-          "legendFormat": "Test Agent SRS Log Rate"
+          "legendFormat": "Test Agent SRS Log Rate",
+          "refId": "A"
         }
       ],
       "title": "Test Agent SRS Log Rate (logs/min)",
@@ -889,6 +1074,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -898,7 +1085,8 @@
             "hideFrom": {
               "legend": false,
               "tooltip": false,
-              "vis": false
+              "vis": false,
+              "viz": false
             },
             "lineInterpolation": "linear",
             "lineWidth": 1,
@@ -945,7 +1133,8 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -960,8 +1149,8 @@
             "uid": "loki-aro11-sdp"
           },
           "expr": "rate({job=\"studio_sdp_roulette\", instance=\"GC-aro11-agent\"}[1m])",
-          "refId": "A",
-          "legendFormat": "aro11 SDP Log Rate"
+          "legendFormat": "aro11 SDP Log Rate",
+          "refId": "A"
         }
       ],
       "title": "aro11 SDP Log Rate (logs/min)",
@@ -979,7 +1168,9 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
             "inspect": false
           },
           "mappings": [],
@@ -1016,6 +1207,15 @@
       },
       "id": 6,
       "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "showHeader": true,
         "sortBy": [
           {
@@ -1063,7 +1263,9 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
             "inspect": false
           },
           "mappings": [],
@@ -1126,6 +1328,15 @@
       },
       "id": 7,
       "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "showHeader": true,
         "sortBy": [
           {
@@ -1164,7 +1375,7 @@
     }
   ],
   "refresh": "30s",
-  "schemaVersion": 37,
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [
     "overview",
@@ -1241,6 +1452,6 @@
   "timezone": "Asia/Taipei",
   "title": "System Overview",
   "uid": "overview-dashboard",
-  "version": 1,
+  "version": 40,
   "weekStart": ""
 }
