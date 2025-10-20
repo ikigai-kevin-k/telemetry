@@ -108,9 +108,9 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "zcam_temperature{job=\"zcam-values\"}",
+          "expr": "label_replace(zcam_temperature{job=\"zcam-values\"}, \"short_name\", \"$1\", \"device_name\", \"^zcam-(.*)$\")",
           "instant": false,
-          "legendFormat": "{{device_name}} - Temperature",
+          "legendFormat": "{{short_name}}",
           "range": true,
           "refId": "A"
         }
