@@ -696,9 +696,9 @@
             "hideFrom": {
               "legend": false,
               "tooltip": false,
-              "viz": false
+              "viz": false,
+              "axis": true
             },
-            "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
@@ -728,9 +728,30 @@
               }
             ]
           },
-          "unit": ""
+          "unit": "short"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ARO12"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "short"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": ""
+              },
+              {
+                "id": "custom.hideFrom.axis",
+                "value": true
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -738,7 +759,7 @@
         "x": 12,
         "y": 8
       },
-      "id": 9,
+      "id": 12,
       "options": {
         "legend": {
           "calcs": [],
@@ -753,8 +774,6 @@
       },
       "targets": [
         {
-          "alias": "GC-aro12-agent",
-          "aliasBy": "GC-aro12-agent",
           "application": {
             "filter": ""
           },
@@ -791,11 +810,12 @@
             "filter": "GC-aro12-agent"
           },
           "item": {
-            "filter": "Interface eth0: Bits received"
+            "filter": "Interface enp86s0: Bits received"
           },
           "itemTag": {
-            "filter": ""
+            "filter": "interface: eth0"
           },
+          "key": "Q-cc99a50f-83e8-4c03-a846-8ac3a4169e46-0",
           "macro": {
             "filter": ""
           },
@@ -824,304 +844,9 @@
           "trigger": {
             "filter": ""
           }
-        },
-        {
-          "alias": "GC-ARO-001-1-agent",
-          "aliasBy": "GC-ARO-001-1-agent",
-          "application": {
-            "filter": ""
-          },
-          "countTriggersBy": "",
-          "datasource": {
-            "type": "alexanderzobnin-zabbix-datasource",
-            "uid": "zabbix-datasource"
-          },
-          "evaltype": "0",
-          "functions": [
-            {
-              "added": true,
-              "def": {
-                "category": "Alias",
-                "defaultParams": [],
-                "name": "setAlias",
-                "params": [
-                  {
-                    "name": "alias",
-                    "type": "string"
-                  }
-                ]
-              },
-              "params": [
-                "ARO11"
-              ],
-              "text": "setAlias()"
-            }
-          ],
-          "group": {
-            "filter": "Linux servers"
-          },
-          "host": {
-            "filter": "GC-ARO-001-1-agent"
-          },
-          "item": {
-            "filter": "Interface eth0: Bits received"
-          },
-          "itemTag": {
-            "filter": ""
-          },
-          "macro": {
-            "filter": ""
-          },
-          "options": {
-            "count": false,
-            "disableDataAlignment": false,
-            "showDisabledItems": false,
-            "skipEmptyValues": false,
-            "useTrends": "default",
-            "useZabbixValueMapping": false
-          },
-          "proxy": {
-            "filter": ""
-          },
-          "queryType": "0",
-          "refId": "B",
-          "resultFormat": "time_series",
-          "schema": 12,
-          "table": {
-            "skipEmptyValues": false
-          },
-          "tags": {
-            "filter": ""
-          },
-          "textFilter": "",
-          "trigger": {
-            "filter": ""
-          }
-        },
-        {
-          "alias": "GC-ARO-002-1-agent",
-          "aliasBy": "GC-ARO-002-1-agent",
-          "application": {
-            "filter": ""
-          },
-          "countTriggersBy": "",
-          "datasource": {
-            "type": "alexanderzobnin-zabbix-datasource",
-            "uid": "zabbix-datasource"
-          },
-          "evaltype": "0",
-          "functions": [
-            {
-              "added": true,
-              "def": {
-                "category": "Alias",
-                "defaultParams": [],
-                "name": "setAlias",
-                "params": [
-                  {
-                    "name": "alias",
-                    "type": "string"
-                  }
-                ]
-              },
-              "params": [
-                "ARO21"
-              ],
-              "text": "setAlias()"
-            }
-          ],
-          "group": {
-            "filter": "Linux servers"
-          },
-          "hide": false,
-          "host": {
-            "filter": "GC-ARO-002-1-agent"
-          },
-          "item": {
-            "filter": "Interface eth0: Bits received"
-          },
-          "itemTag": {
-            "filter": ""
-          },
-          "macro": {
-            "filter": ""
-          },
-          "options": {
-            "count": false,
-            "disableDataAlignment": false,
-            "showDisabledItems": false,
-            "skipEmptyValues": false,
-            "useTrends": "default",
-            "useZabbixValueMapping": false
-          },
-          "proxy": {
-            "filter": ""
-          },
-          "queryType": "0",
-          "refId": "C",
-          "resultFormat": "time_series",
-          "schema": 12,
-          "table": {
-            "skipEmptyValues": false
-          },
-          "tags": {
-            "filter": ""
-          },
-          "textFilter": "",
-          "trigger": {
-            "filter": ""
-          }
-        },
-        {
-          "alias": "GC-ARO-002-2-agent",
-          "aliasBy": "GC-ARO-002-2-agent",
-          "application": {
-            "filter": ""
-          },
-          "countTriggersBy": "",
-          "datasource": {
-            "type": "alexanderzobnin-zabbix-datasource",
-            "uid": "zabbix-datasource"
-          },
-          "evaltype": "0",
-          "functions": [
-            {
-              "added": true,
-              "def": {
-                "category": "Alias",
-                "defaultParams": [],
-                "name": "setAlias",
-                "params": [
-                  {
-                    "name": "alias",
-                    "type": "string"
-                  }
-                ]
-              },
-              "params": [
-                "ARO22"
-              ],
-              "text": "setAlias()"
-            }
-          ],
-          "group": {
-            "filter": "Linux servers"
-          },
-          "hide": false,
-          "host": {
-            "filter": "GC-ARO-002-2-agent"
-          },
-          "item": {
-            "filter": "Interface eth0: Bits received"
-          },
-          "itemTag": {
-            "filter": ""
-          },
-          "macro": {
-            "filter": ""
-          },
-          "options": {
-            "count": false,
-            "disableDataAlignment": false,
-            "showDisabledItems": false,
-            "skipEmptyValues": false,
-            "useTrends": "default",
-            "useZabbixValueMapping": false
-          },
-          "proxy": {
-            "filter": ""
-          },
-          "queryType": "0",
-          "refId": "D",
-          "resultFormat": "time_series",
-          "schema": 12,
-          "table": {
-            "skipEmptyValues": false
-          },
-          "tags": {
-            "filter": ""
-          },
-          "textFilter": "",
-          "trigger": {
-            "filter": ""
-          }
-        },
-        {
-          "alias": "GC-ASB-001-1-agent",
-          "aliasBy": "GC-ASB-001-1-agent",
-          "application": {
-            "filter": ""
-          },
-          "countTriggersBy": "",
-          "datasource": {
-            "type": "alexanderzobnin-zabbix-datasource",
-            "uid": "zabbix-datasource"
-          },
-          "evaltype": "0",
-          "functions": [
-            {
-              "added": true,
-              "def": {
-                "category": "Alias",
-                "defaultParams": [],
-                "name": "setAlias",
-                "params": [
-                  {
-                    "name": "alias",
-                    "type": "string"
-                  }
-                ]
-              },
-              "params": [
-                "ASB11"
-              ],
-              "text": "setAlias()"
-            }
-          ],
-          "group": {
-            "filter": "Linux servers"
-          },
-          "hide": false,
-          "host": {
-            "filter": "GC-ASB-001-1-agent"
-          },
-          "item": {
-            "filter": "Interface eth0: Bits received"
-          },
-          "itemTag": {
-            "filter": ""
-          },
-          "macro": {
-            "filter": ""
-          },
-          "options": {
-            "count": false,
-            "disableDataAlignment": false,
-            "showDisabledItems": false,
-            "skipEmptyValues": false,
-            "useTrends": "default",
-            "useZabbixValueMapping": false
-          },
-          "proxy": {
-            "filter": ""
-          },
-          "queryType": "0",
-          "refId": "E",
-          "resultFormat": "time_series",
-          "schema": 12,
-          "table": {
-            "skipEmptyValues": false
-          },
-          "tags": {
-            "filter": ""
-          },
-          "textFilter": "",
-          "trigger": {
-            "filter": ""
-          }
         }
       ],
-      "title": "Network Traffic - All Agents",
+      "title": "Network Traffic - All Agents (MBps)",
       "type": "timeseries"
     },
     {
@@ -1758,6 +1483,6 @@
   "timezone": "Asia/Taipei",
   "title": "System Overview",
   "uid": "overview-dashboard",
-  "version": 64,
+  "version": 79,
   "weekStart": ""
 }
