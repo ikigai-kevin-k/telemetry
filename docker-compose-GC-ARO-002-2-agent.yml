@@ -9,7 +9,7 @@ services:
     image: grafana/promtail:latest
     container_name: telemetry-promtail-GC-aro22-agent
     volumes:
-      - ./promtail-GC-aro22-agent.yml:/etc/promtail/config.yml
+      - ./promtail-GC-ARO-002-2-agent.yml:/etc/promtail/config.yml
       - ./mock_sicbo.log:/var/log/mock_sicbo.log
       - ./server.log:/var/log/server.log  # Additional log file
       - ./tmux-client-3638382.log:/var/log/tmux-client.log  # Additional log file
@@ -26,14 +26,16 @@ services:
     ports:
       - "10050:10050"
     environment:
-      - ZBX_HOSTNAME=GC-aro22-agent
+      - ZBX_HOSTNAME=GC-ARO-002-2-agent
       - ZBX_SERVER_HOST=100.64.0.113  # Connect to remote Zabbix server
       - ZBX_SERVER_ACTIVE=100.64.0.113
       - ZBX_SERVER_PORT=10051
       - ZBX_ENABLEPERSISTENTBUFFER=1
     volumes:
-      - ./zabbix/agent2-GC-aro22-agent.conf:/etc/zabbix/zabbix_agent2.conf
+      - ./zabbix/agent2-GC-ARO-002-2-agent.conf:/etc/zabbix/zabbix_agent2.conf
       - ./zabbix/scripts:/var/lib/zabbix/scripts
+      - /sys:/host/sys:ro                       # Mount host sys directory
+      - /proc/net/dev:/host/proc/net/dev:ro     # Mount host network statistics
     restart: unless-stopped
     networks:
       - monitoring

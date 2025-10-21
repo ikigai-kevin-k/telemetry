@@ -186,8 +186,14 @@ get_network_status() {
         interface=$(ip route | grep default | awk '{print $5}' | head -1)
     fi
     
-    if [ -n "$interface" ] && [ -d "/sys/class/net/$interface" ]; then
-        local operstate=$(cat "/sys/class/net/$interface/operstate" 2>/dev/null)
+    # Try to read from host-mounted path first, then container path
+    local operstate_file="/host/sys/class/net/$interface/operstate"
+    if [ ! -f "$operstate_file" ]; then
+        operstate_file="/sys/class/net/$interface/operstate"
+    fi
+    
+    if [ -n "$interface" ] && [ -f "$operstate_file" ]; then
+        local operstate=$(cat "$operstate_file" 2>/dev/null)
         if [ "$operstate" = "up" ]; then
             echo "1"
         else
@@ -205,8 +211,14 @@ get_network_in() {
         interface="enp86s0"  # Default to enp86s0 for GC-ARO-002-2
     fi
     
-    if [ -n "$interface" ] && [ -f "/sys/class/net/$interface/statistics/rx_bytes" ]; then
-        cat "/sys/class/net/$interface/statistics/rx_bytes" 2>/dev/null
+    # Try to read from host-mounted path first, then container path
+    local rx_file="/host/sys/class/net/$interface/statistics/rx_bytes"
+    if [ ! -f "$rx_file" ]; then
+        rx_file="/sys/class/net/$interface/statistics/rx_bytes"
+    fi
+    
+    if [ -n "$interface" ] && [ -f "$rx_file" ]; then
+        cat "$rx_file" 2>/dev/null
     else
         echo "0"
     fi
@@ -219,8 +231,14 @@ get_network_out() {
         interface="enp86s0"  # Default to enp86s0 for GC-ARO-002-2
     fi
     
-    if [ -n "$interface" ] && [ -f "/sys/class/net/$interface/statistics/tx_bytes" ]; then
-        cat "/sys/class/net/$interface/statistics/tx_bytes" 2>/dev/null
+    # Try to read from host-mounted path first, then container path
+    local tx_file="/host/sys/class/net/$interface/statistics/tx_bytes"
+    if [ ! -f "$tx_file" ]; then
+        tx_file="/sys/class/net/$interface/statistics/tx_bytes"
+    fi
+    
+    if [ -n "$interface" ] && [ -f "$tx_file" ]; then
+        cat "$tx_file" 2>/dev/null
     else
         echo "0"
     fi
