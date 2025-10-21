@@ -115,7 +115,7 @@
           "refId": "A"
         }
       ],
-      "title": "ZCAM Temperature Trend",
+      "title": "ZCAM Temperature Trend (°C)",
       "type": "timeseries"
     },
     {
@@ -177,7 +177,7 @@
               }
             ]
           },
-          "unit": "binBps"
+          "unit": "binMBps"
         },
         "overrides": []
       },
@@ -214,7 +214,7 @@
           "refId": "A"
         }
       ],
-      "title": "ZCAM Bitrate Trend",
+      "title": "ZCAM Bitrate Trend (MBps)",
       "type": "timeseries"
     },
     {
