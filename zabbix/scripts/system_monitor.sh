@@ -198,6 +198,34 @@ get_network_status() {
     fi
 }
 
+# Function to get network interface incoming traffic (bytes)
+get_network_in() {
+    local interface="$1"
+    if [ -z "$interface" ]; then
+        interface="enp86s0"  # Default to enp86s0 for GC-ARO-002-2
+    fi
+    
+    if [ -n "$interface" ] && [ -f "/sys/class/net/$interface/statistics/rx_bytes" ]; then
+        cat "/sys/class/net/$interface/statistics/rx_bytes" 2>/dev/null
+    else
+        echo "0"
+    fi
+}
+
+# Function to get network interface outgoing traffic (bytes)
+get_network_out() {
+    local interface="$1"
+    if [ -z "$interface" ]; then
+        interface="enp86s0"  # Default to enp86s0 for GC-ARO-002-2
+    fi
+    
+    if [ -n "$interface" ] && [ -f "/sys/class/net/$interface/statistics/tx_bytes" ]; then
+        cat "/sys/class/net/$interface/statistics/tx_bytes" 2>/dev/null
+    else
+        echo "0"
+    fi
+}
+
 # Main execution
 case "${1:-help}" in
     "cpu_usage")
@@ -223,6 +251,12 @@ case "${1:-help}" in
         ;;
     "network_status")
         get_network_status "$2"
+        ;;
+    "network_in")
+        get_network_in "$2"
+        ;;
+    "network_out")
+        get_network_out "$2"
         ;;
     "cpu_warning")
         check_cpu_warning
@@ -282,6 +316,8 @@ case "${1:-help}" in
         echo "  uptime             - System uptime in seconds"
         echo "  temperature        - System temperature in Celsius"
         echo "  network_status     - Network interface status (1=up, 0=down)"
+        echo "  network_in         - Network interface incoming traffic (bytes)"
+        echo "  network_out        - Network interface outgoing traffic (bytes)"
         echo "  cpu_warning        - CPU warning level (0=OK, 1=Warning, 2=Critical)"
         echo "  memory_warning     - Memory warning level"
         echo "  disk_warning       - Disk warning level"
@@ -293,5 +329,7 @@ case "${1:-help}" in
         echo "  $0 cpu_usage"
         echo "  $0 disk_usage_mount /var"
         echo "  $0 network_status eth0"
+        echo "  $0 network_in enp86s0"
+        echo "  $0 network_out enp86s0"
         ;;
 esac

@@ -1,0 +1,531 @@
+{
+  "id": null,
+  "title": "GC-ARO-002-2-agent System Monitoring",
+    "tags": ["zabbix", "system", "monitoring", "GC-ARO-002-2"],
+    "style": "dark",
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Agent Status",
+        "type": "stat",
+        "datasource": {
+          "type": "alexanderzobnin-zabbix-datasource",
+          "uid": "PA67C5EADE9207728"
+        },
+        "targets": [
+          {
+            "queryType": "",
+            "refId": "A",
+            "group": {
+              "filter": ""
+            },
+            "host": {
+              "filter": "GC-ARO-002-2-agent"
+            },
+            "item": {
+              "filter": "zabbix[host,agent,available]"
+            },
+            "functions": [],
+            "options": {
+              "showDisabledItems": false,
+              "skipEmptyValues": false
+            }
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "thresholds": {
+              "steps": [
+                {
+                  "color": "red",
+                  "value": 0
+                },
+                {
+                  "color": "green",
+                  "value": 1
+                }
+              ]
+            },
+            "mappings": [
+              {
+                "type": "value",
+                "value": "0",
+                "text": "Offline"
+              },
+              {
+                "type": "value",
+                "value": "1",
+                "text": "Online"
+              }
+            ]
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 6,
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "id": 2,
+        "title": "CPU Usage",
+        "type": "gauge",
+        "datasource": {
+          "type": "alexanderzobnin-zabbix-datasource",
+          "uid": "PA67C5EADE9207728"
+        },
+        "targets": [
+          {
+            "queryType": "",
+            "refId": "A",
+            "group": {
+              "filter": ""
+            },
+            "host": {
+              "filter": "GC-ARO-002-2-agent"
+            },
+            "item": {
+              "filter": "system.cpu.usage"
+            },
+            "functions": [],
+            "options": {
+              "showDisabledItems": false,
+              "skipEmptyValues": false
+            }
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "min": 0,
+            "max": 100,
+            "unit": "percent",
+            "thresholds": {
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "yellow",
+                  "value": 70
+                },
+                {
+                  "color": "red",
+                  "value": 90
+                }
+              ]
+            }
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 6,
+          "x": 6,
+          "y": 0
+        }
+      },
+      {
+        "id": 3,
+        "title": "Memory Usage",
+        "type": "gauge",
+        "datasource": {
+          "type": "alexanderzobnin-zabbix-datasource",
+          "uid": "PA67C5EADE9207728"
+        },
+        "targets": [
+          {
+            "queryType": "",
+            "refId": "A",
+            "group": {
+              "filter": ""
+            },
+            "host": {
+              "filter": "GC-ARO-002-2-agent"
+            },
+            "item": {
+              "filter": "system.memory.usage"
+            },
+            "functions": [],
+            "options": {
+              "showDisabledItems": false,
+              "skipEmptyValues": false
+            }
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "min": 0,
+            "max": 100,
+            "unit": "percent",
+            "thresholds": {
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "yellow",
+                  "value": 80
+                },
+                {
+                  "color": "red",
+                  "value": 95
+                }
+              ]
+            }
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 6,
+          "x": 12,
+          "y": 0
+        }
+      },
+      {
+        "id": 4,
+        "title": "Disk Usage",
+        "type": "gauge",
+        "datasource": {
+          "type": "alexanderzobnin-zabbix-datasource",
+          "uid": "PA67C5EADE9207728"
+        },
+        "targets": [
+          {
+            "queryType": "",
+            "refId": "A",
+            "group": {
+              "filter": ""
+            },
+            "host": {
+              "filter": "GC-ARO-002-2-agent"
+            },
+            "item": {
+              "filter": "system.disk.usage"
+            },
+            "functions": [],
+            "options": {
+              "showDisabledItems": false,
+              "skipEmptyValues": false
+            }
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "min": 0,
+            "max": 100,
+            "unit": "percent",
+            "thresholds": {
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "yellow",
+                  "value": 80
+                },
+                {
+                  "color": "red",
+                  "value": 95
+                }
+              ]
+            }
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 6,
+          "x": 18,
+          "y": 0
+        }
+      },
+      {
+        "id": 5,
+        "title": "System Uptime",
+        "type": "stat",
+        "datasource": {
+          "type": "alexanderzobnin-zabbix-datasource",
+          "uid": "PA67C5EADE9207728"
+        },
+        "targets": [
+          {
+            "queryType": "",
+            "refId": "A",
+            "group": {
+              "filter": ""
+            },
+            "host": {
+              "filter": "GC-ARO-002-2-agent"
+            },
+            "item": {
+              "filter": "system.uptime"
+            },
+            "functions": [],
+            "options": {
+              "showDisabledItems": false,
+              "skipEmptyValues": false
+            }
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "s",
+            "color": {
+              "mode": "thresholds"
+            },
+            "thresholds": {
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            }
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 8
+        }
+      },
+      {
+        "id": 6,
+        "title": "enp86s0 Network Traffic",
+        "type": "timeseries",
+        "datasource": {
+          "type": "alexanderzobnin-zabbix-datasource",
+          "uid": "PA67C5EADE9207728"
+        },
+        "targets": [
+          {
+            "queryType": "",
+            "refId": "A",
+            "group": {
+              "filter": ""
+            },
+            "host": {
+              "filter": "GC-ARO-002-2-agent"
+            },
+            "item": {
+              "filter": "system.network.in[\"enp86s0\"]"
+            },
+            "functions": [],
+            "options": {
+              "showDisabledItems": false,
+              "skipEmptyValues": false
+            }
+          },
+          {
+            "queryType": "",
+            "refId": "B",
+            "group": {
+              "filter": ""
+            },
+            "host": {
+              "filter": "GC-ARO-002-2-agent"
+            },
+            "item": {
+              "filter": "system.network.out[\"enp86s0\"]"
+            },
+            "functions": [],
+            "options": {
+              "showDisabledItems": false,
+              "skipEmptyValues": false
+            }
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "bytes"
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 8
+        }
+      },
+      {
+        "id": 7,
+        "title": "CPU Load Average",
+        "type": "timeseries",
+        "datasource": {
+          "type": "alexanderzobnin-zabbix-datasource",
+          "uid": "PA67C5EADE9207728"
+        },
+        "targets": [
+          {
+            "queryType": "",
+            "refId": "A",
+            "group": {
+              "filter": ""
+            },
+            "host": {
+              "filter": "GC-ARO-002-2-agent"
+            },
+            "item": {
+              "filter": "system.load.average"
+            },
+            "functions": [],
+            "options": {
+              "showDisabledItems": false,
+              "skipEmptyValues": false
+            }
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short"
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 24,
+          "x": 0,
+          "y": 16
+        }
+      },
+      {
+        "id": 8,
+        "title": "enp86s0 Network Status",
+        "type": "stat",
+        "datasource": {
+          "type": "alexanderzobnin-zabbix-datasource",
+          "uid": "PA67C5EADE9207728"
+        },
+        "targets": [
+          {
+            "queryType": "",
+            "refId": "A",
+            "group": {
+              "filter": ""
+            },
+            "host": {
+              "filter": "GC-ARO-002-2-agent"
+            },
+            "item": {
+              "filter": "system.network.status[\"enp86s0\"]"
+            },
+            "functions": [],
+            "options": {
+              "showDisabledItems": false,
+              "skipEmptyValues": false
+            }
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "thresholds": {
+              "steps": [
+                {
+                  "color": "red",
+                  "value": 0
+                },
+                {
+                  "color": "green",
+                  "value": 1
+                }
+              ]
+            },
+            "mappings": [
+              {
+                "type": "value",
+                "value": "0",
+                "text": "Down"
+              },
+              {
+                "type": "value",
+                "value": "1",
+                "text": "Up"
+              }
+            ]
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 24
+        }
+      },
+      {
+        "id": 9,
+        "title": "System Temperature",
+        "type": "stat",
+        "datasource": {
+          "type": "alexanderzobnin-zabbix-datasource",
+          "uid": "PA67C5EADE9207728"
+        },
+        "targets": [
+          {
+            "queryType": "",
+            "refId": "A",
+            "group": {
+              "filter": ""
+            },
+            "host": {
+              "filter": "GC-ARO-002-2-agent"
+            },
+            "item": {
+              "filter": "system.temperature"
+            },
+            "functions": [],
+            "options": {
+              "showDisabledItems": false,
+              "skipEmptyValues": false
+            }
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "celsius",
+            "color": {
+              "mode": "thresholds"
+            },
+            "thresholds": {
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "yellow",
+                  "value": 70
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 24
+        }
+      }
+    ],
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "refresh": "30s",
+    "schemaVersion": 27,
+    "version": 1,
+    "links": []
+}
