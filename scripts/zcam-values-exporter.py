@@ -13,9 +13,9 @@ from typing import Dict, Any
 # ZCAM device configuration
 ZCAM_DEVICES = {
     "zcam-aro11": "192.168.88.10",
-    "zcam-aro12": "192.168.88.186", 
+    "zcam-aro12": "192.168.10.11", 
     "zcam-aro21": "192.168.88.12",
-    "zcam-aro22": "192.168.88.34",
+    "zcam-aro22": "192.168.10.13",
     "zcam-asb11": "192.168.88.14",
     "zcam-tpe": "192.168.20.8"
 }

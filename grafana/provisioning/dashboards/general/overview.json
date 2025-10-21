@@ -108,7 +108,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "label_replace(zcam_temperature{job=\"zcam-values\", device_name=\"zcam-aro11\"}, \"short_name\", \"ARO11\", \"device_name\", \"^zcam-aro11$\") or\n   label_replace(zcam_temperature{job=\"zcam-values\", device_name=\"zcam-aro21\"}, \"short_name\", \"ARO21\", \"device_name\", \"^zcam-aro21$\") or\n   label_replace(zcam_temperature{job=\"zcam-values\", device_name=\"zcam-asb11\"}, \"short_name\", \"ASB11\", \"device_name\", \"^zcam-asb11$\")",
+          "expr": "label_replace(zcam_temperature{job=\"zcam-values\", device_name=\"zcam-aro11\"}, \"short_name\", \"ARO11\", \"device_name\", \"^zcam-aro11$\") or\n   label_replace(zcam_temperature{job=\"zcam-values\", device_name=\"zcam-aro12\"}, \"short_name\", \"ARO12\", \"device_name\", \"^zcam-aro12$\") or\n   label_replace(zcam_temperature{job=\"zcam-values\", device_name=\"zcam-aro21\"}, \"short_name\", \"ARO21\", \"device_name\", \"^zcam-aro21$\") or\n   label_replace(zcam_temperature{job=\"zcam-values\", device_name=\"zcam-aro22\"}, \"short_name\", \"ARO22\", \"device_name\", \"^zcam-aro22$\") or\n   label_replace(zcam_temperature{job=\"zcam-values\", device_name=\"zcam-asb11\"}, \"short_name\", \"ASB11\", \"device_name\", \"^zcam-asb11$\")",
           "instant": false,
           "legendFormat": "{{short_name}}",
           "range": true,
@@ -207,7 +207,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "label_replace(zcam_bitrate{job=\"zcam-values\", device_name=\"zcam-aro11\"}, \"short_name\", \"ARO11\", \"device_name\", \"^zcam-aro11$\") or\n   label_replace(zcam_bitrate{job=\"zcam-values\", device_name=\"zcam-aro21\"}, \"short_name\", \"ARO21\", \"device_name\", \"^zcam-aro21$\") or\n   label_replace(zcam_bitrate{job=\"zcam-values\", device_name=\"zcam-asb11\"}, \"short_name\", \"ASB11\", \"device_name\", \"^zcam-asb11$\")",
+          "expr": "label_replace(zcam_bitrate{job=\"zcam-values\", device_name=\"zcam-aro11\"}, \"short_name\", \"ARO11\", \"device_name\", \"^zcam-aro11$\") or\n   label_replace(zcam_bitrate{job=\"zcam-values\", device_name=\"zcam-aro12\"}, \"short_name\", \"ARO12\", \"device_name\", \"^zcam-aro12$\") or\n   label_replace(zcam_bitrate{job=\"zcam-values\", device_name=\"zcam-aro21\"}, \"short_name\", \"ARO21\", \"device_name\", \"^zcam-aro21$\") or\n   label_replace(zcam_bitrate{job=\"zcam-values\", device_name=\"zcam-aro22\"}, \"short_name\", \"ARO22\", \"device_name\", \"^zcam-aro22$\") or\n   label_replace(zcam_bitrate{job=\"zcam-values\", device_name=\"zcam-asb11\"}, \"short_name\", \"ASB11\", \"device_name\", \"^zcam-asb11$\")",
           "instant": false,
           "legendFormat": "{{short_name}}",
           "range": true,
