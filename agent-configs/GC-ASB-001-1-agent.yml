@@ -1,7 +1,7 @@
-# Agent Configuration for GC-ASB-001-1-agent
+# Agent Configuration for GC-asb11-agent
 # Generated configuration for agent running on 100.64.0.166
 
-agent_name: "GC-ASB-001-1-agent"
+agent_name: "GC-asb11-agent"
 agent_ip: "100.64.0.166"
 server_ip: "100.64.0.113"  # Central server IP
 server_loki_port: "3100"
@@ -9,8 +9,8 @@ server_zabbix_port: "10051"
 server_zabbix_active_port: "10051"
 
 # Container names
-promtail_container: "telemetry-promtail-GC-ASB-001-1-agent"
-zabbix_container: "telemetry-zabbix-agent-GC-ASB-001-1-agent"
+promtail_container: "telemetry-promtail-GC-asb11-agent"
+zabbix_container: "telemetry-zabbix-agent-GC-asb11-agent"
 
 # Network configuration
 network_name: "telemetry_monitoring"
@@ -23,11 +23,11 @@ log_files:
   - "./sdp.log:/var/log/sdp.log"
 
 # Configuration files
-promtail_config: "./promtail-GC-ASB-001-1-agent.yml"
-zabbix_config: "./zabbix/agent2-GC-ASB-001-1-agent.conf"
+promtail_config: "./promtail-GC-asb11-agent.yml"
+zabbix_config: "./zabbix/agent2-GC-asb11-agent.conf"
 
 # Docker compose file
-docker_compose_file: "./docker-compose-GC-ASB-001-1-agent.yml"
+docker_compose_file: "./docker-compose-GC-asb11-agent.yml"
 
 # Created timestamp
 created_at: "$(date -u +%Y-%m-%dT%H:%M:%SZ)"

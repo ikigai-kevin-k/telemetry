@@ -60,8 +60,8 @@ http://192.168.88.175/ctrl/rtmp?action=query&index=0
 
 2. **Access Zabbix Web Interface**:
    - URL: http://localhost:8080
-   - Username: `Admin`
-   - Password: `zabbix`
+   - Username: `admin`
+   - Password: `admin`
 
 3. **Configure Host**:
    - Add a new host with name: `kevin-telemetry-zabbix-agent`

@@ -23,7 +23,7 @@ def push_log_to_loki():
         stream = {
             "stream": {
                 "job": "test_agent",
-                "instance": "GC-ARO-001-2-agent",
+                "instance": "GC-aro12-agent",
                 "level": "INFO",
                 "logger": "test_logger"
             },

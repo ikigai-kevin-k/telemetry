@@ -1,6 +1,8 @@
 {
   "id": null,
+  "uid": "prometheus-test-dashboard",
   "title": "Prometheus Test Dashboard",
+  "folderId": 83,
   "tags": ["prometheus", "test"],
   "style": "dark",
   "timezone": "browser",

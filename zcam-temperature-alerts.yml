@@ -1,0 +1,41 @@
+groups:
+- name: zcam-temperature-alerts
+  rules:
+  # Temperature Warning: 40-45°C
+  - alert: ZCAMTemperatureWarning
+    expr: zcam_temperature{job="zcam-values"} >= 40 and zcam_temperature{job="zcam-values"} < 45
+    for: 1m
+    labels:
+      severity: warning
+      alert_type: temperature_warning
+    annotations:
+      summary: "ZCAM Temperature Warning - Device {{ $labels.device_name }}"
+      description: "Device {{ $labels.device_name }} temperature is {{ $value }}°C, which is in the warning range (40-45°C)"
+      temperature: "{{ $value }}"
+      device_ip: "{{ $labels.device_ip }}"
+
+  # Temperature Critical: >45°C
+  - alert: ZCAMTemperatureCritical
+    expr: zcam_temperature{job="zcam-values"} >= 45
+    for: 30s
+    labels:
+      severity: critical
+      alert_type: temperature_critical
+    annotations:
+      summary: "ZCAM Temperature Critical - Device {{ $labels.device_name }}"
+      description: "Device {{ $labels.device_name }} temperature is {{ $value }}°C, which is in the critical range (>45°C). Immediate attention required!"
+      temperature: "{{ $value }}"
+      device_ip: "{{ $labels.device_ip }}"
+
+  # Temperature Recovery: Back to normal (<40°C)
+  - alert: ZCAMTemperatureRecovered
+    expr: zcam_temperature{job="zcam-values"} < 40
+    for: 2m
+    labels:
+      severity: info
+      alert_type: temperature_recovered
+    annotations:
+      summary: "ZCAM Temperature Recovered - Device {{ $labels.device_name }}"
+      description: "Device {{ $labels.device_name }} temperature has returned to normal at {{ $value }}°C"
+      temperature: "{{ $value }}"
+      device_ip: "{{ $labels.device_ip }}"

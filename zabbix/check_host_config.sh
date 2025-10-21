@@ -25,7 +25,7 @@ get_auth_token() {
 check_host_config() {
     local auth_token="$1"
     
-    echo "Checking host configuration for GC-ARO-001-2-agent..."
+    echo "Checking host configuration for GC-aro12-agent..."
     
     # Get host information
     local host_info=$(curl -s -X POST \
@@ -35,7 +35,7 @@ check_host_config() {
             \"method\": \"host.get\",
             \"params\": {
                 \"output\": [\"hostid\", \"host\", \"name\", \"status\"],
-                \"filter\": {\"host\": \"GC-ARO-001-2-agent\"}
+                \"filter\": {\"host\": \"GC-aro12-agent\"}
             },
             \"auth\": \"$auth_token\",
             \"id\": 1

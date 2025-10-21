@@ -66,7 +66,7 @@ def check_grafana_loki_connection():
     print()
     print("3. 嘗試的查詢語法:")
     print("   - {job=\"test_agent\"}")
-    print("   - {instance=\"GC-ARO-001-2-agent\"}")
+    print("   - {instance=\"GC-aro12-agent\"}")
     print("   - {job=~\"test_agent|server|tmux_client\"}")
     print()
     print("4. 如果還是沒有資料，嘗試:")

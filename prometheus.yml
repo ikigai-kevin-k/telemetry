@@ -3,8 +3,13 @@ global:
   evaluation_interval: 15s
 
 rule_files:
-  # - "first_rules.yml"
-  # - "second_rules.yml"
+  - "zcam-temperature-alerts.yml"
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          - kevin-telemetry-alertmanager:9093
 
 scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
@@ -39,3 +44,19 @@ scrape_configs:
     static_configs:
       - targets: ['pushgateway:9091']
     scrape_interval: 15s
+
+  # Telegraf ZCAM HTTP Response metrics
+  - job_name: 'telegraf-zcam'
+    static_configs:
+      - targets: ['kevin-telemetry-telegraf-zcam:9273']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+    scrape_timeout: 10s
+
+  # ZCAM Values Exporter metrics
+  - job_name: 'zcam-values'
+    static_configs:
+      - targets: ['kevin-telemetry-zcam-values-exporter:9274']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+    scrape_timeout: 10s

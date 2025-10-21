@@ -2,10 +2,10 @@
 
 # Start Agent Mode - Support multiple agents with dynamic configuration
 # Usage: ./start-agent.sh <agent_name> <agent_ip>
-# Example: ./start-agent.sh GC-ASB-001-1-agent 100.64.0.166
+# Example: ./start-agent.sh GC-asb11-agent 100.64.0.166
 
 # Default values for backward compatibility
-DEFAULT_AGENT_NAME="GC-ARO-001-2-agent"
+DEFAULT_AGENT_NAME="GC-aro12-agent"
 DEFAULT_AGENT_IP="100.64.0.149"
 
 # Get parameters from command line or use defaults

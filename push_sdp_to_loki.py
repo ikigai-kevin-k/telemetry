@@ -16,7 +16,7 @@ def push_sdp_log_to_loki():
     stream = {
         "stream": {
             "job": "sdp",
-            "instance": "GC-ARO-001-2-agent",
+            "instance": "GC-aro12-agent",
             "service": "sdp_service",
             "level": "ERROR",
             "logger": "SDP",

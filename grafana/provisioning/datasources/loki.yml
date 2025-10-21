@@ -4,6 +4,28 @@ datasources:
   - name: Loki
     type: loki
     access: proxy
-    url: http://loki:3100  # Use service name for internal Docker network
+    url: http://localhost:3100  # Use localhost for host network mode
     isDefault: false
     editable: true
+    
+  # Dedicated datasource for aro11 SDP logs with specific configuration
+  - name: Loki-aro11-SDP
+    type: loki
+    access: proxy
+    url: http://localhost:3100
+    isDefault: false
+    editable: true
+    jsonData:
+      # Default query settings for aro11 SDP logs
+      derivedFields:
+        - name: "Timestamp"
+          matcherRegex: "\\[([0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{3})\\]"
+          url: ""
+        - name: "Direction"
+          matcherRegex: "\\] (Receive|Send|WebSocket) "
+          url: ""
+      # Pre-configured filters for SDP logs
+      maxLines: 5000
+      timeout: "30s"
+    # Default query for aro11 SDP logs
+    uid: loki-aro11-sdp

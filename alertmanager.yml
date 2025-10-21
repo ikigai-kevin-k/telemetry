@@ -1,0 +1,28 @@
+global:
+  slack_api_url: 'https://hooks.slack.com/services/PLACEHOLDER'  # Set via environment variable
+
+route:
+  group_by: ['alertname', 'device_name']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 1h
+  receiver: 'slack-notifications'
+
+receivers:
+- name: 'slack-notifications'
+  slack_configs:
+  - channel: '#ge-studio'  # Replace with your Slack channel
+    title: 'ZCAM Temperature Alert'
+    text: |
+      {{ range .Alerts }}
+      *Alert:* {{ .Annotations.summary }}
+      *Device:* {{ .Labels.device_name }}
+      *Temperature:* {{ .Annotations.temperature }}°C
+      *Status:* {{ .Status }}
+      *Time:* {{ .StartsAt.Format "2006-01-02 15:04:05" }}
+      {{ if .Annotations.description }}
+      *Description:* {{ .Annotations.description }}
+      {{ end }}
+      ---
+      {{ end }}
+    send_resolved: true

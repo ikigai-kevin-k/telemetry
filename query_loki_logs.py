@@ -13,7 +13,7 @@ def query_loki_logs():
     
     queries = [
         "{job=\"test_agent\"}",  # Our test logs
-        "{instance=\"GC-ARO-001-2-agent\"}",  # All logs from our agent
+        "{instance=\"GC-aro12-agent\"}",  # All logs from our agent
         "{job=~\"mock_sicbo|server|tmux_client\"}",  # Specific jobs
         "{level=\"INFO\"}",  # INFO level logs
         "{level=\"ERROR\"}"  # ERROR level logs

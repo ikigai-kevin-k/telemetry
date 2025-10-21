@@ -1,0 +1,46 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions-test-agent.yaml
+
+clients:
+  - url: ${LOKI_URL}  # Will be replaced by environment variable
+
+scrape_configs:
+  - job_name: srs_logs
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: srs_test
+          instance: telemetry-promtail-test-agent  # Agent instance identifier
+          __path__: /var/log/srs.log
+    pipeline_stages:
+      # Parse common log formats
+      - regex:
+          expression: '^(?P<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})(,\d{3})?\s*-?\s*(?P<level>\w+)?\s*-?\s*(?P<message>.*)$'
+      - labels:
+          level:
+      - timestamp:
+          source: timestamp
+          format: "2006-01-02 15:04:05"
+          location: "Asia/Taipei"
+
+  # FFmpeg debug logs
+  - job_name: ffmpeg_logs
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: ffmpeg_debug
+          instance: telemetry-promtail-test-agent
+          __path__: /var/log/ffmpeg_debug.log
+    pipeline_stages:
+      # FFmpeg logs don't have standard timestamps, so we'll use ingestion time
+      - regex:
+          expression: '(?P<message>.*)'
+      - labels:
+          level:
+

@@ -36,7 +36,7 @@ check_host_detailed() {
             \"method\": \"host.get\",
             \"params\": {
                 \"output\": [\"hostid\", \"host\", \"name\", \"status\", \"available\"],
-                \"filter\": {\"host\": \"GC-ARO-001-2-agent\"}
+                \"filter\": {\"host\": \"GC-aro12-agent\"}
             },
             \"auth\": \"$auth_token\",
             \"id\": 1
@@ -117,7 +117,7 @@ check_server_config() {
     
     echo ""
     echo "3. Checking recent server logs..."
-    docker logs kevin-telemetry-zabbix-server --tail 20 | grep -E "(GC-ARO-001-2-agent|100.64.0.149|active checks|host.*not found)" | tail -10
+    docker logs kevin-telemetry-zabbix-server --tail 20 | grep -E "(GC-aro12-agent|100.64.0.149|active checks|host.*not found)" | tail -10
 }
 
 # Main execution

@@ -3,19 +3,43 @@ server:
   grpc_listen_port: 0
 
 positions:
-  filename: /tmp/positions.yaml
+  filename: /tmp/positions/positions.yaml
 
 clients:
   - url: http://100.64.0.113:3100/loki/api/v1/push  # Connect to remote Loki server
 
 scrape_configs:
+  # Studio SDP Roulette API logs - Main monitoring target
+  - job_name: studio_sdp_roulette_logs
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: studio_sdp_roulette
+          instance: GC-asb11-agent
+          __path__: /var/log/studio-sdp-roulette/SBO001_*.log
+    pipeline_stages:
+      # Parse timestamp format: [2025-09-19 11:57:22.362]
+      - regex:
+          expression: '^\[(?P<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3})\] (?P<direction>Receive|Send|WebSocket) (?P<arrow>>>|<<<) (?P<message>.*)$'
+      - labels:
+          direction:
+      - timestamp:
+          source: timestamp
+          format: "2006-01-02 15:04:05.000"
+          location: "Asia/Taipei"
+      # Drop old entries (only keep recent logs to manage large file)
+      - drop:
+          older_than: 168h
+
+  # Keep existing logs for backward compatibility (optional)
   - job_name: mock_sicbo_logs
     static_configs:
       - targets:
           - localhost
         labels:
           job: mock_sicbo
-          instance: GC-ASB-001-1-agent  # Agent instance identifier
+          instance: GC-asb11-agent  # Agent instance identifier
           __path__: /var/log/mock_sicbo.log
     pipeline_stages:
       - regex:
@@ -27,6 +51,8 @@ scrape_configs:
           source: timestamp
           format: "2006-01-02 15:04:05"
           location: "Asia/Taipei"
+      - drop:
+          older_than: 168h
 
   - job_name: server_logs
     static_configs:
@@ -34,7 +60,7 @@ scrape_configs:
           - localhost
         labels:
           job: server
-          instance: GC-ASB-001-1-agent
+          instance: GC-asb11-agent
           __path__: /var/log/server.log
     pipeline_stages:
       - timestamp:
@@ -48,7 +74,7 @@ scrape_configs:
           - localhost
         labels:
           job: tmux_client
-          instance: GC-ASB-001-1-agent
+          instance: GC-asb11-agent
           __path__: /var/log/tmux-client.log
     pipeline_stages:
       - timestamp:
@@ -62,7 +88,7 @@ scrape_configs:
           - localhost
         labels:
           job: sdp
-          instance: GC-ASB-001-1-agent
+          instance: GC-asb11-agent
           service: sdp_service
           __path__: /var/log/sdp.log
     pipeline_stages:
