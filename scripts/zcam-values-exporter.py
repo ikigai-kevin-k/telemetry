@@ -24,6 +24,7 @@ ZCAM_DEVICES = {
 battery_level = Gauge('zcam_battery_level', 'ZCAM device battery level percentage', ['device_name', 'device_ip'])
 camera_mode = Gauge('zcam_camera_mode', 'ZCAM device camera mode (1=rec, 0=photo)', ['device_name', 'device_ip'])
 temperature = Gauge('zcam_temperature', 'ZCAM device temperature in Celsius', ['device_name', 'device_ip'])
+bitrate = Gauge('zcam_bitrate', 'ZCAM device RTMP stream bitrate in Mbps', ['device_name', 'device_ip'])
 api_requests_total = Counter('zcam_api_requests_total', 'Total API requests made', ['device_name', 'endpoint', 'status'])
 
 def get_zcam_value(device_ip: str, endpoint: str) -> Dict[str, Any]:
@@ -35,6 +36,8 @@ def get_zcam_value(device_ip: str, endpoint: str) -> Dict[str, Any]:
             url = f"http://{device_ip}/ctrl/mode"
         elif endpoint == "temperature":
             url = f"http://{device_ip}/ctrl/temperature"
+        elif endpoint == "bitrate":
+            url = f"http://{device_ip}/ctrl/rtmp?action=query&index=0"
         else:
             raise ValueError(f"Unknown endpoint: {endpoint}")
         
@@ -51,6 +54,8 @@ def get_zcam_value(device_ip: str, endpoint: str) -> Dict[str, Any]:
             value = 1 if mode == "rec" else 0
         elif endpoint == "temperature":
             value = float(data.get("msg", "0"))
+        elif endpoint == "bitrate":
+            value = float(data.get("bw", 0))  # bw is the bitrate field
         
         return {"success": True, "value": value, "raw_data": data}
         
@@ -84,6 +89,14 @@ def update_metrics():
             api_requests_total.labels(device_name=device_name, endpoint="temperature", status="success").inc()
         else:
             api_requests_total.labels(device_name=device_name, endpoint="temperature", status="error").inc()
+        
+        # Bitrate
+        result = get_zcam_value(device_ip, "bitrate")
+        if result["success"]:
+            bitrate.labels(device_name=device_name, device_ip=device_ip).set(result["value"])
+            api_requests_total.labels(device_name=device_name, endpoint="bitrate", status="success").inc()
+        else:
+            api_requests_total.labels(device_name=device_name, endpoint="bitrate", status="error").inc()
 
 def main():
     """Main function"""

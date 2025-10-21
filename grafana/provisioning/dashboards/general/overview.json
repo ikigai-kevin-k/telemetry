@@ -85,7 +85,7 @@
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 4,
+        "x": 0,
         "y": 0
       },
       "id": 10,
@@ -108,7 +108,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "label_replace(zcam_temperature{job=\"zcam-values\"}, \"short_name\", \"$1\", \"device_name\", \"^zcam-(.*)$\")",
+          "expr": "label_replace(zcam_temperature{job=\"zcam-values\", device_name=\"zcam-aro11\"}, \"short_name\", \"ARO11\", \"device_name\", \"^zcam-aro11$\") or\n   label_replace(zcam_temperature{job=\"zcam-values\", device_name=\"zcam-aro21\"}, \"short_name\", \"ARO21\", \"device_name\", \"^zcam-aro21$\") or\n   label_replace(zcam_temperature{job=\"zcam-values\", device_name=\"zcam-asb11\"}, \"short_name\", \"ASB11\", \"device_name\", \"^zcam-asb11$\")",
           "instant": false,
           "legendFormat": "{{short_name}}",
           "range": true,
@@ -116,6 +116,105 @@
         }
       ],
       "title": "ZCAM Temperature Trend",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "vis": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 2
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
+            ]
+          },
+          "unit": "binBps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 11,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "label_replace(zcam_bitrate{job=\"zcam-values\", device_name=\"zcam-aro11\"}, \"short_name\", \"ARO11\", \"device_name\", \"^zcam-aro11$\") or\n   label_replace(zcam_bitrate{job=\"zcam-values\", device_name=\"zcam-aro21\"}, \"short_name\", \"ARO21\", \"device_name\", \"^zcam-aro21$\") or\n   label_replace(zcam_bitrate{job=\"zcam-values\", device_name=\"zcam-asb11\"}, \"short_name\", \"ASB11\", \"device_name\", \"^zcam-asb11$\")",
+          "instant": false,
+          "legendFormat": "{{short_name}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "ZCAM Bitrate Trend",
       "type": "timeseries"
     },
     {
@@ -216,22 +315,22 @@
           "evaltype": "0",
           "functions": [
             {
+              "added": true,
               "def": {
-                "name": "setAlias",
                 "category": "Alias",
+                "defaultParams": [],
+                "name": "setAlias",
                 "params": [
                   {
                     "name": "alias",
                     "type": "string"
                   }
-                ],
-                "defaultParams": []
+                ]
               },
               "params": [
                 "ARO12"
               ],
-              "text": "setAlias()",
-              "added": true
+              "text": "setAlias()"
             }
           ],
           "group": {
@@ -289,22 +388,22 @@
           "evaltype": "0",
           "functions": [
             {
+              "added": true,
               "def": {
-                "name": "setAlias",
                 "category": "Alias",
+                "defaultParams": [],
+                "name": "setAlias",
                 "params": [
                   {
                     "name": "alias",
                     "type": "string"
                   }
-                ],
-                "defaultParams": []
+                ]
               },
               "params": [
                 "ARO11"
               ],
-              "text": "setAlias()",
-              "added": true
+              "text": "setAlias()"
             }
           ],
           "group": {
@@ -363,22 +462,22 @@
           "evaltype": "0",
           "functions": [
             {
+              "added": true,
               "def": {
-                "name": "setAlias",
                 "category": "Alias",
+                "defaultParams": [],
+                "name": "setAlias",
                 "params": [
                   {
                     "name": "alias",
                     "type": "string"
                   }
-                ],
-                "defaultParams": []
+                ]
               },
               "params": [
                 "ARO21"
               ],
-              "text": "setAlias()",
-              "added": true
+              "text": "setAlias()"
             }
           ],
           "group": {
@@ -437,22 +536,22 @@
           "evaltype": "0",
           "functions": [
             {
+              "added": true,
               "def": {
-                "name": "setAlias",
                 "category": "Alias",
+                "defaultParams": [],
+                "name": "setAlias",
                 "params": [
                   {
                     "name": "alias",
                     "type": "string"
                   }
-                ],
-                "defaultParams": []
+                ]
               },
               "params": [
                 "ARO22"
               ],
-              "text": "setAlias()",
-              "added": true
+              "text": "setAlias()"
             }
           ],
           "group": {
@@ -511,22 +610,22 @@
           "evaltype": "0",
           "functions": [
             {
+              "added": true,
               "def": {
-                "name": "setAlias",
                 "category": "Alias",
+                "defaultParams": [],
+                "name": "setAlias",
                 "params": [
                   {
                     "name": "alias",
                     "type": "string"
                   }
-                ],
-                "defaultParams": []
+                ]
               },
               "params": [
                 "ASB11"
               ],
-              "text": "setAlias()",
-              "added": true
+              "text": "setAlias()"
             }
           ],
           "group": {
@@ -667,22 +766,22 @@
           "evaltype": "0",
           "functions": [
             {
+              "added": true,
               "def": {
-                "name": "setAlias",
                 "category": "Alias",
+                "defaultParams": [],
+                "name": "setAlias",
                 "params": [
                   {
                     "name": "alias",
                     "type": "string"
                   }
-                ],
-                "defaultParams": []
+                ]
               },
               "params": [
                 "ARO12"
               ],
-              "text": "setAlias()",
-              "added": true
+              "text": "setAlias()"
             }
           ],
           "group": {
@@ -740,22 +839,22 @@
           "evaltype": "0",
           "functions": [
             {
+              "added": true,
               "def": {
-                "name": "setAlias",
                 "category": "Alias",
+                "defaultParams": [],
+                "name": "setAlias",
                 "params": [
                   {
                     "name": "alias",
                     "type": "string"
                   }
-                ],
-                "defaultParams": []
+                ]
               },
               "params": [
                 "ARO11"
               ],
-              "text": "setAlias()",
-              "added": true
+              "text": "setAlias()"
             }
           ],
           "group": {
@@ -813,22 +912,22 @@
           "evaltype": "0",
           "functions": [
             {
+              "added": true,
               "def": {
-                "name": "setAlias",
                 "category": "Alias",
+                "defaultParams": [],
+                "name": "setAlias",
                 "params": [
                   {
                     "name": "alias",
                     "type": "string"
                   }
-                ],
-                "defaultParams": []
+                ]
               },
               "params": [
                 "ARO21"
               ],
-              "text": "setAlias()",
-              "added": true
+              "text": "setAlias()"
             }
           ],
           "group": {
@@ -887,22 +986,22 @@
           "evaltype": "0",
           "functions": [
             {
+              "added": true,
               "def": {
-                "name": "setAlias",
                 "category": "Alias",
+                "defaultParams": [],
+                "name": "setAlias",
                 "params": [
                   {
                     "name": "alias",
                     "type": "string"
                   }
-                ],
-                "defaultParams": []
+                ]
               },
               "params": [
                 "ARO22"
               ],
-              "text": "setAlias()",
-              "added": true
+              "text": "setAlias()"
             }
           ],
           "group": {
@@ -961,22 +1060,22 @@
           "evaltype": "0",
           "functions": [
             {
+              "added": true,
               "def": {
-                "name": "setAlias",
                 "category": "Alias",
+                "defaultParams": [],
+                "name": "setAlias",
                 "params": [
                   {
                     "name": "alias",
                     "type": "string"
                   }
-                ],
-                "defaultParams": []
+                ]
               },
               "params": [
                 "ASB11"
               ],
-              "text": "setAlias()",
-              "added": true
+              "text": "setAlias()"
             }
           ],
           "group": {
@@ -1388,8 +1487,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -1483,8 +1581,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -1508,8 +1605,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "blue",
-                      "value": null
+                      "color": "blue"
                     },
                     {
                       "color": "green",
@@ -1662,6 +1758,6 @@
   "timezone": "Asia/Taipei",
   "title": "System Overview",
   "uid": "overview-dashboard",
-  "version": 60,
+  "version": 64,
   "weekStart": ""
 }
