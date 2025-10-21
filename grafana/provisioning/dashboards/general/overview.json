@@ -78,7 +78,7 @@
               }
             ]
           },
-          "unit": "celsius"
+          "unit": ""
         },
         "overrides": []
       },
@@ -177,7 +177,7 @@
               }
             ]
           },
-          "unit": "binMBps"
+          "unit": ""
         },
         "overrides": []
       },
@@ -277,7 +277,7 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": ""
         },
         "overrides": []
       },
@@ -728,7 +728,7 @@
               }
             ]
           },
-          "unit": "bps"
+          "unit": ""
         },
         "overrides": []
       },
@@ -1334,7 +1334,7 @@
               }
             ]
           },
-          "unit": "short"
+          "unit": ""
         },
         "overrides": []
       },
@@ -1427,7 +1427,7 @@
               }
             ]
           },
-          "unit": "short"
+          "unit": ""
         },
         "overrides": []
       },
