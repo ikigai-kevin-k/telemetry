@@ -5,11 +5,12 @@ datasources:
   - name: Zabbix-New
     type: alexanderzobnin-zabbix-datasource
     access: proxy
-    url: http://172.18.0.7:8080/api_jsonrpc.php
+    url: http://localhost:8080/api_jsonrpc.php
     basicAuth: false
     isDefault: false
+    uid: zabbix-datasource
     jsonData:
-      username: Admin
+      username: admin
       cacheTTL: 300s
       timeout: 30
       trends: true
@@ -23,5 +24,5 @@ datasources:
       queryMode: Metrics
       tlsSkipVerify: true
     secureJsonData:
-      password: zabbix
+      password: admin
     editable: true

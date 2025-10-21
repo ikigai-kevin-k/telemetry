@@ -2,8 +2,8 @@
 
 # Zabbix API configuration
 ZABBIX_URL="http://localhost:8080/api_jsonrpc.php"
-ZABBIX_USER="Admin"
-ZABBIX_PASSWORD="zabbix"
+ZABBIX_USER="admin"
+ZABBIX_PASSWORD="admin"
 
 # Function to get authentication token
 get_auth_token() {
