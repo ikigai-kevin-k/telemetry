@@ -84,7 +84,7 @@ def main():
                 write_network_log(stats)
                 print(f"[{datetime.now().strftime('%H:%M:%S')}] RX: {stats['rx_bits']:,} bits, TX: {stats['tx_bits']:,} bits")
             
-            time.sleep(1)  # Collect every second
+            time.sleep(10)  # Collect every 10 seconds
             
     except KeyboardInterrupt:
         print("\nMonitoring stopped.")
