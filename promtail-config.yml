@@ -94,13 +94,7 @@ scrape_configs:
     pipeline_stages:
       - json:
           expressions:
-            timestamp: timestamp
-            interface: interface
-            rx_bytes: rx_bytes
-            rx_packets: rx_packets
-            tx_bytes: tx_bytes
-            tx_packets: tx_packets
             rx_bits: rx_bits
-            tx_bits: tx_bits
-      - labels:
-          interface:
+      - template:
+          source: rx_bits
+          template: '{{ .rx_bits }}'
