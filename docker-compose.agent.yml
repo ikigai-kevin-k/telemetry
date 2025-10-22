@@ -15,6 +15,7 @@ services:
       - ./tmux-client-3638382.log:/var/log/tmux-client.log  # Additional log file
       - ./sdp.log:/var/log/sdp.log  # SDP error logs
       - ./logs/network_stats.log:/var/log/network_stats.log  # Network monitoring logs
+      - ./logs/test_network_stats.log:/var/log/test_network_stats.log  # Test network monitoring logs
     command: -config.file=/etc/promtail/config.yml
     restart: unless-stopped
     networks:

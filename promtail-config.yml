@@ -7,6 +7,9 @@ positions:
 
 clients:
   - url: http://100.64.0.113:3100/loki/api/v1/push  # Connect to remote Loki server
+    batchwait: 5s
+    batchsize: 10
+    timeout: 30s
 
 scrape_configs:
   - job_name: mock_sicbo_logs
@@ -87,21 +90,13 @@ scrape_configs:
           job: network_monitor
           instance: GC-aro12-agent
           interface: enp86s0
-          __path__: /var/log/network_stats.log
+          __path__: /var/log/test_network_stats.log
     pipeline_stages:
       - json:
           expressions:
             timestamp: timestamp
             interface: interface
             rx_bytes: rx_bytes
-            rx_packets: rx_packets
             tx_bytes: tx_bytes
-            tx_packets: tx_packets
-            rx_bits: rx_bits
-            tx_bits: tx_bits
       - labels:
           interface:
-      - timestamp:
-          source: timestamp
-          format: "2006-01-02 15:04:05"
-          location: "Asia/Taipei"
