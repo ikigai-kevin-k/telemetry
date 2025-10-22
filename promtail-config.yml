@@ -88,15 +88,19 @@ scrape_configs:
           - localhost
         labels:
           job: network_monitor
-          instance: GC-aro12-agent
+          instance: GC-aro11-agent
           interface: enp86s0
-          __path__: /var/log/test_network_stats.log
+          __path__: /var/log/network_stats.log
     pipeline_stages:
       - json:
           expressions:
             timestamp: timestamp
             interface: interface
             rx_bytes: rx_bytes
+            rx_packets: rx_packets
             tx_bytes: tx_bytes
+            tx_packets: tx_packets
+            rx_bits: rx_bits
+            tx_bits: tx_bits
       - labels:
           interface:
