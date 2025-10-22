@@ -22,6 +22,8 @@ services:
       - ./server.log:/var/log/server.log
       - ./tmux-client-3638382.log:/var/log/tmux-client.log
       - ./sdp.log:/var/log/sdp.log
+      # Network monitoring logs - Ethernet interface bit received metrics
+      - /var/log/network_stats.log:/var/log/network_stats.log:ro
       # Persistent volumes for Promtail data
       - promtail_aro_001_1_positions:/tmp/positions  # Position tracking for log files
       - promtail_aro_001_1_data:/var/lib/promtail    # Promtail internal data
