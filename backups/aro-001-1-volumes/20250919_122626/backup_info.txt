@@ -1,0 +1,11 @@
+ARO-001-1 Agent Volume Backup
+=============================
+Backup Date: Fri Sep 19 12:26:30 PM +04 2025
+Agent: GC-ARO-001-1-agent
+Volumes Backed Up:
+- telemetry_promtail_aro_001_1_positions
+- telemetry_promtail_aro_001_1_data
+- telemetry_zabbix_agent_aro_001_1_data
+
+Restore Command:
+./manage_aro_001_1_volumes.sh --restore 20250919_122626

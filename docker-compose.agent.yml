@@ -6,7 +6,7 @@ version: '3.8'
 services:
   # Loki Agent (Promtail) - Collects logs and sends to remote Loki server
   promtail:
-    image: grafana/promtail:3.0.0
+    image: grafana/promtail:latest
     container_name: kevin-telemetry-promtail-agent
     volumes:
       - ./promtail-config.yml:/etc/promtail/config.yml

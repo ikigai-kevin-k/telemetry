@@ -95,6 +95,3 @@ scrape_configs:
       - json:
           expressions:
             rx_bits: rx_bits
-      - template:
-          source: rx_bits
-          template: '{{ .rx_bits }}'
