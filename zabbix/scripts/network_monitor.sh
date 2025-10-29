@@ -281,6 +281,120 @@ get_network_status() {
     fi
 }
 
+# Function to calculate network interface rate (bits per second)
+# This function maintains state in a temporary file to calculate rate
+get_network_rx_rate() {
+    local interface="$1"
+    if [ -z "$interface" ]; then
+        interface="enp86s0"
+    fi
+    
+    # State file path (in persistent directory for Zabbix agent)
+    local state_dir="/var/lib/zabbix/network_monitor_state"
+    mkdir -p "$state_dir"
+    local state_file="${state_dir}/${interface}_rx.state"
+    local current_time=$(date +%s)
+    local current_bytes
+    
+    # Get current bytes value
+    current_bytes=$(get_network_rx_bytes "$interface")
+    if [ "$current_bytes" = "0" ] || [ -z "$current_bytes" ]; then
+        echo "0"
+        return 1
+    fi
+    
+    # Convert bytes to bits
+    local current_bits=$((current_bytes * 8))
+    
+    # Read previous state if exists
+    if [ -f "$state_file" ]; then
+        local prev_bits prev_time
+        read prev_bits prev_time < "$state_file"
+        
+        if [ -n "$prev_bits" ] && [ -n "$prev_time" ] && [ "$prev_time" -lt "$current_time" ]; then
+            local time_diff=$((current_time - prev_time))
+            if [ "$time_diff" -gt 0 ]; then
+                local bit_diff=$((current_bits - prev_bits))
+                # Handle counter wrap-around (64-bit counter, but use large threshold)
+                # If negative difference is too large, assume wrap-around
+                if [ "$bit_diff" -lt -1000000000 ]; then
+                    # Assume 64-bit counter wrap-around, calculate properly
+                    bit_diff=$((current_bits - prev_bits + 18446744073709551615))
+                elif [ "$bit_diff" -lt 0 ]; then
+                    # Small negative might be legitimate (counter reset), set to 0
+                    bit_diff=0
+                fi
+                local rate=$((bit_diff / time_diff))
+                # Save current state
+                echo "$current_bits $current_time" > "$state_file"
+                echo "$rate"
+                return 0
+            fi
+        fi
+    fi
+    
+    # First run or invalid state - save current state and return 0
+    echo "$current_bits $current_time" > "$state_file"
+    echo "0"
+    return 0
+}
+
+# Function to calculate network interface TX rate (bits per second)
+get_network_tx_rate() {
+    local interface="$1"
+    if [ -z "$interface" ]; then
+        interface="enp86s0"
+    fi
+    
+    # State file path (in persistent directory for Zabbix agent)
+    local state_dir="/var/lib/zabbix/network_monitor_state"
+    mkdir -p "$state_dir"
+    local state_file="${state_dir}/${interface}_tx.state"
+    local current_time=$(date +%s)
+    local current_bytes
+    
+    # Get current bytes value
+    current_bytes=$(get_network_tx_bytes "$interface")
+    if [ "$current_bytes" = "0" ] || [ -z "$current_bytes" ]; then
+        echo "0"
+        return 1
+    fi
+    
+    # Convert bytes to bits
+    local current_bits=$((current_bytes * 8))
+    
+    # Read previous state if exists
+    if [ -f "$state_file" ]; then
+        local prev_bits prev_time
+        read prev_bits prev_time < "$state_file"
+        
+        if [ -n "$prev_bits" ] && [ -n "$prev_time" ] && [ "$prev_time" -lt "$current_time" ]; then
+            local time_diff=$((current_time - prev_time))
+            if [ "$time_diff" -gt 0 ]; then
+                local bit_diff=$((current_bits - prev_bits))
+                # Handle counter wrap-around (64-bit counter, but use large threshold)
+                if [ "$bit_diff" -lt -1000000000 ]; then
+                    # Assume 64-bit counter wrap-around
+                    bit_diff=$((current_bits - prev_bits + 18446744073709551615))
+                elif [ "$bit_diff" -lt 0 ]; then
+                    # Small negative might be legitimate (counter reset), set to 0
+                    bit_diff=0
+                fi
+                local rate=$((bit_diff / time_diff))
+                # Save current state
+                echo "$current_bits $current_time" > "$state_file"
+                echo "$rate"
+                return 0
+            fi
+        fi
+    fi
+    
+    # First run or invalid state - save current state and return 0
+    echo "$current_bits $current_time" > "$state_file"
+    echo "0"
+    return 0
+}
+
 # Main execution
 case "${1:-help}" in
     "rx_bytes")
@@ -313,6 +427,12 @@ case "${1:-help}" in
     "status")
         get_network_status "$2"
         ;;
+    "rx_rate")
+        get_network_rx_rate "$2"
+        ;;
+    "tx_rate")
+        get_network_tx_rate "$2"
+        ;;
     "stats")
         get_network_stats "$2"
         ;;
@@ -330,6 +450,8 @@ case "${1:-help}" in
         echo "  tx_dropped    - Transmit dropped packets"
         echo "  speed         - Interface speed (Mbps)"
         echo "  status        - Interface status (1=up, 0=down)"
+        echo "  rx_rate       - Receive rate (bits per second)"
+        echo "  tx_rate       - Transmit rate (bits per second)"
         echo "  stats         - All statistics"
         echo ""
         echo "Examples:"
