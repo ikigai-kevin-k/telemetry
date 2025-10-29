@@ -45,13 +45,10 @@ services:
     volumes:
       - ./zabbix/agent2-GC-ARO-001-1-agent.conf:/etc/zabbix/zabbix_agent2.conf
       - ./zabbix/scripts:/var/lib/zabbix/scripts
-      - /sys:/host/sys:ro                       # Mount host sys directory for network interface access
-      - /proc/net/dev:/host/proc/net/dev:ro     # Mount host network statistics
       # Persistent volume for Zabbix agent data
       - zabbix_agent_aro_001_1_data:/var/lib/zabbix/agent  # Zabbix agent persistent buffer
+    network_mode: host  # Use host networking to access host network interfaces (same as ARO12)
     restart: unless-stopped
-    networks:
-      - monitoring
 
 # Docker volumes for data persistence
 volumes:
