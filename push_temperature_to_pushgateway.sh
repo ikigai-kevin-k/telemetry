@@ -24,15 +24,19 @@ function read_temperature() {
 
 function push_metric() {
   local temperature_value="$1"
-  local payload
-  payload="# HELP ${METRIC_NAME} Current system temperature in Celsius\n"
-  payload+="# TYPE ${METRIC_NAME} gauge\n"
-  payload+="${METRIC_NAME}{instance=\"${INSTANCE_LABEL}\"} ${temperature_value}\n"
+  # Use a temporary file for payload to avoid shell/newline escaping issues
+  local tmp_file
+  tmp_file=$(mktemp /tmp/metrics-aro002-1.XXXXXX)
+  echo "# HELP ${METRIC_NAME} Current system temperature in Celsius" > "$tmp_file"
+  echo "# TYPE ${METRIC_NAME} gauge" >> "$tmp_file"
+  echo "${METRIC_NAME}{instance=\"${INSTANCE_LABEL}\"} ${temperature_value}" >> "$tmp_file"
 
   curl -sf \
     -X POST \
-    --data-binary "$payload" \
-    "${PUSHGATEWAY_URL}/metrics/job/${JOB_NAME}" >/dev/null
+    --data-binary @"$tmp_file" \
+    "${PUSHGATEWAY_URL}/metrics/job/${JOB_NAME}" >/dev/null || return 1
+
+  rm -f "$tmp_file"
 }
 
 echo "Starting temperature exporter -> ${PUSHGATEWAY_URL} as job=${JOB_NAME}, instance=${INSTANCE_LABEL}"
