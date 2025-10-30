@@ -1,0 +1,87 @@
+# Cursor Rules: Pre-Edit Workflow for Agent/Server Sides
+
+目的：在每次進行任何檔案編輯前，先判斷目前機器是在 agent-side 還是 server-side，並依據錯誤來源決策應該修改哪一端的程式碼；若本機不在較合適的一端，則輸出修改建議為 Markdown 檔。
+
+—
+
+[準則]
+- 一律先偵測本機端角色（agent-side 或 server-side）。
+- 使用者若貼出錯誤訊息/截圖，先評估較合適修改的端別（agent-side 或 server-side）。
+- 若本機即為較合適修改的一端：直接切換至對應的 Git branch 並實作修改。
+- 若本機不是較合適的一端：建立 Markdown 建議書，不在本機動手改碼。
+- 分支對應：agent-side 看 `agent` 分支；server-side 看 `server` 分支。
+
+—
+
+[偵測目前端別]
+1) 執行 ifconfig（非互動）：
+   - 取得介面名稱與 IP 訊息。
+   - 偵測規則（由上到下依序判定）：
+     - 若介面名稱或主機名包含 "agent"，判定為 agent-side。
+     - 若介面名稱或主機名包含 "server"，判定為 server-side。
+   - 若無法由 ifconfig/hostname 判定：
+     - 讀取目前 Git branch：
+       - `agent` → 視為 agent-side
+       - `server` → 視為 server-side
+   - 仍無法判定時，預設為「未知」，僅產出建議 Markdown，不直接改動程式碼。
+
+命令參考（非互動）：
+- `ifconfig || ip addr`
+- `hostnamectl --static || hostname`
+- `git rev-parse --abbrev-ref HEAD`
+
+—
+
+[決策：改哪一端]
+- 歸納錯誤來源並評估：
+  - 屬於資料收集、端點呼叫前的封包/序列化、紀錄寫入前的驗證/重試/緩存、agent 啟動/自動更新/本地資源權限 → 偏向 agent-side。
+  - 屬於 API 規格/授權驗證、伺服器日誌顯示的錯誤堆疊、DB schema/查詢/交易、佈署設定、後端計費/配額/風控 → 偏向 server-side。
+- 若使用者提供的錯誤訊息或圖片能明確指向一端，依該端為主。
+- 不確定時：以錯誤首次可重現的位置與日誌堆疊最深處為優先端。
+
+—
+
+[執行策略]
+- 若本機端別 == 較合適的端別：
+  1) 確保切到正確分支：
+     - agent-side → `git checkout agent`
+     - server-side → `git checkout server`
+  2) 依評估重點實作修改，撰寫清晰可讀的程式碼，並附具關鍵註解（英文）。
+  3) 驗證、lint、必要測試後再提交。
+
+- 若本機端別 != 較合適的端別：
+  1) 不進行本機程式碼變動。
+  2) 產出建議 Markdown（路徑：`proposals/`），檔名格式：
+     - `proposals/fix-<area>-<agent|server>-YYYYMMDD-HHMM.md`
+  3) 內容須包含：
+     - 背景與錯誤描述（貼上關鍵錯誤訊息/圖片說明）
+     - 影響範圍與根因推測
+     - 建議修改檔案與重點程式片段（偽碼或具體 diff 提要）
+     - 驗證步驟（如何重現、如何確認修復）
+     - 風險與回滾方案
+
+—
+
+[提交與分支規範]
+- agent-side 改動一律在 `agent` 分支開 feature 分支，完成後發 PR 回 `agent`。
+- server-side 改動一律在 `server` 分支開 feature 分支，完成後發 PR 回 `server`。
+- Commit 訊息：
+  - 前綴 `[agent]` 或 `[server]`，附上影響模組與簡述，如：
+    - `[agent] fix(metrics): guard null payload before serialize`
+    - `[server] feat(api): add v2 endpoint for ingestion`
+
+—
+
+[快速流程摘要]
+1) 先跑 ifconfig/hostname 與目前 Git branch 判定本機端別。
+2) 讀錯誤訊息/圖片，判斷應該改 agent-side 或 server-side。
+3) 若本機即為較合適端：切對應分支 → 直接實作修改。
+4) 若本機不是較合適端：生成 `proposals/*.md` 建議書，不動碼。
+5) 驗證、提交、PR；全程維持清晰命名與可讀性。
+
+—
+
+[注意]
+- 無法明確判定端別時，避免冒然修改；優先輸出建議 Markdown，待確認後再實作。
+- 在對應分支上檢視檔案：agent-side 僅看 `agent`，server-side 僅看 `server`。
+- 任何自動化腳本請確保非互動旗標與失敗即中止（set -e）。
