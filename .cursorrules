@@ -14,20 +14,20 @@
 —
 
 [偵測目前端別]
-1) 執行 ifconfig（非互動）：
-   - 取得介面名稱與 IP 訊息。
+1) 使用 Tailscale IP 判斷（非互動）：
+   - 取得 Tailscale 介面與 IP/DNS 名稱。
    - 偵測規則（由上到下依序判定）：
-     - 若介面名稱或主機名包含 "agent"，判定為 agent-side。
-     - 若介面名稱或主機名包含 "server"，判定為 server-side。
-   - 若無法由 ifconfig/hostname 判定：
+     - 若 Tailscale 節點名稱/DNSName 或主機名包含 "agent"，判定為 agent-side。
+     - 若 Tailscale 節點名稱/DNSName 或主機名包含 "server"，判定為 server-side。
+   - 若無法由 tailscale/hostname 判定：
      - 讀取目前 Git branch：
        - `agent` → 視為 agent-side
        - `server` → 視為 server-side
    - 仍無法判定時，預設為「未知」，僅產出建議 Markdown，不直接改動程式碼。
 
 命令參考（非互動）：
-- `ifconfig || ip addr`
-- `hostnamectl --static || hostname`
+- `tailscale ip -4 || tailscale ip -6 || ip addr show dev tailscale0`
+- `tailscale status --self --json | jq -r .Self.DNSName 2>/dev/null || hostnamectl --static || hostname`
 - `git rev-parse --abbrev-ref HEAD`
 
 —
@@ -73,7 +73,7 @@
 —
 
 [快速流程摘要]
-1) 先跑 ifconfig/hostname 與目前 Git branch 判定本機端別。
+1) 先以 tailscale/hostname 與目前 Git branch 判定本機端別。
 2) 讀錯誤訊息/圖片，判斷應該改 agent-side 或 server-side。
 3) 若本機即為較合適端：切對應分支 → 直接實作修改。
 4) 若本機不是較合適端：生成 `proposals/*.md` 建議書，不動碼。
