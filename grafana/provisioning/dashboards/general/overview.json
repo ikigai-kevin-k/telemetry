@@ -108,11 +108,59 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "label_replace(zcam_temperature{job=\"zcam-values\", device_name=\"zcam-aro11\"}, \"short_name\", \"ARO11\", \"device_name\", \"^zcam-aro11$\") or\n   label_replace(zcam_temperature{job=\"zcam-values\", device_name=\"zcam-aro12\"}, \"short_name\", \"ARO12\", \"device_name\", \"^zcam-aro12$\") or\n   label_replace(zcam_temperature{job=\"zcam-values\", device_name=\"zcam-aro21\"}, \"short_name\", \"ARO21\", \"device_name\", \"^zcam-aro21$\") or\n   label_replace(zcam_temperature{job=\"zcam-values\", device_name=\"zcam-aro22\"}, \"short_name\", \"ARO22\", \"device_name\", \"^zcam-aro22$\") or\n   label_replace(zcam_temperature{job=\"zcam-values\", device_name=\"zcam-asb11\"}, \"short_name\", \"ASB11\", \"device_name\", \"^zcam-asb11$\")",
+          "expr": "label_replace(zcam_temperature{job=\"zcam-values\", device_name=\"zcam-aro11\"}, \"short_name\", \"ARO11\", \"device_name\", \"^zcam-aro11$\")",
           "instant": false,
           "legendFormat": "{{short_name}}",
           "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "builder",
+          "expr": "zcam_temperature{device_ip=\"192.168.88.12\"}",
+          "hide": false,
+          "legendFormat": "ARO12",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "   label_replace(zcam_temperature{job=\"zcam-values\", device_name=\"zcam-aro21\"}, \"short_name\", \"ARO21\", \"device_name\", \"^zcam-aro21$\")",
+          "hide": false,
+          "legendFormat": "ARO21",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "   label_replace(zcam_temperature{job=\"zcam-values\", device_name=\"zcam-aro22\"}, \"short_name\", \"ARO22\", \"device_name\", \"^zcam-aro22$\")",
+          "hide": false,
+          "legendFormat": "ARO22",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "   label_replace(zcam_temperature{job=\"zcam-values\", device_name=\"zcam-asb11\"}, \"short_name\", \"ASB11\", \"device_name\", \"^zcam-asb11$\")",
+          "hide": false,
+          "legendFormat": "ASB11",
+          "range": true,
+          "refId": "E"
         }
       ],
       "title": "ZCAM Temperature Trend (°C)",
@@ -207,11 +255,59 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "label_replace(zcam_bitrate{job=\"zcam-values\", device_name=\"zcam-aro11\"}, \"short_name\", \"ARO11\", \"device_name\", \"^zcam-aro11$\") or\n   label_replace(zcam_bitrate{job=\"zcam-values\", device_name=\"zcam-aro12\"}, \"short_name\", \"ARO12\", \"device_name\", \"^zcam-aro12$\") or\n   label_replace(zcam_bitrate{job=\"zcam-values\", device_name=\"zcam-aro21\"}, \"short_name\", \"ARO21\", \"device_name\", \"^zcam-aro21$\") or\n   label_replace(zcam_bitrate{job=\"zcam-values\", device_name=\"zcam-aro22\"}, \"short_name\", \"ARO22\", \"device_name\", \"^zcam-aro22$\") or\n   label_replace(zcam_bitrate{job=\"zcam-values\", device_name=\"zcam-asb11\"}, \"short_name\", \"ASB11\", \"device_name\", \"^zcam-asb11$\")",
+          "expr": "label_replace(zcam_bitrate{job=\"zcam-values\", device_name=\"zcam-aro11\"}, \"short_name\", \"ARO11\", \"device_name\", \"^zcam-aro11$\")",
           "instant": false,
           "legendFormat": "{{short_name}}",
           "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "builder",
+          "expr": "zcam_bitrate{device_ip=\"192.168.88.12\"}",
+          "hide": false,
+          "legendFormat": "ARO12",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "   label_replace(zcam_bitrate{job=\"zcam-values\", device_name=\"zcam-aro21\"}, \"short_name\", \"ARO21\", \"device_name\", \"^zcam-aro21$\")",
+          "hide": false,
+          "legendFormat": "ARO21",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "   label_replace(zcam_bitrate{job=\"zcam-values\", device_name=\"zcam-aro22\"}, \"short_name\", \"ARO22\", \"device_name\", \"^zcam-aro22$\")",
+          "hide": false,
+          "legendFormat": "ARO22",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "   label_replace(zcam_bitrate{job=\"zcam-values\", device_name=\"zcam-asb11\"}, \"short_name\", \"ASB11\", \"device_name\", \"^zcam-asb11$\")",
+          "hide": false,
+          "legendFormat": "ASB11",
+          "range": true,
+          "refId": "E"
         }
       ],
       "title": "ZCAM Bitrate Trend (MBps)",
@@ -302,79 +398,6 @@
       },
       "targets": [
         {
-          "alias": "GC-aro12-agent",
-          "aliasBy": "GC-aro12-agent",
-          "application": {
-            "filter": ""
-          },
-          "countTriggersBy": "",
-          "datasource": {
-            "type": "alexanderzobnin-zabbix-datasource",
-            "uid": "zabbix-datasource"
-          },
-          "evaltype": "0",
-          "functions": [
-            {
-              "added": true,
-              "def": {
-                "category": "Alias",
-                "defaultParams": [],
-                "name": "setAlias",
-                "params": [
-                  {
-                    "name": "alias",
-                    "type": "string"
-                  }
-                ]
-              },
-              "params": [
-                "ARO12"
-              ],
-              "text": "setAlias()"
-            }
-          ],
-          "group": {
-            "filter": "Linux servers"
-          },
-          "host": {
-            "filter": "GC-aro12-agent"
-          },
-          "item": {
-            "filter": "Linux: CPU utilization"
-          },
-          "itemTag": {
-            "filter": ""
-          },
-          "macro": {
-            "filter": ""
-          },
-          "options": {
-            "count": false,
-            "disableDataAlignment": false,
-            "showDisabledItems": false,
-            "skipEmptyValues": false,
-            "useTrends": "default",
-            "useZabbixValueMapping": false
-          },
-          "proxy": {
-            "filter": ""
-          },
-          "queryType": "0",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "schema": 12,
-          "table": {
-            "skipEmptyValues": false
-          },
-          "tags": {
-            "filter": ""
-          },
-          "textFilter": "",
-          "trigger": {
-            "filter": ""
-          }
-        },
-        {
           "alias": "GC-ARO-001-1-agent",
           "aliasBy": "GC-ARO-001-1-agent",
           "application": {
@@ -412,6 +435,79 @@
           "hide": false,
           "host": {
             "filter": "GC-ARO-001-1-agent"
+          },
+          "item": {
+            "filter": "Linux: CPU utilization"
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "count": false,
+            "disableDataAlignment": false,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "schema": 12,
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
+          }
+        },
+        {
+          "alias": "GC-aro12-agent",
+          "aliasBy": "GC-aro12-agent",
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "zabbix-datasource"
+          },
+          "evaltype": "0",
+          "functions": [
+            {
+              "added": true,
+              "def": {
+                "category": "Alias",
+                "defaultParams": [],
+                "name": "setAlias",
+                "params": [
+                  {
+                    "name": "alias",
+                    "type": "string"
+                  }
+                ]
+              },
+              "params": [
+                "ARO12"
+              ],
+              "text": "setAlias()"
+            }
+          ],
+          "group": {
+            "filter": "Linux servers"
+          },
+          "host": {
+            "filter": "GC-aro12-agent"
           },
           "item": {
             "filter": "Linux: CPU utilization"
@@ -671,7 +767,7 @@
           }
         }
       ],
-      "title": "CPU Usage - All Agents",
+      "title": "AI PC - CPU Usage",
       "type": "timeseries"
     },
     {
@@ -694,11 +790,12 @@
             "fillOpacity": 0,
             "gradientMode": "none",
             "hideFrom": {
+              "axis": true,
               "legend": false,
               "tooltip": false,
-              "viz": false,
-              "axis": true
+              "viz": false
             },
+            "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
@@ -744,10 +841,6 @@
               {
                 "id": "custom.axisLabel",
                 "value": ""
-              },
-              {
-                "id": "custom.hideFrom.axis",
-                "value": true
               }
             ]
           }
@@ -798,6 +891,78 @@
                 ]
               },
               "params": [
+                "ARO11"
+              ],
+              "text": "setAlias()"
+            }
+          ],
+          "group": {
+            "filter": "Linux servers"
+          },
+          "hide": false,
+          "host": {
+            "filter": "GC-ARO-001-1-agent"
+          },
+          "item": {
+            "filter": "Interface enp86s0: Bits received (Rate)"
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "count": false,
+            "disableDataAlignment": false,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "schema": 12,
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
+          }
+        },
+        {
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "zabbix-datasource"
+          },
+          "evaltype": "0",
+          "functions": [
+            {
+              "added": true,
+              "def": {
+                "category": "Alias",
+                "defaultParams": [],
+                "name": "setAlias",
+                "params": [
+                  {
+                    "name": "alias",
+                    "type": "string"
+                  }
+                ]
+              },
+              "params": [
                 "ARO12"
               ],
               "text": "setAlias()"
@@ -806,6 +971,7 @@
           "group": {
             "filter": "Linux servers"
           },
+          "hide": false,
           "host": {
             "filter": "GC-aro12-agent"
           },
@@ -813,9 +979,80 @@
             "filter": "Interface enp86s0: Bits received"
           },
           "itemTag": {
-            "filter": "interface: eth0"
+            "filter": ""
           },
-          "key": "Q-cc99a50f-83e8-4c03-a846-8ac3a4169e46-0",
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "count": false,
+            "disableDataAlignment": false,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "schema": 12,
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
+          }
+        },
+        {
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "zabbix-datasource"
+          },
+          "evaltype": "0",
+          "functions": [
+            {
+              "added": true,
+              "def": {
+                "category": "Alias",
+                "defaultParams": [],
+                "name": "setAlias",
+                "params": [
+                  {
+                    "name": "alias",
+                    "type": "string"
+                  }
+                ]
+              },
+              "params": [
+                "ARO21"
+              ],
+              "text": "setAlias()"
+            }
+          ],
+          "group": {
+            "filter": "Linux servers"
+          },
+          "hide": false,
+          "host": {
+            "filter": "GC-ARO-002-1-agent"
+          },
+          "item": {
+            "filter": "Interface eth0: Bits received"
+          },
+          "itemTag": {
+            "filter": ""
+          },
           "macro": {
             "filter": ""
           },
@@ -844,9 +1081,463 @@
           "trigger": {
             "filter": ""
           }
+        },
+        {
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "zabbix-datasource"
+          },
+          "evaltype": "0",
+          "functions": [
+            {
+              "added": true,
+              "def": {
+                "category": "Alias",
+                "defaultParams": [],
+                "name": "setAlias",
+                "params": [
+                  {
+                    "name": "alias",
+                    "type": "string"
+                  }
+                ]
+              },
+              "params": [
+                "ARO22"
+              ],
+              "text": "setAlias()"
+            }
+          ],
+          "group": {
+            "filter": "Linux servers"
+          },
+          "hide": false,
+          "host": {
+            "filter": "GC-ARO-002-2-agent"
+          },
+          "item": {
+            "filter": "Interface eth0: Bits received"
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "count": false,
+            "disableDataAlignment": false,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "schema": 12,
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
+          }
+        },
+        {
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "zabbix-datasource"
+          },
+          "evaltype": "0",
+          "functions": [
+            {
+              "added": true,
+              "def": {
+                "category": "Alias",
+                "defaultParams": [],
+                "name": "setAlias",
+                "params": [
+                  {
+                    "name": "alias",
+                    "type": "string"
+                  }
+                ]
+              },
+              "params": [
+                "ASB11"
+              ],
+              "text": "setAlias()"
+            }
+          ],
+          "group": {
+            "filter": "Linux servers"
+          },
+          "hide": false,
+          "host": {
+            "filter": "GC-ASB-001-1-agent"
+          },
+          "item": {
+            "filter": "Interface enp86s0: Bits received"
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "count": false,
+            "disableDataAlignment": false,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
+          "refId": "E",
+          "resultFormat": "time_series",
+          "schema": 12,
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
+          }
         }
       ],
       "title": "Network Traffic - All Agents (MBps)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "-",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "{__name__=\"system_temperature_celsius\", instance=\"GC-ARO-002-1-agent\", job=\"agent_temperature\"}"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "aro-21"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "{__name__=\"system_temperature_celsius\", instance=\"GC-ARO-001-1-agent\", job=\"agent_temperature\"}"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 16
+      },
+      "id": 13,
+      "maxDataPoints": 3000,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "system_temperature_celsius{instance=\"GC-ARO-001-1-agent\"}",
+          "instant": true,
+          "interval": "",
+          "key": "Q-3303b727-a1c3-42d7-86f3-00123b8bc3ae-0",
+          "legendFormat": "ARO11",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "system_temperature_celsius{instance=\"GC-ARO-001-2-agent\"}",
+          "hide": false,
+          "legendFormat": "ARO12",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "system_temperature_celsius{instance=\"GC-ARO-002-1-agent\"}",
+          "hide": false,
+          "legendFormat": "ARO21",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "system_temperature_celsius{instance=\"GC-ARO-002-2-agent\"}",
+          "hide": false,
+          "legendFormat": "ARO22",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "system_temperature_celsius{instance=\"GC-ASB-001-1-agent\"}",
+          "hide": false,
+          "legendFormat": "ASB11",
+          "range": true,
+          "refId": "E"
+        }
+      ],
+      "title": "AI PC - Temperature",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 24
+      },
+      "id": 14,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "builder",
+          "expr": "finish_to_start_time{job=\"time_intervals_metrics\", instance=\"api-instance\"}",
+          "instant": true,
+          "key": "Q-cb96aff9-1243-4311-9ec9-b8d083e1d351-0",
+          "legendFormat": "finish_to_start",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "builder",
+          "expr": "start_to_launch_time{job=\"time_intervals_metrics\", instance=\"api-instance\"}",
+          "instant": true,
+          "key": "Q-26d3b6f9-76d8-4431-a8f1-1cb1c8537f69-1",
+          "legendFormat": "start_to_launch",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "builder",
+          "expr": "launch_to_deal_time{job=\"time_intervals_metrics\", instance=\"api-instance\"}",
+          "instant": true,
+          "key": "Q-eaa54322-8a21-4edb-8b76-80fcd0cd82a0-2",
+          "legendFormat": "launch_to_deal",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "builder",
+          "expr": "deal_to_finish_time{job=\"time_intervals_metrics\", instance=\"api-instance\"}",
+          "instant": true,
+          "key": "Q-b6b0ecca-bdfa-494c-b3f0-aedf93717f49-3",
+          "legendFormat": "deal_to_finish",
+          "range": true,
+          "refId": "D"
+        }
+      ],
+      "title": "Game Flow Duration (TableAPI)",
       "type": "timeseries"
     },
     {
@@ -891,7 +1582,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 16
+        "y": 32
       },
       "id": 3,
       "options": {
@@ -1067,7 +1758,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 22
+        "y": 38
       },
       "id": 1,
       "options": {
@@ -1160,7 +1851,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 22
+        "y": 38
       },
       "id": 2,
       "options": {
@@ -1212,7 +1903,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           }
@@ -1236,7 +1928,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 30
+        "y": 46
       },
       "id": 6,
       "options": {
@@ -1306,7 +1998,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           }
@@ -1330,7 +2023,8 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "blue"
+                      "color": "blue",
+                      "value": null
                     },
                     {
                       "color": "green",
@@ -1355,7 +2049,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 30
+        "y": 46
       },
       "id": 7,
       "options": {
@@ -1419,8 +2113,8 @@
       {
         "current": {
           "selected": false,
-          "text": "1h",
-          "value": "1h"
+          "text": "5m",
+          "value": "5m"
         },
         "hide": 0,
         "includeAll": false,
@@ -1428,7 +2122,7 @@
         "name": "time_range",
         "options": [
           {
-            "selected": false,
+            "selected": true,
             "text": "5m",
             "value": "5m"
           },
@@ -1443,7 +2137,7 @@
             "value": "30m"
           },
           {
-            "selected": true,
+            "selected": false,
             "text": "1h",
             "value": "1h"
           },
@@ -1483,6 +2177,6 @@
   "timezone": "Asia/Taipei",
   "title": "System Overview",
   "uid": "overview-dashboard",
-  "version": 79,
+  "version": 116,
   "weekStart": ""
 }
