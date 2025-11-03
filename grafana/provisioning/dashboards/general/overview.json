@@ -1491,7 +1491,7 @@
           },
           "editorMode": "builder",
           "expr": "serial_state_2to3_duration",
-          "instant": true,
+          "instant": false,
           "key": "Q-7bd39155-331e-4d60-a094-18b8fa742154-0",
           "legendFormat": "T2",
           "range": true,
@@ -1518,7 +1518,7 @@
           },
           "editorMode": "builder",
           "expr": "serial_state_4to5_duration",
-          "instant": true,
+          "instant": false,
           "key": "Q-7c049b14-a8f9-47a8-8d26-a3a1e8b533f7-2",
           "legendFormat": "T4",
           "range": true,
@@ -1531,11 +1531,23 @@
           },
           "editorMode": "builder",
           "expr": "serial_state_5to2_duration",
-          "instant": true,
+          "instant": false,
           "key": "Q-7764b2ed-bb17-4c91-85f7-1f26a04ddf11-3",
           "legendFormat": "T5",
           "range": true,
           "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "serial_state_2to3_duration + serial_state_3to4_duration + serial_state_4to5_duration + serial_state_5to2_duration",
+          "instant": false,
+          "legendFormat": "total_duration",
+          "range": true,
+          "refId": "E"
         }
       ],
       "title": "Game Flow Duration (Serial)",
