@@ -1347,7 +1347,7 @@
           },
           "editorMode": "code",
           "expr": "system_temperature_celsius{instance=\"GC-ARO-001-1-agent\"}",
-          "instant": true,
+          "instant": false,
           "interval": "",
           "key": "Q-3303b727-a1c3-42d7-86f3-00123b8bc3ae-0",
           "legendFormat": "ARO11",
