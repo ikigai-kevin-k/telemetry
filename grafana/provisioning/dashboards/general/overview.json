@@ -767,7 +767,7 @@
           }
         }
       ],
-      "title": "AI PC - CPU Usage",
+      "title": "AIPC - CPU Usage",
       "type": "timeseries"
     },
     {
@@ -1227,7 +1227,7 @@
           }
         }
       ],
-      "title": "Network Traffic - All Agents (MBps)",
+      "title": "AIPC Network Traffic - All Agents (MBps)",
       "type": "timeseries"
     },
     {
@@ -1403,7 +1403,7 @@
           "refId": "E"
         }
       ],
-      "title": "AI PC - Temperature",
+      "title": "AIPC - Temperature",
       "transformations": [],
       "type": "timeseries"
     },
@@ -2380,6 +2380,6 @@
   "timezone": "Asia/Taipei",
   "title": "System Overview",
   "uid": "overview-dashboard",
-  "version": 128,
+  "version": 132,
   "weekStart": ""
 }
