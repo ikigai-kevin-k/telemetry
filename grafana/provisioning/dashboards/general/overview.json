@@ -836,7 +836,7 @@
             "properties": [
               {
                 "id": "unit",
-                "value": "short"
+                "value": "bps"
               },
               {
                 "id": "custom.axisLabel",
@@ -2037,8 +2037,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -2132,8 +2131,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           }
@@ -2157,8 +2155,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "blue",
-                      "value": null
+                      "color": "blue"
                     },
                     {
                       "color": "green",
@@ -2311,6 +2308,6 @@
   "timezone": "Asia/Taipei",
   "title": "System Overview",
   "uid": "overview-dashboard",
-  "version": 118,
+  "version": 120,
   "weekStart": ""
 }
