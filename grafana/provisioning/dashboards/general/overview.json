@@ -1669,6 +1669,18 @@
           "legendFormat": "deal_to_finish",
           "range": true,
           "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "finish_to_start_time{job=\"time_intervals_metrics\", instance=\"api-instance\"} + start_to_launch_time{job=\"time_intervals_metrics\", instance=\"api-instance\"} + launch_to_deal_time{job=\"time_intervals_metrics\", instance=\"api-instance\"} + deal_to_finish_time{job=\"time_intervals_metrics\", instance=\"api-instance\"}",
+          "instant": true,
+          "legendFormat": "total_duration",
+          "range": true,
+          "refId": "E"
         }
       ],
       "title": "Game Flow Duration (TableAPI)",
