@@ -2,6 +2,11 @@
 
 # Script to collect temperature data from Zabbix agents and push to Pushgateway
 # This script collects system.temperature from all agents and pushes as system_temperature_celsius metric
+# 
+# Status: Verified working (2025-11-03)
+# - All agents including GC-ARO-002-2-agent (ARO22) are successfully collecting and pushing temperature data
+# - Data is visible in Grafana "AI PC - Temperature" panel
+# - Cron job configured: */1 * * * * (runs every minute)
 
 set -eo pipefail
 
