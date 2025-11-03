@@ -1,0 +1,210 @@
+name: Build and Push to GHCR
+
+on:
+  push:
+    branches:
+      - main
+      - server
+      - agent
+    paths:
+      - 'Dockerfile.webhook'
+      - 'grafana_webhook_service.py'
+      - '.github/workflows/build-and-push.yml'
+  pull_request:
+    branches:
+      - main
+      - server
+      - agent
+    paths:
+      - 'Dockerfile.webhook'
+      - 'grafana_webhook_service.py'
+      - '.github/workflows/build-and-push.yml'
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to build from (server/agent/main)'
+        required: true
+        default: 'main'
+        type: choice
+        options:
+          - main
+          - server
+          - agent
+      tag:
+        description: 'Custom tag for the image'
+        required: false
+        default: 'latest'
+
+env:
+  REGISTRY: ghcr.io
+  OWNER: ikigai-kevin-k
+
+jobs:
+  # Job to delete old versions before building new one
+  delete-old-versions:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Determine branch context
+        id: branch-info
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            BRANCH="${{ github.event.inputs.branch }}"
+          else
+            BRANCH="${GITHUB_REF#refs/heads/}"
+          fi
+          
+          # Set image name based on branch
+          if [ "$BRANCH" = "server" ]; then
+            IMAGE_SUFFIX="server"
+          elif [ "$BRANCH" = "agent" ]; then
+            IMAGE_SUFFIX="agent"
+          else
+            IMAGE_SUFFIX="webhook"
+          fi
+          
+          echo "branch=$BRANCH" >> $GITHUB_OUTPUT
+          echo "image_suffix=$IMAGE_SUFFIX" >> $GITHUB_OUTPUT
+          echo "image_name=telemetry-$IMAGE_SUFFIX" >> $GITHUB_OUTPUT
+      
+      - name: Delete old versions with same tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PACKAGE_NAME: ${{ steps.branch-info.outputs.image_name }}
+        run: |
+          # Determine tag to replace
+          TAG="${{ steps.branch-info.outputs.image_suffix }}"
+          if [ "$TAG" = "webhook" ]; then
+            TAG="latest"
+          fi
+          
+          echo "🔍 Looking for versions with tag: $TAG in package: $PACKAGE_NAME"
+          
+          # Get all versions for this package
+          VERSIONS_JSON=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/user/packages/container/$PACKAGE_NAME/versions" || echo '[]')
+          
+          # Check if package exists
+          if echo "$VERSIONS_JSON" | jq -e '.message' >/dev/null 2>&1; then
+            echo "ℹ️  Package $PACKAGE_NAME doesn't exist yet, skipping deletion"
+            exit 0
+          fi
+          
+          # Find versions with the target tag
+          VERSION_IDS=$(echo "$VERSIONS_JSON" | jq -r ".[] | select(.metadata.container.tags[]? == \"$TAG\") | .id")
+          
+          if [ -z "$VERSION_IDS" ]; then
+            echo "ℹ️  No versions found with tag: $TAG"
+            exit 0
+          fi
+          
+          # Delete each version
+          deleted_count=0
+          for version_id in $VERSION_IDS; do
+            if [ -n "$version_id" ] && [ "$version_id" != "null" ]; then
+              echo "🗑️  Deleting old version ID: $version_id with tag: $TAG"
+              response=$(curl -s -w "\n%{http_code}" -X DELETE \
+                -H "Authorization: token $GITHUB_TOKEN" \
+                -H "Accept: application/vnd.github.v3+json" \
+                "https://api.github.com/user/packages/container/$PACKAGE_NAME/versions/$version_id")
+              
+              http_code=$(echo "$response" | tail -n1)
+              if [ "$http_code" -eq 204 ]; then
+                echo "✓ Deleted version $version_id"
+                deleted_count=$((deleted_count + 1))
+              else
+                echo "⚠ Failed to delete version $version_id (HTTP $http_code)"
+              fi
+            fi
+          done
+          
+          echo "✅ Deleted $deleted_count old version(s) with tag: $TAG"
+
+  # Job to build and push image
+  build-and-push:
+    needs: delete-old-versions
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch || github.ref }}
+      
+      - name: Determine branch context
+        id: branch-info
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            BRANCH="${{ github.event.inputs.branch }}"
+          else
+            BRANCH="${GITHUB_REF#refs/heads/}"
+          fi
+          
+          # Set image name based on branch
+          if [ "$BRANCH" = "server" ]; then
+            IMAGE_SUFFIX="server"
+          elif [ "$BRANCH" = "agent" ]; then
+            IMAGE_SUFFIX="agent"
+          else
+            IMAGE_SUFFIX="webhook"
+          fi
+          
+          echo "branch=$BRANCH" >> $GITHUB_OUTPUT
+          echo "image_suffix=$IMAGE_SUFFIX" >> $GITHUB_OUTPUT
+          echo "image_name=telemetry-$IMAGE_SUFFIX" >> $GITHUB_OUTPUT
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.OWNER }}/${{ steps.branch-info.outputs.image_name }}
+          tags: |
+            type=raw,value=${{ steps.branch-info.outputs.image_suffix }},enable=true
+            type=raw,value=${{ steps.branch-info.outputs.image_suffix }}-${{ github.sha }},enable=true
+            type=raw,value=${{ steps.branch-info.outputs.image_suffix }}-${{ github.run_number }},enable=true
+            type=raw,value=${{ github.event.inputs.tag }},enable=${{ github.event.inputs.tag != '' }}
+            type=sha,prefix=${{ steps.branch-info.outputs.image_suffix }}-
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile.webhook
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            BUILDKIT_INLINE_CACHE=1
+
+      - name: Output image URL
+        if: github.event_name != 'pull_request'
+        run: |
+          echo "🎉 Image pushed successfully!"
+          echo "📦 Package: ${{ env.REGISTRY }}/${{ env.OWNER }}/${{ steps.branch-info.outputs.image_name }}"
+          echo "🏷️  Main tag: ${{ steps.branch-info.outputs.image_suffix }}"
+          echo "🔗 All tags: ${{ steps.meta.outputs.tags }}"
+          echo ""
+          echo "View package: https://github.com/${{ env.OWNER }}/telemetry/pkgs/container/${{ steps.branch-info.outputs.image_name }}"
+
