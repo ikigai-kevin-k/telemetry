@@ -811,7 +811,6 @@
               "mode": "off"
             }
           },
-          "decimals": null,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -844,8 +843,7 @@
                 "value": ""
               },
               {
-                "id": "decimals",
-                "value": null
+                "id": "decimals"
               }
             ]
           }
@@ -1236,28 +1234,6 @@
       "type": "timeseries"
     },
     {
-      "gridPos": {
-        "h": 1,
-        "w": 1,
-        "x": 23,
-        "y": 8
-      },
-      "id": 999,
-      "options": {
-        "code": {
-          "language": "html",
-          "showLineNumbers": false,
-          "showMiniMap": false
-        },
-        "content": "<script>\n/* Hide y-axis unit labels for Network Traffic panel (Panel ID: 12) */\n/* This JavaScript modifies y-axis labels, removing units while keeping numbers */\n(function() {\n  const panelId = 12;\n  \n  function removeUnitsFromYAxis() {\n    const panel = document.querySelector('[data-panel-id=\"' + panelId + '\"]');\n    if (!panel) return;\n    \n    const axisYTexts = panel.querySelectorAll('.uplot .u-axis-y text');\n    axisYTexts.forEach(function(textEl) {\n      const originalText = textEl.textContent || '';\n      // Remove common unit suffixes (b/s, kb/s, Mb/s, Gb/s, B/s, KB/s, MB/s, GB/s, bps, kbps, Mbps, Gbps)\n      const numberOnly = originalText.replace(/\\s*(?:b\\/s|kb\\/s|Mb\\/s|Gb\\/s|B\\/s|KB\\/s|MB\\/s|GB\\/s|bps|kbps|Mbps|Gbps)$/i, '').trim();\n      if (numberOnly && numberOnly !== originalText && numberOnly.length > 0) {\n        textEl.textContent = numberOnly;\n      }\n    });\n  }\n  \n  // Use MutationObserver to watch for DOM changes\n  const observer = new MutationObserver(function(mutations) {\n    removeUnitsFromYAxis();\n  });\n  \n  // Start observing when DOM is ready\n  if (document.readyState === 'loading') {\n    document.addEventListener('DOMContentLoaded', function() {\n      observer.observe(document.body, { childList: true, subtree: true });\n      // Initial run with delay to ensure panel is rendered\n      setTimeout(removeUnitsFromYAxis, 1000);\n      setTimeout(removeUnitsFromYAxis, 2000);\n      setTimeout(removeUnitsFromYAxis, 3000);\n    });\n  } else {\n    observer.observe(document.body, { childList: true, subtree: true });\n    setTimeout(removeUnitsFromYAxis, 500);\n    setTimeout(removeUnitsFromYAxis, 1500);\n    setTimeout(removeUnitsFromYAxis, 2500);\n  }\n  \n  // Also run on window load\n  window.addEventListener('load', function() {\n    setTimeout(removeUnitsFromYAxis, 500);\n  });\n})();\n</script>\n<div style=\"display: none; height: 0; width: 0; padding: 0; margin: 0;\"><!-- JS injection panel for hiding y-axis units - hidden --></div>",
-        "mode": "html"
-      },
-      "pluginVersion": "9.5.21",
-      "title": "",
-      "transparent": true,
-      "type": "text"
-    },
-    {
       "datasource": {
         "type": "prometheus",
         "uid": "PBFA97CFB590B2093"
@@ -1430,9 +1406,30 @@
           "refId": "E"
         }
       ],
-      "title": "AIPC - Temperature",
+      "title": "AIPC - Temperature (°C)",
       "transformations": [],
       "type": "timeseries"
+    },
+    {
+      "gridPos": {
+        "h": 1,
+        "w": 1,
+        "x": 23,
+        "y": 16
+      },
+      "id": 999,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<script>\n/* Hide y-axis unit labels for Network Traffic panel (Panel ID: 12) */\n/* This JavaScript modifies y-axis labels, removing units while keeping numbers */\n(function() {\n  const panelId = 12;\n  \n  function removeUnitsFromYAxis() {\n    const panel = document.querySelector('[data-panel-id=\"' + panelId + '\"]');\n    if (!panel) return;\n    \n    const axisYTexts = panel.querySelectorAll('.uplot .u-axis-y text');\n    axisYTexts.forEach(function(textEl) {\n      const originalText = textEl.textContent || '';\n      // Remove common unit suffixes (b/s, kb/s, Mb/s, Gb/s, B/s, KB/s, MB/s, GB/s, bps, kbps, Mbps, Gbps)\n      const numberOnly = originalText.replace(/\\s*(?:b\\/s|kb\\/s|Mb\\/s|Gb\\/s|B\\/s|KB\\/s|MB\\/s|GB\\/s|bps|kbps|Mbps|Gbps)$/i, '').trim();\n      if (numberOnly && numberOnly !== originalText && numberOnly.length > 0) {\n        textEl.textContent = numberOnly;\n      }\n    });\n  }\n  \n  // Use MutationObserver to watch for DOM changes\n  const observer = new MutationObserver(function(mutations) {\n    removeUnitsFromYAxis();\n  });\n  \n  // Start observing when DOM is ready\n  if (document.readyState === 'loading') {\n    document.addEventListener('DOMContentLoaded', function() {\n      observer.observe(document.body, { childList: true, subtree: true });\n      // Initial run with delay to ensure panel is rendered\n      setTimeout(removeUnitsFromYAxis, 1000);\n      setTimeout(removeUnitsFromYAxis, 2000);\n      setTimeout(removeUnitsFromYAxis, 3000);\n    });\n  } else {\n    observer.observe(document.body, { childList: true, subtree: true });\n    setTimeout(removeUnitsFromYAxis, 500);\n    setTimeout(removeUnitsFromYAxis, 1500);\n    setTimeout(removeUnitsFromYAxis, 2500);\n  }\n  \n  // Also run on window load\n  window.addEventListener('load', function() {\n    setTimeout(removeUnitsFromYAxis, 500);\n  });\n})();\n</script>\n<div style=\"display: none; height: 0; width: 0; padding: 0; margin: 0;\"><!-- JS injection panel for hiding y-axis units - hidden --></div>",
+        "mode": "html"
+      },
+      "pluginVersion": "9.5.21",
+      "transparent": true,
+      "type": "text"
     },
     {
       "datasource": {
@@ -1520,7 +1517,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 16
+        "y": 17
       },
       "id": 15,
       "options": {
@@ -1602,7 +1599,7 @@
           "refId": "E"
         }
       ],
-      "title": "Game Flow Duration (Serial)",
+      "title": "Game Flow Duration Serial (Sec) ",
       "type": "timeseries"
     },
     {
@@ -1691,7 +1688,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 24
+        "y": 25
       },
       "id": 14,
       "options": {
@@ -1772,7 +1769,7 @@
           "refId": "E"
         }
       ],
-      "title": "Game Flow Duration (TableAPI)",
+      "title": "Game Flow Duration TableAPI (Sec)",
       "type": "timeseries"
     },
     {
@@ -1817,7 +1814,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 32
+        "y": 33
       },
       "id": 3,
       "options": {
@@ -1992,7 +1989,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 38
+        "y": 39
       },
       "id": 1,
       "options": {
@@ -2084,7 +2081,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 38
+        "y": 39
       },
       "id": 2,
       "options": {
@@ -2160,7 +2157,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 46
+        "y": 47
       },
       "id": 6,
       "options": {
@@ -2279,7 +2276,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 46
+        "y": 47
       },
       "id": 7,
       "options": {
@@ -2407,6 +2404,6 @@
   "timezone": "Asia/Taipei",
   "title": "System Overview",
   "uid": "overview-dashboard",
-  "version": 132,
+  "version": 146,
   "weekStart": ""
 }
