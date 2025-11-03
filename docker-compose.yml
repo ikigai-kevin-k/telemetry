@@ -23,6 +23,8 @@ services:
       - '--storage.tsdb.retention.time=200h'
       - '--web.enable-lifecycle'
       - '--web.external-url=http://${SERVER_IP:-100.64.0.113}:9090'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     restart: unless-stopped
     networks:
       - monitoring
@@ -50,6 +52,28 @@ services:
     container_name: kevin-telemetry-pushgateway
     ports:
       - "9091:9091"
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+  ebpf-exporter:
+    build:
+      context: ./ebpf-exporter
+      dockerfile: Dockerfile
+    container_name: kevin-telemetry-ebpf-exporter
+    ports:
+      - "9300:9300"
+    privileged: true
+    pid: host
+    volumes:
+      - /sys/class/thermal:/sys/class/thermal:ro
+      - /sys/kernel/debug:/sys/kernel/debug:ro
+      - /proc:/proc:ro
+      - /sys:/sys:ro
+      - /boot:/boot:ro
+      - /lib/modules:/lib/modules:ro
+    environment:
+      - EXPORTER_PORT=9300
     restart: unless-stopped
     networks:
       - monitoring
