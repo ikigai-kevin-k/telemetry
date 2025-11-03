@@ -1,0 +1,32 @@
+# Example docker-compose file using GHCR images
+# 
+# Usage:
+#   cp docker-compose.ghcr.yml.example docker-compose.ghcr.yml
+#   docker compose -f docker-compose.ghcr.yml up -d
+#
+# Note: Make sure to login to GHCR first:
+#   docker login ghcr.io -u YOUR_USERNAME
+
+version: '3.8'
+
+services:
+  # Webhook service using GHCR image
+  webhook-service:
+    image: ghcr.io/ikigai-kevin-k/telemetry-webhook:latest
+    container_name: kevin-telemetry-webhook
+    network_mode: "host"
+    # Note: If you need to mount local file for development,
+    # uncomment the volumes section below
+    # volumes:
+    #   - ./grafana_webhook_service.py:/app/grafana_webhook_service.py
+    restart: unless-stopped
+    environment:
+      # Add any environment variables here if needed
+      - FLASK_ENV=production
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
