@@ -924,7 +924,7 @@
             "filter": ""
           },
           "queryType": "0",
-          "refId": "C",
+          "refId": "A",
           "resultFormat": "time_series",
           "schema": 12,
           "table": {
@@ -996,7 +996,7 @@
             "filter": ""
           },
           "queryType": "0",
-          "refId": "D",
+          "refId": "B",
           "resultFormat": "time_series",
           "schema": 12,
           "table": {
@@ -1068,7 +1068,7 @@
             "filter": ""
           },
           "queryType": "0",
-          "refId": "A",
+          "refId": "C",
           "resultFormat": "time_series",
           "schema": 12,
           "table": {
@@ -1140,7 +1140,7 @@
             "filter": ""
           },
           "queryType": "0",
-          "refId": "B",
+          "refId": "D",
           "resultFormat": "time_series",
           "schema": 12,
           "table": {
@@ -2311,6 +2311,6 @@
   "timezone": "Asia/Taipei",
   "title": "System Overview",
   "uid": "overview-dashboard",
-  "version": 117,
+  "version": 118,
   "weekStart": ""
 }
