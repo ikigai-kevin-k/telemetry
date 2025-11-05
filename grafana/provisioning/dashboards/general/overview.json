@@ -1492,9 +1492,12 @@
             "matcher": {
               "id": "byNames",
               "options": {
-                "mode": "exclude",
+                "mode": "include",
                 "names": [
-                  "total_duration"
+                  "T2",
+                  "T3",
+                  "T4",
+                  "T5"
                 ],
                 "prefix": "All except:",
                 "readOnly": true
@@ -1504,8 +1507,8 @@
               {
                 "id": "custom.hideFrom",
                 "value": {
-                  "legend": false,
-                  "tooltip": false,
+                  "legend": true,
+                  "tooltip": true,
                   "viz": true
                 }
               }
@@ -1594,7 +1597,7 @@
           "editorMode": "code",
           "expr": "serial_state_2to3_duration + serial_state_3to4_duration + serial_state_4to5_duration + serial_state_5to2_duration",
           "instant": false,
-          "legendFormat": "total_duration",
+          "legendFormat": "ARO11",
           "range": true,
           "refId": "E"
         }
@@ -1663,9 +1666,12 @@
             "matcher": {
               "id": "byNames",
               "options": {
-                "mode": "exclude",
+                "mode": "include",
                 "names": [
-                  "total_duration"
+                  "finish_to_start",
+                  "start_to_launch",
+                  "launch_to_deal",
+                  "deal_to_finish"
                 ],
                 "prefix": "All except:",
                 "readOnly": true
@@ -1675,8 +1681,8 @@
               {
                 "id": "custom.hideFrom",
                 "value": {
-                  "legend": false,
-                  "tooltip": false,
+                  "legend": true,
+                  "tooltip": true,
                   "viz": true
                 }
               }
@@ -1764,7 +1770,7 @@
           "editorMode": "code",
           "expr": "finish_to_start_time{job=\"time_intervals_metrics\", instance=\"api-instance\"} + start_to_launch_time{job=\"time_intervals_metrics\", instance=\"api-instance\"} + launch_to_deal_time{job=\"time_intervals_metrics\", instance=\"api-instance\"} + deal_to_finish_time{job=\"time_intervals_metrics\", instance=\"api-instance\"}",
           "instant": false,
-          "legendFormat": "total_duration",
+          "legendFormat": "ARO11",
           "range": true,
           "refId": "E"
         }
@@ -1973,7 +1979,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2065,7 +2072,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2404,6 +2412,6 @@
   "timezone": "Asia/Taipei",
   "title": "System Overview",
   "uid": "overview-dashboard",
-  "version": 146,
+  "version": 150,
   "weekStart": ""
 }
