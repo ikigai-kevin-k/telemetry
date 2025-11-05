@@ -1773,6 +1773,70 @@
           "legendFormat": "ARO11",
           "range": true,
           "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "builder",
+          "expr": "finish_to_start_time{job=\"time_intervals_metrics\", instance=\"aro22\"}",
+          "instant": false,
+          "key": "Q-aro22-finish-to-start",
+          "legendFormat": "finish_to_start",
+          "range": true,
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "builder",
+          "expr": "start_to_launch_time{job=\"time_intervals_metrics\", instance=\"aro22\"}",
+          "instant": false,
+          "key": "Q-aro22-start-to-launch",
+          "legendFormat": "start_to_launch",
+          "range": true,
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "builder",
+          "expr": "launch_to_deal_time{job=\"time_intervals_metrics\", instance=\"aro22\"}",
+          "instant": false,
+          "key": "Q-aro22-launch-to-deal",
+          "legendFormat": "launch_to_deal",
+          "range": true,
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "builder",
+          "expr": "deal_to_finish_time{job=\"time_intervals_metrics\", instance=\"aro22\"}",
+          "instant": false,
+          "key": "Q-aro22-deal-to-finish",
+          "legendFormat": "deal_to_finish",
+          "range": true,
+          "refId": "I"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "finish_to_start_time{job=\"time_intervals_metrics\", instance=\"aro22\"} + start_to_launch_time{job=\"time_intervals_metrics\", instance=\"aro22\"} + launch_to_deal_time{job=\"time_intervals_metrics\", instance=\"aro22\"} + deal_to_finish_time{job=\"time_intervals_metrics\", instance=\"aro22\"}",
+          "instant": false,
+          "legendFormat": "ARO22",
+          "range": true,
+          "refId": "J"
         }
       ],
       "title": "Game Flow Duration TableAPI (Sec)",
