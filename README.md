@@ -1,503 +1,390 @@
-# Kevin Telemetry Stack
+# Studio Telemetry Stack
 
-This directory contains a Docker setup for Grafana and Prometheus monitoring stack.
+A comprehensive monitoring and observability platform built with Grafana, Prometheus, Loki, Zabbix, and related services. This project supports both server-side and agent-side deployments for distributed monitoring across multiple environments.
 
-## Services
+## 📋 Overview
 
-- **Prometheus**: Metrics collection and storage (Port: 9090)
-- **Pushgateway**: Metrics push endpoint for client applications (Port: 9091)
-- **Grafana**: Data visualization and dashboards (Port: 3000)
+This telemetry stack provides:
+- **Metrics Collection**: Prometheus for time-series metrics
+- **Log Aggregation**: Loki for centralized log collection
+- **System Monitoring**: Zabbix for infrastructure monitoring
+- **Visualization**: Grafana dashboards for all data sources
+- **Alerting**: Alertmanager with Slack integration
+- **Client Push**: Pushgateway for client-side metrics
+- **Webhook Service**: Python service for Grafana alert processing
 
-## Quick Start
+## 🏗️ Architecture
 
-1. **Start the services:**
+### Server-Side (Main/Server Branch)
+Runs the complete monitoring stack:
+- **Prometheus**: Metrics collection and storage (Port 9090)
+- **Grafana**: Visualization and dashboards (Port 3000)
+- **Loki Server**: Log aggregation server (Port 3100)
+- **Zabbix Server/Web/DB**: System monitoring (Port 10051, 8080)
+- **Alertmanager**: Alert routing and notifications (Port 9093)
+- **Pushgateway**: Client metrics push endpoint (Port 9091)
+- **Webhook Service**: Grafana alert handler
+
+### Agent-Side (Agent Branch)
+Runs lightweight collectors:
+- **Promtail**: Log collection agent (sends to server Loki)
+- **Zabbix Agent**: System metrics agent (sends to server Zabbix)
+
+## 🚀 Quick Start
+
+### Server Mode
+
+1. **Start server services:**
    ```bash
-   docker compose up -d
+   # GE Server (default: 100.64.0.113)
+   ./start-server.sh ge
+   
+   # TPE Server (100.64.0.160)
+   ./start-server.sh tpe
+   
+   # Or use docker compose directly
+   SERVER_IP=100.64.0.113 docker compose up -d
    ```
 
-2. **Access the services:**
-   - Prometheus: http://localhost:9090
-   - Pushgateway: http://localhost:9091
-   - Grafana: http://localhost:3000
-     - Username: `admin`
-     - Password: `admin`
+2. **Access services:**
+   - Grafana: http://100.64.0.113:3000 (admin/admin)
+   - Prometheus: http://100.64.0.113:9090
+   - Alertmanager: http://100.64.0.113:9093
+   - Loki: http://100.64.0.113:3100
+   - Zabbix Web: http://100.64.0.113:8080
+   - Pushgateway: http://100.64.0.113:9091
 
-3. **Stop the services:**
+### Agent Mode
+
+1. **Start agent services:**
    ```bash
-   docker compose down
+   # Start agent with name and IP
+   ./start-agent.sh GC-aro12-agent 100.64.0.149
+   
+   # Or start specific agent
+   docker compose -f docker-compose-GC-aro12-agent.yml up -d
    ```
 
-4. **Stop and remove volumes:**
-   ```bash
-   docker compose down -v
-   ```
+2. **Agent connects to server:**
+   - Promtail sends logs to server Loki (100.64.0.113:3100)
+   - Zabbix Agent sends metrics to server Zabbix (100.64.0.113:10051)
 
-## Container Names
-
-- Prometheus: `kevin-telemetry-prometheus`
-- Pushgateway: `kevin-telemetry-pushgateway`
-- Grafana: `kevin-telemetry-grafana`
-
-## Container Management
-
-### View Container Sizes
-
-To check the current size and resource usage of the containers:
+### Using Docker Compose
 
 ```bash
-# View container status and sizes
-docker ps -a --filter "name=kevin-telemetry" --format "table {{.Names}}\t{{.Size}}\t{{.Status}}"
-
-# View real-time resource usage
-docker stats --no-stream kevin-telemetry-grafana kevin-telemetry-prometheus kevin-telemetry-pushgateway
-
-# View detailed disk usage
-docker system df -v | grep -A 5 -B 5 "kevin-telemetry"
-```
-
-## Configuration
-
-- Prometheus configuration: `prometheus.yml`
-- Grafana datasource: `grafana/provisioning/datasources/prometheus.yml`
-- Grafana dashboards: `grafana/provisioning/dashboards/`
-
-## Dashboards
-
-### Studio Web Player Dashboard
-
-The `studio-web-player` dashboard includes:
-- **Video Stutter Metrics**: Time series chart showing video stutter over time
-- **Current Video Stutter Value**: Stat panel displaying current stutter value with color-coded thresholds
-
-**Metrics Available:**
-- `videostutter` - Video stutter gauge with labels (table_id, cdn_id, quality)
-  - **table_id**: ARO-001, ARO-002, SBO-001, BCR-001
-  - **cdn_id**: byteplus, tencent, cdnnetwork
-  - **quality**: HD, Hi, Me, Lo
-- `video_play_total` - Counter for total video plays
-
-**Important Setup Note:**
-After the dashboard is first loaded, you need to manually execute the query to see data:
-1. Click on any panel to enter edit mode
-2. In the query editor, ensure the query is: `videostutter{job="studio-web-player"}`
-3. Click "Run queries" to execute the query
-4. The dashboard will then display the metrics data
-
-**Dashboard Features:**
-- **Time Range**: Default set to "Last 15 minutes" for recent data
-- **Auto Refresh**: Every 30 seconds (matches metrics sampling rate)
-- **Legend Format**: `{{table_id}} - {{cdn_id}} - {{quality}}`
-- **Color Coding**: Values are color-coded based on thresholds (Green: 0-4, Yellow: 5-9, Red: 10+)
-
-## Client-Side Metrics (Pure Client)
-
-### Using Pushgateway
-
-For pure client applications that cannot expose a `/metrics` endpoint, you can use **Pushgateway** to send metrics directly:
-
-**Advantages:**
-- ✅ No need to expose ports
-- ✅ Works from any client (browser, mobile app, etc.)
-- ✅ Simple HTTP POST requests
-- ✅ Supports batch metrics
-
-**Disadvantages:**
-- ⚠️ Single point of failure
-- ⚠️ Data may not be real-time
-- ⚠️ Additional service to maintain
-
-### Setup and Usage Steps
-
-#### 1. Start Services with Pushgateway
-```bash
-# Start all services including Pushgateway
+# Start all services
 docker compose up -d
 
-# Verify all services are running
+# View logs
+docker compose logs -f
+
+# Stop services
+docker compose down
+
+# Stop and remove volumes
+docker compose down -v
+```
+
+## 📦 Services
+
+| Service | Container Name | Port | Description |
+|---------|---------------|------|-------------|
+| Prometheus | `kevin-telemetry-prometheus` | 9090 | Metrics collection and storage |
+| Grafana | `kevin-telemetry-grafana` | 3000 | Visualization and dashboards |
+| Loki | `kevin-telemetry-loki-server` | 3100 | Log aggregation server |
+| Alertmanager | `kevin-telemetry-alertmanager` | 9093 | Alert routing and notifications |
+| Pushgateway | `kevin-telemetry-pushgateway` | 9091 | Client metrics push endpoint |
+| Zabbix Server | `kevin-telemetry-zabbix-server` | 10051 | System monitoring server |
+| Zabbix Web | `kevin-telemetry-zabbix-web` | 8080 | Zabbix web interface |
+| Zabbix DB | `kevin-telemetry-zabbix-db` | 3306 | MySQL database for Zabbix |
+| Webhook Service | `kevin-telemetry-webhook` | 5000 | Grafana alert handler |
+
+## 🔧 Configuration
+
+### Data Sources
+
+Grafana is pre-configured with the following data sources:
+- **Prometheus**: `http://prometheus:9090`
+- **Loki**: `http://loki:3100`
+- **Zabbix**: Zabbix API connection
+- **BytePlus VMP**: Cloud metrics (requires credentials)
+
+### Dashboards
+
+Pre-provisioned dashboards located in `grafana/provisioning/dashboards/`:
+
+- **General**
+  - `overview.json` - Main overview dashboard
+
+- **Prometheus**
+  - `studio-web-player.json` - Video stutter metrics
+  - `prometheus-test.json` - Test metrics
+
+- **Loki**
+  - `test-agent-srs.json` - SRS log monitoring
+
+- **SDP**
+  - `aro-001-1-sdp-logs.json` - SDP log analysis
+
+- **Zabbix**
+  - `master-agents-monitoring.json` - Agent monitoring
+  - `zabbix-GC-ARO-002-2-system-monitoring.json` - System metrics
+
+- **ZCAM**
+  - `zcam-http-response-monitoring.json` - Camera HTTP response monitoring
+
+- **BytePlus**
+  - `byteplus-prometheus.json` - BytePlus metrics
+  - `video-stutter-test.json` - Video stutter testing
+
+- **Network**
+  - `network-monitor-enp86s0.json` - Network interface monitoring
+
+### Environment Variables
+
+Create `byteplus-credentials.env` for BytePlus VMP access:
+```bash
+BYTEPLUS_ACCESS_KEY=your_access_key
+BYTEPLUS_SECRET_KEY=your_secret_key
+```
+
+For Slack alerts, set:
+```bash
+export SLACK_WEBHOOK_URL=https://hooks.slack.com/services/your/webhook/url
+```
+
+## 📊 Data Sources
+
+### Prometheus Metrics
+
+**Available Metrics:**
+- `videostutter{table_id, cdn_id, quality}` - Video stutter gauge
+- `video_play_total` - Video play counter
+- `http_response_*` - HTTP response metrics from Telegraf
+- `zabbix_*` - System metrics from Zabbix
+
+**Push Metrics via Pushgateway:**
+```bash
+curl -X POST -d "videostutter{table_id=\"ARO-001\",cdn_id=\"byteplus\",quality=\"HD\"} 5" \
+  http://localhost:9091/metrics/job/studio-web-player
+```
+
+### Loki Logs
+
+**Log Sources:**
+- SRS logs from agents
+- Application logs (mock_sicbo.log, server.log)
+- SDP logs
+
+**Query Examples:**
+```logql
+# All logs from job
+{job="srs_test"}
+
+# Filter by instance
+{job="srs_test", instance="telemetry-promtail-test-agent"}
+
+# Search for specific content
+{job="srs_test"} |= "okbps=0,0,0"
+
+# Count over time
+count_over_time({job="srs_test"} |= "okbps=0,0,0" [5m])
+```
+
+### Zabbix Metrics
+
+Zabbix collects system metrics from agents:
+- CPU, Memory, Disk usage
+- Network interface statistics
+- System load and processes
+
+## 🔔 Alerting
+
+### Alertmanager Configuration
+
+Alerts are configured in `alertmanager-production.yml`:
+- **Slack Integration**: Sends alerts to Slack channels
+- **Route Configuration**: Routes alerts by severity and labels
+
+### Grafana Alert Rules
+
+Alert rules are defined in `grafana/provisioning/alerting/`:
+- **SRS No Data Alert**: Triggers when `okbps=0,0,0` is detected
+- Sends webhook to `grafana_webhook_service.py`
+- Webhook service makes API calls to status endpoint
+
+### Webhook Service
+
+The webhook service (`grafana_webhook_service.py`) receives Grafana alerts and:
+- Logs alert details
+- Makes PATCH requests to status API
+- Handles health checks
+
+**Start webhook service:**
+```bash
+./start-webhook-service.sh
+
+# Or manually
+python3 grafana_webhook_service.py
+```
+
+## 🐳 Docker Images & CI/CD
+
+### GitHub Actions Workflow
+
+Automated Docker image builds via `.github/workflows/build-and-push.yml`:
+
+**Trigger Conditions:**
+- Push to `main`, `server`, or `agent` branches
+- Changes to:
+  - `Dockerfile.webhook`
+  - `grafana_webhook_service.py`
+  - `.github/workflows/build-and-push.yml`
+  - `grafana/provisioning/dashboards/**/*.json`
+  - `grafana/provisioning/datasources/**/*.yml`
+  - `grafana/provisioning/alerting/**/*.yml`
+
+**Image Naming:**
+- `server` branch → `ghcr.io/ikigai-kevin-k/telemetry-server`
+- `agent` branch → `ghcr.io/ikigai-kevin-k/telemetry-agent`
+- `main` branch → `ghcr.io/ikigai-kevin-k/telemetry-webhook`
+
+**Manual Trigger:**
+- Go to Actions → "Build and Push to GHCR" → "Run workflow"
+- Select branch and optional custom tag
+
+### Image Tags
+
+Each build creates multiple tags:
+- Branch suffix (e.g., `server`, `agent`, `webhook`)
+- SHA-based tag (e.g., `server-{sha}`)
+- Run number tag (e.g., `server-{run_number}`)
+
+## 📁 Project Structure
+
+```
+telemetry/
+├── .github/
+│   └── workflows/
+│       └── build-and-push.yml      # CI/CD workflow
+├── grafana/
+│   └── provisioning/
+│       ├── dashboards/             # Grafana dashboards
+│       ├── datasources/            # Data source configs
+│       └── alerting/               # Alert rules
+├── zabbix/                         # Zabbix agent configs
+├── telegraf/                       # Telegraf configs
+├── agent-configs/                   # Agent configurations
+├── docker-compose.yml              # Server services
+├── docker-compose-*.yml            # Agent-specific configs
+├── Dockerfile.webhook              # Webhook service image
+├── grafana_webhook_service.py      # Webhook service
+├── prometheus.yml                   # Prometheus config
+├── loki-config.yml                 # Loki config
+├── promtail-config.yml             # Promtail config
+├── start-server.sh                 # Server startup script
+├── start-agent.sh                  # Agent startup script
+└── README.md                       # This file
+```
+
+## 🔍 Monitoring & Troubleshooting
+
+### View Container Status
+
+```bash
+# All containers
+docker ps -a --filter "name=kevin-telemetry"
+
+# Server services
 docker compose ps
+
+# Agent services
+docker compose -f docker-compose-GC-aro12-agent.yml ps
 ```
 
-#### 2. Send Metrics to Pushgateway
-```bash
-# Single metric format
-curl -X POST -d "videostutter{table_id=\"ARO-001\",cdn_id=\"byteplus\",quality=\"HD\"} 5" \
-  http://localhost:9091/metrics/job/studio-web-player
-
-# Verify metric received by Pushgateway
-curl -s http://localhost:9091/metrics | grep videostutter
-```
-
-#### 3. Metric Format Requirements
-**Important**: Pushgateway requires specific metric format:
-- **Correct Format**: `metric_name{label="value"} metric_value\n`
-- **Required Elements**:
-  - Metric name (e.g., `videostutter`)
-  - Labels in curly braces (e.g., `{table_id="ARO-001",cdn_id="byteplus",quality="HD"}`)
-  - Space separator
-  - Numeric value (e.g., `5`)
-  - **Newline character** (`\n`) at the end
-
-- **Example**: `videostutter{table_id="ARO-001",cdn_id="byteplus",quality="HD"} 5\n`
-
-**Common Format Errors**:
-- ❌ Missing newline at end: `videostutter{...} 5`
-- ❌ Extra spaces: `videostutter { ... } 5`
-- ❌ Invalid label characters: `videostutter{table-id="value"} 5`
-- ✅ Correct: `videostutter{table_id="value"} 5\n`
-
-#### 3. Check Prometheus Integration
-```bash
-# Verify Pushgateway target is healthy
-curl -s http://localhost:9090/api/v1/targets | grep -A 10 -B 5 "pushgateway"
-
-# Query metrics in Prometheus
-curl -s "http://localhost:9090/api/v1/query?query=videostutter" | grep -o '"value":\[[^]]*\]'
-```
-
-#### 4. View in Grafana Dashboard
-- Open Grafana: http://localhost:3000 (admin/admin)
-- Navigate to "Studio Web Player Dashboard"
-- Metrics from Pushgateway will appear automatically
-
-### Client Examples
-
-#### 1. JavaScript Client (`client-example.js`)
-```javascript
-const client = new PrometheusClient('http://localhost:9091');
-
-// Send single metric
-await client.sendVideoStutter('ARO-001', 'byteplus', 'HD', 5);
-
-// Send batch metrics
-await client.sendBatchMetrics([
-  { name: 'videostutter', value: 8, labels: { table_id: 'ARO-001', cdn_id: 'byteplus', quality: 'HD' } },
-  { name: 'videostutter', value: 15, labels: { table_id: 'ARO-002', cdn_id: 'tencent', quality: 'Lo' } }
-]);
-```
-
-#### 2. Browser Client (`client-example.html`)
-- Interactive web interface for testing
-- Send single or random metrics
-- Real-time logging and status updates
-
-#### 3. Network Accessible Client (`share-client.html`)
-- **Network Accessible**: Can be accessed from other computers on the network
-- **Pre-configured**: Default Pushgateway URL set to `http://192.168.20.9:9091`
-- **Connection Test**: Built-in connection testing functionality
-- **Network Info**: Displays network configuration information
-
-#### 3. Usage in Different Environments
-```javascript
-// Browser
-const client = new PrometheusClient('http://your-pushgateway:9091');
-
-// Node.js
-const PrometheusClient = require('./client-example.js');
-const client = new PrometheusClient('http://localhost:9091');
-
-// Mobile App (React Native, etc.)
-// Use the same PrometheusClient class
-```
-
-### Testing Pushgateway
-
-#### Test Script
-Use the provided test script to verify Pushgateway functionality:
-```bash
-# Install dependencies
-npm install node-fetch
-
-# Run test script
-node test-pushgateway.js
-```
-
-#### Manual Testing
-```bash
-# Test single metric
-curl -X POST -d "videostutter{table_id=\"ARO-001\",cdn_id=\"byteplus\",quality=\"HD\"} 5" \
-  http://localhost:9091/metrics/job/studio-web-player
-
-# Test multiple metrics
-curl -X POST -d "videostutter{table_id=\"ARO-002\",cdn_id=\"tencent\",quality=\"Hi\"} 12" \
-  http://localhost:9091/metrics/job/studio-web-player
-```
-
-### Network Access from Other Computers
-
-#### HTTP Server for Network Sharing
-A simple HTTP server is provided to share the client interface across the network:
+### View Logs
 
 ```bash
-# Start the HTTP server in foreground (recommended for development)
-node simple-server.js
+# Server logs
+docker compose logs -f
 
-# Server will be available at:
-# - Local: http://localhost:8080
-# - Network: http://192.168.20.9:8080
+# Specific service
+docker compose logs -f grafana
 
-# To stop the server: Press Ctrl+C
-
-# To run in background (for production):
-nohup node simple-server.js > server.log 2>&1 &
+# Agent logs
+docker compose -f docker-compose-GC-aro12-agent.yml logs -f
 ```
 
-#### Access from Other Computers
-1. **From any computer on the same network:**
-   - Open browser and navigate to: `http://192.168.20.9:8080`
-   - Use the pre-configured Pushgateway URL: `http://192.168.20.9:9091`
-   - Send metrics directly from the browser
-
-2. **Network Configuration:**
-   - **Server IP**: 192.168.20.9
-   - **HTTP Server Port**: 8080
-   - **Pushgateway Port**: 9091
-   - **Prometheus Port**: 9090
-   - **Grafana Port**: 3000
-
-3. **Available Pages:**
-   - **Main Page**: `http://192.168.20.9:8080/` (share-client.html)
-   - **Client Example**: `http://192.168.20.9:8080/client-example.html`
-   - **Network Client**: `http://192.168.20.9:8080/share-client.html`
-
-### Alternative Approaches
-
-#### 1. Direct Metrics Endpoint
-If your client can expose a port:
-```javascript
-// Implement /metrics endpoint in your client
-app.get('/metrics', (req, res) => {
-  res.set('Content-Type', 'text/plain');
-  res.end(formatPrometheusMetrics());
-});
-```
-
-#### 2. Remote Write API
-Direct write to Prometheus (advanced):
-```javascript
-// Requires Prometheus remote write configuration
-const response = await fetch('http://prometheus:9090/api/v1/write', {
-  method: 'POST',
-  body: prometheusData
-});
-```
-
-## Example Metrics Server (Node.js)
+### Check Data Persistence
 
 ```bash
-# Install dependencies
-npm install
-
-# Start the metrics server
-npm start
-
-# Or run in development mode
-npm run dev
-```
-
-The server runs on port 8080 and provides:
-- `/metrics` - Prometheus metrics endpoint
-- `/health` - Health check endpoint
-
-### Stopping the Background Server
-
-To stop the background running metrics server:
-
-```bash
-# Method 1: Find and kill by process ID
-ps aux | grep "example-metrics-server" | grep -v grep
-kill <PID>
-
-# Method 2: Kill by process name
-pkill -f "example-metrics-server"
-
-# Method 3: Kill all Node.js processes (use with caution)
-killall node
-
-# Method 4: Force kill if normal kill doesn't work
-kill -9 <PID>
-```
-
-**Note:** After stopping the server, Prometheus targets will show as "down" since it can't connect to the metrics endpoint.
-
-## Data Persistence
-
-- Prometheus data: `prometheus_data` volume
-- Grafana data: `grafana_data` volume
-
-### Prometheus Time Series Database
-
-**Location:**
-- **Host path**: `/var/lib/docker/volumes/telemetry_prometheus_data/_data`
-- **Container path**: `/prometheus`
-
-**Check Database Size:**
-```bash
-# Check total database size
-docker exec kevin-telemetry-prometheus du -sh /prometheus
-
-# Check detailed directory sizes
-docker exec kevin-telemetry-prometheus sh -c "du -sh /prometheus/*"
-
-# Check Docker volume information
+# Prometheus data
 docker volume inspect telemetry_prometheus_data
 
-# Check system disk usage for Docker volumes
-df -h /var/lib/docker
+# Grafana data
+docker volume inspect telemetry_grafana_data
+
+# Loki data
+docker volume inspect telemetry_loki_data
 ```
 
-**Database Structure:**
-- **TSDB blocks**: Historical time series data
-- **chunks_head**: In-memory chunks
-- **wal**: Write-ahead log for data durability
-- **queries.active**: Active query tracking
-- **lock**: Database lock file
+### Verify Services
 
-**Data Retention:**
-- **Retention time**: 200 hours (8.33 days)
-- **Configuration**: Set in `docker-compose.yml` with `--storage.tsdb.retention.time=200h`
-- **Storage growth**: Database size will increase over time as metrics accumulate
-- **Cleanup**: Old data is automatically removed after retention period expires
-
-## Network
-
-All services are connected through a custom `monitoring` network for isolation.
-
-## Troubleshooting
-
-### Docker Compose Version Issues
-
-If you encounter connection errors like `Not supported URL scheme http+docker`:
-
-1. **Check Docker Compose version:**
-   ```bash
-   docker compose version
-   ```
-
-2. **Use the newer Docker Compose (recommended):**
-   ```bash
-   docker compose up -d
-   ```
-
-3. **Avoid using old docker-compose (1.29.2) which has known connection issues**
-
-### Port Conflicts
-
-- Prometheus runs on port 9090
-- Grafana runs on port 3000
-- If ports are in use, modify the port mappings in `docker-compose.yml`
-
-### CORS Issues and Solutions
-
-#### Problem Description
-When accessing the client interface from a different computer on the network, you may encounter **CORS (Cross-Origin Resource Sharing)** errors:
-- **Error**: `Failed to fetch` or `CORS policy blocked`
-- **Cause**: Browsers block direct POST requests to different domains/ports for security reasons
-- **Impact**: Metrics cannot be sent directly from browser to Pushgateway
-
-#### Solution: Proxy Endpoint
-The system includes a built-in proxy solution to handle CORS issues:
-
-1. **Automatic Fallback**: Client first tries direct connection, then falls back to proxy
-2. **Proxy Endpoint**: `/proxy-pushgateway` handles browser requests and forwards them to Pushgateway
-3. **CORS Headers**: All responses include proper CORS headers for cross-origin access
-
-#### Technical Implementation
-```javascript
-// Client-side fallback logic
-try {
-    // First attempt: Direct connection
-    const response = await fetch(pushgatewayUrl, { method: 'POST', body: metricData });
-} catch (error) {
-    // Fallback: Use proxy endpoint
-    const response = await fetch('/proxy-pushgateway', { 
-        method: 'POST', 
-        body: JSON.stringify({ pushgatewayUrl, jobName, metricData }) 
-    });
-}
-```
-
-#### Proxy Server Features
-- **CORS Support**: Handles preflight OPTIONS requests
-- **Request Forwarding**: Forwards metrics to Pushgateway with proper formatting
-- **Error Handling**: Detailed logging for debugging
-- **Security**: Prevents directory traversal attacks
-
-#### Troubleshooting CORS Issues
-1. **Check Browser Console**: Look for CORS error messages
-2. **Verify Proxy Endpoint**: Ensure `/proxy-pushgateway` is accessible
-3. **Check Server Logs**: Look for proxy forwarding messages
-4. **Test Direct Connection**: Verify Pushgateway is reachable from server
-
-#### Complete Troubleshooting Flow
-```
-Browser Error → Check Console → Identify Issue Type
-     ↓
-CORS Error? → Use Proxy Endpoint → Check Server Logs
-     ↓
-400 Bad Request? → Verify Metric Format → Ensure Newline Ending
-     ↓
-Proxy Failed? → Check Server Status → Restart if Needed
-     ↓
-Success! → Verify in Prometheus → Check Grafana Dashboard
-```
-
-#### Debug Commands
 ```bash
-# Check server status
-ps aux | grep "simple-server" | grep -v grep
+# Prometheus targets
+curl http://localhost:9090/api/v1/targets
 
-# Check server logs
-tail -f server.log
+# Loki ready
+curl http://localhost:3100/ready
 
-# Test Pushgateway directly
-curl -X POST -d "videostutter{table_id=\"test\"} 1" \
-  http://localhost:9091/metrics/job/test
+# Grafana health
+curl http://localhost:3000/api/health
 
-# Verify metric received
-curl -s http://localhost:9091/metrics | grep videostutter
-
-# Check Prometheus targets
-curl -s http://localhost:9090/api/v1/targets | grep pushgateway
+# Pushgateway metrics
+curl http://localhost:9091/metrics
 ```
 
-### Dashboard Shows "No Data"
+## 📚 Documentation
 
-### Pushgateway Issues
+Additional documentation:
+- `AGENT_MANAGEMENT.md` - Agent setup and management
+- `LOGGING_SETUP.md` - Loki logging configuration
+- `GRAFANA_ALERT_WEBHOOK_SETUP.md` - Alert webhook setup
+- `ZCAM_Telegraf_Grafana_Setup.md` - ZCAM monitoring setup
+- `LOKI_ARCHITECTURE.md` - Loki architecture overview
 
-If you encounter problems with Pushgateway:
+## 🛠️ Development
 
-1. **400 Bad Request Errors**:
-   - Check metric format: `metric_name{label="value"} metric_value`
-   - Ensure proper escaping of quotes in labels
-   - Verify job name is correct: `studio-web-player`
-   - **Important**: Metrics must end with a newline character (`\n`)
+### Adding New Dashboards
 
-2. **Metrics Not Appearing in Prometheus**:
-   - Check Pushgateway target status: `curl -s http://localhost:9090/api/v1/targets`
-   - Verify Pushgateway is running: `docker compose ps`
-   - Check Prometheus configuration reloaded after changes
+1. Create dashboard JSON in `grafana/provisioning/dashboards/`
+2. Dashboard will be automatically provisioned on Grafana startup
+3. Push to trigger GHCR build (if needed)
 
-3. **Common Solutions**:
-   - Restart Prometheus: `docker compose restart prometheus`
-   - Check Pushgateway logs: `docker logs kevin-telemetry-pushgateway`
-   - Verify metric format with manual curl test
+### Adding New Data Sources
 
-### Dashboard Shows "No Data"
+1. Add datasource config to `grafana/provisioning/datasources/`
+2. Restart Grafana or wait for auto-reload
 
-1. **Check Query Execution**: 
-   - Enter edit mode for any panel
-   - Ensure the query is correct: `videostutter{job="studio-web-player"}`
-   - Click "Run queries" to execute
+### Testing Changes
 
-2. **Verify Time Range**:
-   - Check if time range is set to "Last 15 minutes" or appropriate range
-   - Ensure data exists within the selected time window
+1. Make changes to configuration files
+2. Restart affected services: `docker compose restart <service>`
+3. Verify in Grafana UI
 
-3. **Check Data Source**:
-   - Verify Prometheus data source is connected
-   - Check if metrics are being scraped successfully
+## 🔐 Security Notes
 
-4. **Common Solutions**:
-   - Restart Grafana: `docker compose restart grafana`
-   - Check Prometheus targets status
-   - Verify metrics server is running and generating data
+- Default Grafana credentials: `admin/admin` (change in production)
+- BytePlus credentials stored in `.env` file (not committed)
+- Network isolation via Docker bridge network
+- Zabbix database uses default passwords (change in production)
+
+
+
+## 👥 Contributors
+
+Studio Team - ikigai-kevin-k
+
+---
+
+**Last Updated**: 2025-11-06
