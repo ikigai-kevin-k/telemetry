@@ -1411,27 +1411,6 @@
       "type": "timeseries"
     },
     {
-      "gridPos": {
-        "h": 1,
-        "w": 1,
-        "x": 23,
-        "y": 16
-      },
-      "id": 999,
-      "options": {
-        "code": {
-          "language": "plaintext",
-          "showLineNumbers": false,
-          "showMiniMap": false
-        },
-        "content": "<script>\n/* Hide y-axis unit labels for Network Traffic panel (Panel ID: 12) */\n/* This JavaScript modifies y-axis labels, removing units while keeping numbers */\n(function() {\n  const panelId = 12;\n  \n  function removeUnitsFromYAxis() {\n    const panel = document.querySelector('[data-panel-id=\"' + panelId + '\"]');\n    if (!panel) return;\n    \n    const axisYTexts = panel.querySelectorAll('.uplot .u-axis-y text');\n    axisYTexts.forEach(function(textEl) {\n      const originalText = textEl.textContent || '';\n      // Remove common unit suffixes (b/s, kb/s, Mb/s, Gb/s, B/s, KB/s, MB/s, GB/s, bps, kbps, Mbps, Gbps)\n      const numberOnly = originalText.replace(/\\s*(?:b\\/s|kb\\/s|Mb\\/s|Gb\\/s|B\\/s|KB\\/s|MB\\/s|GB\\/s|bps|kbps|Mbps|Gbps)$/i, '').trim();\n      if (numberOnly && numberOnly !== originalText && numberOnly.length > 0) {\n        textEl.textContent = numberOnly;\n      }\n    });\n  }\n  \n  // Use MutationObserver to watch for DOM changes\n  const observer = new MutationObserver(function(mutations) {\n    removeUnitsFromYAxis();\n  });\n  \n  // Start observing when DOM is ready\n  if (document.readyState === 'loading') {\n    document.addEventListener('DOMContentLoaded', function() {\n      observer.observe(document.body, { childList: true, subtree: true });\n      // Initial run with delay to ensure panel is rendered\n      setTimeout(removeUnitsFromYAxis, 1000);\n      setTimeout(removeUnitsFromYAxis, 2000);\n      setTimeout(removeUnitsFromYAxis, 3000);\n    });\n  } else {\n    observer.observe(document.body, { childList: true, subtree: true });\n    setTimeout(removeUnitsFromYAxis, 500);\n    setTimeout(removeUnitsFromYAxis, 1500);\n    setTimeout(removeUnitsFromYAxis, 2500);\n  }\n  \n  // Also run on window load\n  window.addEventListener('load', function() {\n    setTimeout(removeUnitsFromYAxis, 500);\n  });\n})();\n</script>\n<div style=\"display: none; height: 0; width: 0; padding: 0; margin: 0;\"><!-- JS injection panel for hiding y-axis units - hidden --></div>",
-        "mode": "html"
-      },
-      "pluginVersion": "9.5.21",
-      "transparent": true,
-      "type": "text"
-    },
-    {
       "datasource": {
         "type": "prometheus",
         "uid": "PBFA97CFB590B2093"
@@ -1462,181 +1441,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "include",
-                "names": [
-                  "T2",
-                  "T3",
-                  "T4",
-                  "T5"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": true,
-                  "tooltip": true,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 17
-      },
-      "id": 15,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "builder",
-          "expr": "serial_state_2to3_duration",
-          "instant": false,
-          "key": "Q-7bd39155-331e-4d60-a094-18b8fa742154-0",
-          "legendFormat": "T2",
-          "range": true,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "builder",
-          "exemplar": false,
-          "expr": "serial_state_3to4_duration",
-          "instant": false,
-          "key": "Q-a29e2e3f-a779-43fe-903f-61c27ca3e44c-1",
-          "legendFormat": "T3",
-          "range": true,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "builder",
-          "expr": "serial_state_4to5_duration",
-          "instant": false,
-          "key": "Q-7c049b14-a8f9-47a8-8d26-a3a1e8b533f7-2",
-          "legendFormat": "T4",
-          "range": true,
-          "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "builder",
-          "expr": "serial_state_5to2_duration",
-          "instant": false,
-          "key": "Q-7764b2ed-bb17-4c91-85f7-1f26a04ddf11-3",
-          "legendFormat": "T5",
-          "range": true,
-          "refId": "D"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "code",
-          "expr": "serial_state_2to3_duration + serial_state_3to4_duration + serial_state_4to5_duration + serial_state_5to2_duration",
-          "instant": false,
-          "legendFormat": "ARO11",
-          "range": true,
-          "refId": "E"
-        }
-      ],
-      "title": "Game Flow Duration Serial (Sec) ",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -1694,7 +1499,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 25
+        "y": 16
       },
       "id": 14,
       "options": {
@@ -1716,10 +1521,9 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "builder",
-          "expr": "finish_to_start_time{job=\"time_intervals_metrics\", instance=\"api-instance\"}",
-          "instant": false,
-          "key": "Q-cb96aff9-1243-4311-9ec9-b8d083e1d351-0",
-          "legendFormat": "finish_to_start",
+          "expr": "game_duration_aro11{instance=\"aro11\"}",
+          "hide": false,
+          "legendFormat": "aro11",
           "range": true,
           "refId": "A"
         },
@@ -1729,10 +1533,9 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "builder",
-          "expr": "start_to_launch_time{job=\"time_intervals_metrics\", instance=\"api-instance\"}",
-          "instant": false,
-          "key": "Q-26d3b6f9-76d8-4431-a8f1-1cb1c8537f69-1",
-          "legendFormat": "start_to_launch",
+          "expr": "game_duration_aro21{instance=\"aro21\"}",
+          "hide": false,
+          "legendFormat": "a21",
           "range": true,
           "refId": "B"
         },
@@ -1742,104 +1545,14 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "builder",
-          "expr": "launch_to_deal_time{job=\"time_intervals_metrics\", instance=\"api-instance\"}",
-          "instant": false,
-          "key": "Q-eaa54322-8a21-4edb-8b76-80fcd0cd82a0-2",
-          "legendFormat": "launch_to_deal",
+          "expr": "game_duration_aro22{instance=\"aro22\"}",
+          "hide": false,
+          "legendFormat": "aro22",
           "range": true,
           "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "builder",
-          "expr": "deal_to_finish_time{job=\"time_intervals_metrics\", instance=\"api-instance\"}",
-          "instant": false,
-          "key": "Q-b6b0ecca-bdfa-494c-b3f0-aedf93717f49-3",
-          "legendFormat": "deal_to_finish",
-          "range": true,
-          "refId": "D"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "code",
-          "expr": "finish_to_start_time{job=\"time_intervals_metrics\", instance=\"api-instance\"} + start_to_launch_time{job=\"time_intervals_metrics\", instance=\"api-instance\"} + launch_to_deal_time{job=\"time_intervals_metrics\", instance=\"api-instance\"} + deal_to_finish_time{job=\"time_intervals_metrics\", instance=\"api-instance\"}",
-          "instant": false,
-          "legendFormat": "ARO11",
-          "range": true,
-          "refId": "E"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "builder",
-          "expr": "finish_to_start_time{job=\"time_intervals_metrics\", instance=\"aro22\"}",
-          "instant": false,
-          "key": "Q-aro22-finish-to-start",
-          "legendFormat": "finish_to_start",
-          "range": true,
-          "refId": "F"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "builder",
-          "expr": "start_to_launch_time{job=\"time_intervals_metrics\", instance=\"aro22\"}",
-          "instant": false,
-          "key": "Q-aro22-start-to-launch",
-          "legendFormat": "start_to_launch",
-          "range": true,
-          "refId": "G"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "builder",
-          "expr": "launch_to_deal_time{job=\"time_intervals_metrics\", instance=\"aro22\"}",
-          "instant": false,
-          "key": "Q-aro22-launch-to-deal",
-          "legendFormat": "launch_to_deal",
-          "range": true,
-          "refId": "H"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "builder",
-          "expr": "deal_to_finish_time{job=\"time_intervals_metrics\", instance=\"aro22\"}",
-          "instant": false,
-          "key": "Q-aro22-deal-to-finish",
-          "legendFormat": "deal_to_finish",
-          "range": true,
-          "refId": "I"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "code",
-          "expr": "finish_to_start_time{job=\"time_intervals_metrics\", instance=\"aro22\"} + start_to_launch_time{job=\"time_intervals_metrics\", instance=\"aro22\"} + launch_to_deal_time{job=\"time_intervals_metrics\", instance=\"aro22\"} + deal_to_finish_time{job=\"time_intervals_metrics\", instance=\"aro22\"}",
-          "instant": false,
-          "legendFormat": "ARO22",
-          "range": true,
-          "refId": "J"
         }
       ],
-      "title": "Game Flow Duration TableAPI (Sec)",
+      "title": "Round Duration (Sec)",
       "type": "timeseries"
     },
     {
@@ -1884,7 +1597,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 33
+        "y": 24
       },
       "id": 3,
       "options": {
@@ -2060,7 +1773,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 39
+        "y": 30
       },
       "id": 1,
       "options": {
@@ -2153,7 +1866,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 39
+        "y": 30
       },
       "id": 2,
       "options": {
@@ -2229,7 +1942,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 47
+        "y": 38
       },
       "id": 6,
       "options": {
@@ -2348,7 +2061,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 47
+        "y": 38
       },
       "id": 7,
       "options": {
@@ -2476,6 +2189,6 @@
   "timezone": "Asia/Taipei",
   "title": "System Overview",
   "uid": "overview-dashboard",
-  "version": 150,
+  "version": 156,
   "weekStart": ""
 }
