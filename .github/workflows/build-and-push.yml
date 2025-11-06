@@ -206,6 +206,40 @@ jobs:
           build-args: |
             BUILDKIT_INLINE_CACHE=1
 
+      - name: Update package README
+        if: github.event_name != 'pull_request'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PACKAGE_NAME: ${{ steps.branch-info.outputs.image_name }}
+        run: |
+          # Read README.md content
+          if [ -f "README.md" ]; then
+            README_CONTENT=$(cat README.md | jq -Rs .)
+            
+            # Update package README via GitHub API
+            PACKAGE_TYPE="container"
+            PACKAGE_OWNER="${{ env.OWNER }}"
+            
+            echo "📝 Updating package README for $PACKAGE_NAME..."
+            
+            response=$(curl -s -w "\n%{http_code}" -X PATCH \
+              -H "Authorization: token $GITHUB_TOKEN" \
+              -H "Accept: application/vnd.github.v3+json" \
+              -H "Content-Type: application/json" \
+              -d "{\"body\": $README_CONTENT}" \
+              "https://api.github.com/user/packages/$PACKAGE_TYPE/$PACKAGE_OWNER/$PACKAGE_NAME")
+            
+            http_code=$(echo "$response" | tail -n1)
+            if [ "$http_code" -eq 200 ]; then
+              echo "✅ Package README updated successfully"
+            else
+              echo "⚠️  Failed to update package README (HTTP $http_code)"
+              echo "Response: $(echo "$response" | head -n-1)"
+            fi
+          else
+            echo "⚠️  README.md not found, skipping package README update"
+          fi
+
       - name: Output image URL
         if: github.event_name != 'pull_request'
         run: |
