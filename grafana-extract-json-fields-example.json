@@ -1,0 +1,32 @@
+{
+  "transformations": [
+    {
+      "id": "extractFields",
+      "options": {
+        "source": "A Line",
+        "format": "json"
+      }
+    },
+    {
+      "id": "organize",
+      "options": {
+        "excludeByName": {
+          "Time": true,
+          "id": true,
+          "labels": true,
+          "tsNs": true,
+          "Line": true,
+          "log_file": true,
+          "date": true,
+          "time": true
+        },
+        "indexByName": {},
+        "renameByName": {
+          "datetime": "DateTime",
+          "message": "Message"
+        }
+      }
+    }
+  ]
+}
+
