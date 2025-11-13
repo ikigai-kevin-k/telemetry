@@ -34,10 +34,10 @@ providers:
     options:
       path: /etc/grafana/provisioning/dashboards/loki
       
-  # General overview dashboards
+  # General dashboards (System Overview, SDP Log, Development)
   - name: 'general-dashboards'
     orgId: 1
-    folder: 'Overview'
+    folder: 'General'
     type: file
     disableDeletion: false
     updateIntervalSeconds: 10
@@ -55,15 +55,4 @@ providers:
     allowUiUpdates: true
     options:
       path: /etc/grafana/provisioning/dashboards/byteplus
-      
-  # SDP Log monitoring dashboards
-  - name: 'sdp-log-dashboards'
-    orgId: 1
-    folder: 'Dashboards'
-    type: file
-    disableDeletion: false
-    updateIntervalSeconds: 10
-    allowUiUpdates: true
-    options:
-      path: /etc/grafana/provisioning/dashboards/sdp-log
       

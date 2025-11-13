@@ -132,3 +132,5 @@ echo "1. 重啟 Grafana: docker-compose restart grafana"
 echo "2. 檢查權限是否仍然存在"
 echo "3. 使用 Viewer 帳號登入驗證權限"
 
+
+
