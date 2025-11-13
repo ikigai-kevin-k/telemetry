@@ -12,17 +12,6 @@ providers:
     options:
       path: /etc/grafana/provisioning/dashboards/zabbix
       
-  # Prometheus monitoring dashboards
-  - name: 'prometheus-dashboards'
-    orgId: 1
-    folder: 'Prometheus'
-    type: file
-    disableDeletion: false
-    updateIntervalSeconds: 10
-    allowUiUpdates: true
-    options:
-      path: /etc/grafana/provisioning/dashboards/prometheus
-      
   # ZCAM monitoring dashboards
   - name: 'zcam-dashboards'
     orgId: 1
@@ -33,17 +22,6 @@ providers:
     allowUiUpdates: true
     options:
       path: /etc/grafana/provisioning/dashboards/zcam
-      
-  # SDP monitoring dashboards
-  - name: 'sdp-dashboards'
-    orgId: 1
-    folder: 'SDP Monitoring'
-    type: file
-    disableDeletion: false
-    updateIntervalSeconds: 10
-    allowUiUpdates: true
-    options:
-      path: /etc/grafana/provisioning/dashboards/sdp
       
   # Loki monitoring dashboards
   - name: 'loki-dashboards'
@@ -77,3 +55,15 @@ providers:
     allowUiUpdates: true
     options:
       path: /etc/grafana/provisioning/dashboards/byteplus
+      
+  # SDP Log monitoring dashboards
+  - name: 'sdp-log-dashboards'
+    orgId: 1
+    folder: 'Dashboards'
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 10
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/sdp-log
+      
