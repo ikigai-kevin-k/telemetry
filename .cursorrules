@@ -85,3 +85,81 @@
 - 無法明確判定端別時，避免冒然修改；優先輸出建議 Markdown，待確認後再實作。
 - 在對應分支上檢視檔案：agent-side 僅看 `agent`，server-side 僅看 `server`。
 - 任何自動化腳本請確保非互動旗標與失敗即中止（set -e）。
+
+—
+
+[快捷指令：Loki 儲存查詢]
+- 當使用者在 Cursor 輸入 `[storage][loki]` 時：
+  1) 自動執行 `query-loki-24h-growth.sh` 腳本。
+  2) 顯示過去 24 小時的 Loki 儲存增長分析結果。
+  3) 無需額外確認，直接執行並輸出結果。
+
+—
+
+[快捷指令：Prometheus 儲存查詢]
+- 當使用者在 Cursor 輸入 `[storage][prom]` 時：
+  1) 自動執行 `query-prom-24h-growth.sh` 腳本。
+  2) 顯示過去 24 小時的 Prometheus 儲存增長分析結果。
+  3) 無需額外確認，直接執行並輸出結果。
+
+—
+
+[快捷指令：程式碼行數查詢]
+- 當使用者在 Cursor 輸入 `[line]` 時：
+  1) 自動執行 `codebase_line.sh` 腳本。
+  2) 顯示程式碼庫的程式碼行數統計分析結果。
+  3) 無需額外確認，直接執行並輸出結果。
+
+## Automatic Git Commit and Push
+
+### Commit Command Detection
+When the user includes the following pattern in their query:
+- `[commit]要commit <file/feature/fix>`
+- `[commit] commit <file/feature/fix>`
+- `[commit]<file/feature/fix>`
+
+The AI assistant MUST automatically execute the following git operations:
+
+1. **Parse the commit message**: Extract the file path, feature name, or fix description from the user's message
+2. **Execute git add**: Add the specified file(s) or all modified files if no specific file is mentioned
+3. **Execute git commit**: Create a commit with an appropriate message based on the context
+4. **Execute git push**: Push the changes to the remote repository
+
+### Implementation Rules
+
+1. **File Detection**:
+   - If a specific file path is mentioned (e.g., `serialIO.py`, `push_speed_log_continuous.py`), add only that file
+   - If a feature name is mentioned (e.g., `feature/log-monitoring`), add all files related to that feature
+   - If "fix" is mentioned, add all modified files related to the fix
+
+2. **Commit Message Format**:
+   - Use descriptive commit messages in English
+   - Include the type: `feat:`, `fix:`, `refactor:`, `docs:`, `chore:`, etc.
+   - Include a brief description of what was changed
+   - Example: `fix: Reduce batch size in push_speed_log_continuous.py for faster updates`
+
+3. **Error Handling**:
+   - Check git status before committing
+   - Handle cases where files don't exist or have no changes
+   - Handle cases where there's nothing to commit
+   - Handle push failures gracefully
+
+4. **Execution Steps**:
+   ```
+   1. Parse user's commit request
+   2. Check git status
+   3. git add <files>
+   4. git commit -m "<message>"
+   5. git push
+   ```
+
+### Examples
+
+**User query**: `[commit]要commit push_speed_log_continuous.py`
+- Action: `git add push_speed_log_continuous.py`, then commit and push
+
+**User query**: `[commit] commit fix for log monitoring`
+- Action: Add all modified files, commit with fix message, then push
+
+**User query**: `[commit]feature/auto-commit`
+- Action: Add all files related to auto-commit feature, commit, then push
