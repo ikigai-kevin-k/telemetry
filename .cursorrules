@@ -94,6 +94,14 @@
   2) 顯示過去 24 小時的 Loki 儲存增長分析結果。
   3) 無需額外確認，直接執行並輸出結果。
 
+—
+
+[快捷指令：Prometheus 儲存查詢]
+- 當使用者在 Cursor 輸入 `[storage][prom]` 時：
+  1) 自動執行 `query-prom-24h-growth.sh` 腳本。
+  2) 顯示過去 24 小時的 Prometheus 儲存增長分析結果。
+  3) 無需額外確認，直接執行並輸出結果。
+
 ## Automatic Git Commit and Push
 
 ### Commit Command Detection
