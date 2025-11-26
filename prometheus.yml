@@ -60,3 +60,11 @@ scrape_configs:
     metrics_path: '/metrics'
     scrape_interval: 30s
     scrape_timeout: 10s
+
+  # eBPF Exporter metrics (CPU, Temperature, Network Speed)
+  - job_name: 'ebpf-exporter'
+    static_configs:
+      - targets: ['192.168.20.9:9300']
+    metrics_path: '/metrics'
+    scrape_interval: 15s
+    scrape_timeout: 10s
