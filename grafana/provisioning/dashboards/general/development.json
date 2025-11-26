@@ -38,8 +38,8 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -56,7 +56,7 @@
             "spanNulls": false,
             "stacking": {
               "group": "A",
-              "mode": "none"
+              "mode": "normal"
             },
             "thresholdsStyle": {
               "mode": "off"
@@ -89,9 +89,9 @@
       "id": 1,
       "options": {
         "legend": {
-          "calcs": ["mean", "last"],
-          "displayMode": "list",
-          "placement": "bottom",
+          "calcs": ["last"],
+          "displayMode": "table",
+          "placement": "right",
           "showLegend": true
         },
         "tooltip": {
@@ -161,7 +161,7 @@
         }
       ],
       "title": "Daily AVG",
-      "description": "Calculate daily average game round duration from previous day 22:00 to current day 06:00 (8 hours). Note: To get the correct daily average for a specific day, set the query time to 06:00 of that day. The query calculates the average over the previous 8 hours from the query time.",
+      "description": "Daily average game round duration bar chart. Each bar represents the average duration from previous day 22:00 to current day 06:00 (8 hours) for each agent. X-axis: Date, Y-axis: Daily average game duration (seconds).",
       "type": "timeseries"
     }
   ],
