@@ -90,7 +90,7 @@
               "filter": "GC-ARO-002-2-agent"
             },
             "item": {
-              "filter": "system.cpu.usage"
+              "filter": "system.cpu.util"
             },
             "functions": [],
             "options": {
@@ -148,7 +148,7 @@
               "filter": "GC-ARO-002-2-agent"
             },
             "item": {
-              "filter": "system.memory.usage"
+              "filter": "vm.memory.utilization"
             },
             "functions": [],
             "options": {
@@ -189,64 +189,6 @@
       },
       {
         "id": 4,
-        "title": "Disk Usage",
-        "type": "gauge",
-        "datasource": {
-          "type": "alexanderzobnin-zabbix-datasource",
-          "uid": "PA67C5EADE9207728"
-        },
-        "targets": [
-          {
-            "queryType": "",
-            "refId": "A",
-            "group": {
-              "filter": ""
-            },
-            "host": {
-              "filter": "GC-ARO-002-2-agent"
-            },
-            "item": {
-              "filter": "system.disk.usage"
-            },
-            "functions": [],
-            "options": {
-              "showDisabledItems": false,
-              "skipEmptyValues": false
-            }
-          }
-        ],
-        "fieldConfig": {
-          "defaults": {
-            "min": 0,
-            "max": 100,
-            "unit": "percent",
-            "thresholds": {
-              "steps": [
-                {
-                  "color": "green",
-                  "value": 0
-                },
-                {
-                  "color": "yellow",
-                  "value": 80
-                },
-                {
-                  "color": "red",
-                  "value": 95
-                }
-              ]
-            }
-          }
-        },
-        "gridPos": {
-          "h": 8,
-          "w": 6,
-          "x": 18,
-          "y": 0
-        }
-      },
-      {
-        "id": 5,
         "title": "System Uptime",
         "type": "stat",
         "datasource": {
@@ -264,7 +206,7 @@
               "filter": "GC-ARO-002-2-agent"
             },
             "item": {
-              "filter": "system.uptime"
+              "filter": "system.boottime"
             },
             "functions": [],
             "options": {
@@ -297,7 +239,7 @@
         }
       },
       {
-        "id": 6,
+        "id": 5,
         "title": "enp86s0 Network Traffic",
         "type": "timeseries",
         "datasource": {
@@ -315,7 +257,7 @@
               "filter": "GC-ARO-002-2-agent"
             },
             "item": {
-              "filter": "system.network.in[\"enp86s0\"]"
+              "filter": "custom.net.if.in[enp86s0]"
             },
             "functions": [],
             "options": {
@@ -333,7 +275,7 @@
               "filter": "GC-ARO-002-2-agent"
             },
             "item": {
-              "filter": "system.network.out[\"enp86s0\"]"
+              "filter": "custom.net.if.out[enp86s0]"
             },
             "functions": [],
             "options": {
@@ -355,7 +297,7 @@
         }
       },
       {
-        "id": 7,
+        "id": 6,
         "title": "CPU Load Average",
         "type": "timeseries",
         "datasource": {
@@ -373,7 +315,7 @@
               "filter": "GC-ARO-002-2-agent"
             },
             "item": {
-              "filter": "system.load.average"
+              "filter": "system.cpu.load[all,avg1]"
             },
             "functions": [],
             "options": {
@@ -395,7 +337,7 @@
         }
       },
       {
-        "id": 8,
+        "id": 7,
         "title": "enp86s0 Network Status",
         "type": "stat",
         "datasource": {
@@ -413,7 +355,7 @@
               "filter": "GC-ARO-002-2-agent"
             },
             "item": {
-              "filter": "system.network.status[\"enp86s0\"]"
+              "filter": "custom.net.if.status[enp86s0]"
             },
             "functions": [],
             "options": {
@@ -457,65 +399,6 @@
           "h": 8,
           "w": 12,
           "x": 0,
-          "y": 24
-        }
-      },
-      {
-        "id": 9,
-        "title": "System Temperature",
-        "type": "stat",
-        "datasource": {
-          "type": "alexanderzobnin-zabbix-datasource",
-          "uid": "PA67C5EADE9207728"
-        },
-        "targets": [
-          {
-            "queryType": "",
-            "refId": "A",
-            "group": {
-              "filter": ""
-            },
-            "host": {
-              "filter": "GC-ARO-002-2-agent"
-            },
-            "item": {
-              "filter": "system.temperature"
-            },
-            "functions": [],
-            "options": {
-              "showDisabledItems": false,
-              "skipEmptyValues": false
-            }
-          }
-        ],
-        "fieldConfig": {
-          "defaults": {
-            "unit": "celsius",
-            "color": {
-              "mode": "thresholds"
-            },
-            "thresholds": {
-              "steps": [
-                {
-                  "color": "green",
-                  "value": 0
-                },
-                {
-                  "color": "yellow",
-                  "value": 70
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          }
-        },
-        "gridPos": {
-          "h": 8,
-          "w": 12,
-          "x": 12,
           "y": 24
         }
       }

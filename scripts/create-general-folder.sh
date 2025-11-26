@@ -53,3 +53,9 @@ else
     echo -e "${GREEN}✓ General folder 已建立: UID=$GENERAL_UID${NC}"
 fi
 
+
+
+
+
+
+

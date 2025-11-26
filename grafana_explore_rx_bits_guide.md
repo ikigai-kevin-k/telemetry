@@ -256,3 +256,6 @@ rate(sum by (interface) (unwrap rx_bits {job="network_monitor",instance="GC-aro1
 **指南完成時間**: 2025-10-22 07:30:00 AM +04  
 **適用版本**: Grafana 9.5.21 + Loki  
 **資料來源**: GC-aro11-agent network_monitor logs
+
+
+

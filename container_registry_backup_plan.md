@@ -354,3 +354,5 @@ GHCR_IMAGE_REPOSITORY="${GHCR_IMAGE_REPOSITORY:-telemetry-webhook-service}"
 *最後更新: $(date +%Y年%m月%d日)*  
 *文檔版本: 1.0*
 
+
+

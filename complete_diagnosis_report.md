@@ -336,3 +336,6 @@ docker logs kevin-telemetry-loki-server --tail 50
 **診斷完成時間**: 2025-10-22 07:26:09 AM +04  
 **診斷狀態**: 配置修正完成，待解決資料傳輸問題  
 **下一步**: 檢查網路連線和 Promtail 客戶端配置
+
+
+

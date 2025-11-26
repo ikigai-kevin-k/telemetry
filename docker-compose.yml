@@ -78,6 +78,18 @@ services:
     networks:
       - monitoring
 
+  # Disk Usage Exporter - Monitor local server disk usage
+  disk-usage-exporter:
+    image: python:3.11-alpine
+    container_name: kevin-telemetry-disk-usage-exporter
+    restart: unless-stopped
+    working_dir: /app
+    command: sh -c "pip install prometheus-client && python disk-usage-exporter.py"
+    volumes:
+      - ./scripts/disk-usage-exporter.py:/app/disk-usage-exporter.py:ro
+    # Use host network mode to access host filesystem directly
+    network_mode: "host"
+
   webhook-service:
     build:
       context: .

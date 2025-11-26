@@ -69,3 +69,9 @@ echo -e "${YELLOW}下一步:${NC}"
 echo "1. 更新 dashboard.yml 將 folder 從 'GeneralDashboards' 改為 'General'"
 echo "2. 重啟 Grafana 或等待自動重新載入"
 
+
+
+
+
+
+

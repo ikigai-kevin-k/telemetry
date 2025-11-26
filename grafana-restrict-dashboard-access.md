@@ -237,3 +237,11 @@ Grafana 的權限繼承順序（由高到低）：
 - [Grafana Dashboard 權限文件](https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/)
 - [Grafana Folder 權限文件](https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/folder-permissions/)
 
+
+
+
+
+
+
+
+

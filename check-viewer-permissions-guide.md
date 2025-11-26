@@ -113,3 +113,11 @@ curl -s -H "Authorization: Bearer $GRAFANA_API_KEY" \
 - `scripts/check-dashboard-permissions.sh` - 自動檢查腳本
 - `grafana-restrict-dashboard-access.md` - 權限設定指南
 
+
+
+
+
+
+
+
+

@@ -226,3 +226,6 @@ echo "   - JSON 解析: $(if echo "$JSON_DATA" | jq -e '.data.result | length > 
 echo ""
 
 echo "確認完成時間: $(date)"
+
+
+

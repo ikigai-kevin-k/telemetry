@@ -35,9 +35,10 @@ providers:
       path: /etc/grafana/provisioning/dashboards/loki
       
   # General dashboards (System Overview, SDP Log, Development)
+  # Note: Using empty string to place dashboards in default General folder (folderId=0)
   - name: 'general-dashboards'
     orgId: 1
-    folder: 'General'
+    folder: ''
     type: file
     disableDeletion: false
     updateIntervalSeconds: 10

@@ -160,3 +160,6 @@ echo "   - 新增的配置: network monitoring job"
 echo ""
 
 echo "驗證完成時間: $(date)"
+
+
+

@@ -59,3 +59,9 @@ else
     echo -e "${GREEN}✓ Folder 已重新命名為 $NEW_FOLDER_NAME${NC}"
 fi
 
+
+
+
+
+
+

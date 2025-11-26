@@ -174,3 +174,6 @@ echo "   - 資料傳輸: $(if echo "$NETWORK_DATA" | jq -e '.data.result | lengt
 echo ""
 
 echo "檢查完成時間: $(date)"
+
+
+
