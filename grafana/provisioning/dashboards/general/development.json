@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": null,
+  "id": 67,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -27,6 +27,7 @@
         "type": "prometheus",
         "uid": "PBFA97CFB590B2093"
       },
+      "description": "Daily average game round duration bar chart. Each bar represents the average duration from previous day 22:00 to current day 06:00 (8 hours) for each agent. X-axis: Date, Y-axis: Daily average game duration (seconds).",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -87,9 +88,12 @@
         "y": 0
       },
       "id": 1,
+      "interval": "1d",
       "options": {
         "legend": {
-          "calcs": ["last"],
+          "calcs": [
+            "last"
+          ],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true
@@ -161,14 +165,25 @@
         }
       ],
       "title": "Daily AVG",
-      "description": "Daily average game round duration bar chart. Each bar represents the average duration from previous day 22:00 to current day 06:00 (8 hours) for each agent. X-axis: Date, Y-axis: Daily average game duration (seconds).",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [],
+            "fields": {}
+          }
+        }
+      ],
       "type": "timeseries"
     }
   ],
   "refresh": "30s",
   "schemaVersion": 38,
   "style": "dark",
-  "tags": ["development", "monitoring"],
+  "tags": [
+    "development",
+    "monitoring"
+  ],
   "templating": {
     "list": []
   },
@@ -180,6 +195,6 @@
   "timezone": "Asia/Taipei",
   "title": "Development",
   "uid": "development-dashboard",
-  "version": 1,
+  "version": 25,
   "weekStart": ""
 }
