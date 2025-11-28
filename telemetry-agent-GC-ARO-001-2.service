@@ -1,0 +1,17 @@
+[Unit]
+Description=Telemetry Agent Services for GC-ARO-001-2 (Promtail, Zabbix Agent, ZCAM Exporter)
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/home/rnd/telemetry
+ExecStart=/usr/bin/docker compose -f /home/rnd/telemetry/docker-compose-GC-ARO-001-2-agent.yml up -d
+ExecStop=/usr/bin/docker compose -f /home/rnd/telemetry/docker-compose-GC-ARO-001-2-agent.yml down
+TimeoutStartSec=0
+
+[Install]
+WantedBy=multi-user.target
+
