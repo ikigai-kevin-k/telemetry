@@ -16,6 +16,25 @@ get_network_stats() {
         interface="enp86s0"  # Default to enp86s0 as per your requirement
     fi
     
+    # Try host-mounted path first (for containers)
+    if [ -f "/host/proc/net/dev" ]; then
+        local line=$(grep "^[[:space:]]*$interface:" /host/proc/net/dev)
+        if [ -n "$line" ]; then
+            # Parse /proc/net/dev format: interface: rx_bytes rx_packets rx_errs rx_drop ... tx_bytes tx_packets tx_errs tx_drop
+            local rx_bytes=$(echo "$line" | awk '{print $2}')
+            local rx_packets=$(echo "$line" | awk '{print $3}')
+            local rx_errors=$(echo "$line" | awk '{print $4}')
+            local rx_dropped=$(echo "$line" | awk '{print $5}')
+            local tx_bytes=$(echo "$line" | awk '{print $10}')
+            local tx_packets=$(echo "$line" | awk '{print $11}')
+            local tx_errors=$(echo "$line" | awk '{print $12}')
+            local tx_dropped=$(echo "$line" | awk '{print $13}')
+            
+            echo "rx_bytes:$rx_bytes tx_bytes:$tx_bytes rx_packets:$rx_packets tx_packets:$tx_packets rx_errors:$rx_errors tx_errors:$tx_errors rx_dropped:$rx_dropped tx_dropped:$tx_dropped"
+            return 0
+        fi
+    fi
+    
     # Read from /proc/net/dev (works with host networking)
     if [ -f "/proc/net/dev" ]; then
         local line=$(grep "^[[:space:]]*$interface:" /proc/net/dev)
@@ -51,6 +70,21 @@ get_network_stats() {
         return 0
     fi
     
+    # Try host-mounted sys path
+    if [ -d "/host/sys/class/net/$interface/statistics" ]; then
+        local rx_bytes=$(cat "/host/sys/class/net/$interface/statistics/rx_bytes" 2>/dev/null || echo "0")
+        local tx_bytes=$(cat "/host/sys/class/net/$interface/statistics/tx_bytes" 2>/dev/null || echo "0")
+        local rx_packets=$(cat "/host/sys/class/net/$interface/statistics/rx_packets" 2>/dev/null || echo "0")
+        local tx_packets=$(cat "/host/sys/class/net/$interface/statistics/tx_packets" 2>/dev/null || echo "0")
+        local rx_errors=$(cat "/host/sys/class/net/$interface/statistics/rx_errors" 2>/dev/null || echo "0")
+        local tx_errors=$(cat "/host/sys/class/net/$interface/statistics/tx_errors" 2>/dev/null || echo "0")
+        local rx_dropped=$(cat "/host/sys/class/net/$interface/statistics/rx_dropped" 2>/dev/null || echo "0")
+        local tx_dropped=$(cat "/host/sys/class/net/$interface/statistics/tx_dropped" 2>/dev/null || echo "0")
+        
+        echo "rx_bytes:$rx_bytes tx_bytes:$tx_bytes rx_packets:$rx_packets tx_packets:$tx_packets rx_errors:$rx_errors tx_errors:$tx_errors rx_dropped:$rx_dropped tx_dropped:$tx_dropped"
+        return 0
+    fi
+    
     log_message "ERROR: Interface $interface not found"
     echo "0"
     return 1
@@ -61,6 +95,15 @@ get_network_rx_bytes() {
     local interface="$1"
     if [ -z "$interface" ]; then
         interface="enp86s0"
+    fi
+    
+    # Try host-mounted path first (for containers)
+    if [ -f "/host/proc/net/dev" ]; then
+        local line=$(grep "^[[:space:]]*$interface:" /host/proc/net/dev)
+        if [ -n "$line" ]; then
+            echo "$line" | awk '{print $2}'
+            return 0
+        fi
     fi
     
     # Read from /proc/net/dev (works with host networking)
@@ -79,6 +122,12 @@ get_network_rx_bytes() {
         return 0
     fi
     
+    # Try host-mounted sys path
+    if [ -d "/host/sys/class/net/$interface/statistics" ]; then
+        cat "/host/sys/class/net/$interface/statistics/rx_bytes" 2>/dev/null || echo "0"
+        return 0
+    fi
+    
     log_message "ERROR: Interface $interface not found"
     echo "0"
     return 1
@@ -89,6 +138,15 @@ get_network_tx_bytes() {
     local interface="$1"
     if [ -z "$interface" ]; then
         interface="enp86s0"
+    fi
+    
+    # Try host-mounted path first (for containers)
+    if [ -f "/host/proc/net/dev" ]; then
+        local line=$(grep "^[[:space:]]*$interface:" /host/proc/net/dev)
+        if [ -n "$line" ]; then
+            echo "$line" | awk '{print $10}'
+            return 0
+        fi
     fi
     
     # Read from /proc/net/dev (works with host networking)
@@ -107,6 +165,12 @@ get_network_tx_bytes() {
         return 0
     fi
     
+    # Try host-mounted sys path
+    if [ -d "/host/sys/class/net/$interface/statistics" ]; then
+        cat "/host/sys/class/net/$interface/statistics/tx_bytes" 2>/dev/null || echo "0"
+        return 0
+    fi
+    
     log_message "ERROR: Interface $interface not found"
     echo "0"
     return 1
@@ -117,6 +181,15 @@ get_network_rx_packets() {
     local interface="$1"
     if [ -z "$interface" ]; then
         interface="enp86s0"
+    fi
+    
+    # Try host-mounted path first (for containers)
+    if [ -f "/host/proc/net/dev" ]; then
+        local line=$(grep "^[[:space:]]*$interface:" /host/proc/net/dev)
+        if [ -n "$line" ]; then
+            echo "$line" | awk '{print $3}'
+            return 0
+        fi
     fi
     
     # Try to read from /proc/net/dev first (works in containers)
@@ -135,6 +208,12 @@ get_network_rx_packets() {
         return 0
     fi
     
+    # Try host-mounted sys path
+    if [ -d "/host/sys/class/net/$interface/statistics" ]; then
+        cat "/host/sys/class/net/$interface/statistics/rx_packets" 2>/dev/null || echo "0"
+        return 0
+    fi
+    
     log_message "ERROR: Interface $interface not found"
     echo "0"
     return 1
@@ -145,6 +224,15 @@ get_network_tx_packets() {
     local interface="$1"
     if [ -z "$interface" ]; then
         interface="enp86s0"
+    fi
+    
+    # Try host-mounted path first (for containers)
+    if [ -f "/host/proc/net/dev" ]; then
+        local line=$(grep "^[[:space:]]*$interface:" /host/proc/net/dev)
+        if [ -n "$line" ]; then
+            echo "$line" | awk '{print $11}'
+            return 0
+        fi
     fi
     
     # Try to read from /proc/net/dev first (works in containers)
@@ -160,6 +248,12 @@ get_network_tx_packets() {
     local stats_file="/sys/class/net/$interface/statistics"
     if [ -d "$stats_file" ]; then
         cat "$stats_file/tx_packets" 2>/dev/null || echo "0"
+        return 0
+    fi
+    
+    # Try host-mounted sys path
+    if [ -d "/host/sys/class/net/$interface/statistics" ]; then
+        cat "/host/sys/class/net/$interface/statistics/tx_packets" 2>/dev/null || echo "0"
         return 0
     fi
     
