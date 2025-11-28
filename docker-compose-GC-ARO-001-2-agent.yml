@@ -39,14 +39,16 @@ services:
       - monitoring
 
   # ZCAM Values Exporter - Exports ZCAM device metrics to Prometheus
+  # ZCAM Values Exporter - Exports ARO12 ZCAM device metrics to Prometheus
+  # Agent-side specific: only monitors ARO12 device at 192.168.88.12
   zcam-values-exporter:
     image: python:3.11-alpine
     container_name: kevin-telemetry-zcam-values-exporter
     restart: unless-stopped
     working_dir: /app
-    command: sh -c "pip install prometheus-client requests && python zcam-values-exporter.py"
+    command: sh -c "pip install prometheus-client requests && python zcam-values-exporter-aro12-agent.py"
     volumes:
-      - ./scripts/zcam-values-exporter.py:/app/zcam-values-exporter.py:ro
+      - ./scripts/zcam-values-exporter-aro12-agent.py:/app/zcam-values-exporter-aro12-agent.py:ro
     ports:
       - "9274:9274"  # Prometheus metrics endpoint
     networks:
