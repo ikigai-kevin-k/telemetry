@@ -63,6 +63,15 @@ get_network_rx_bytes() {
         interface="enp86s0"
     fi
     
+    # Try to read from host-mounted /proc/net/dev first (for containers with host mount)
+    if [ -f "/host/proc/net/dev" ]; then
+        local line=$(grep "^[[:space:]]*$interface:" /host/proc/net/dev)
+        if [ -n "$line" ]; then
+            echo "$line" | awk '{print $2}'
+            return 0
+        fi
+    fi
+    
     # Read from /proc/net/dev (works with host networking)
     if [ -f "/proc/net/dev" ]; then
         local line=$(grep "^[[:space:]]*$interface:" /proc/net/dev)
@@ -79,6 +88,13 @@ get_network_rx_bytes() {
         return 0
     fi
     
+    # Try host-mounted /sys path
+    local host_stats_file="/host/sys/class/net/$interface/statistics"
+    if [ -d "$host_stats_file" ]; then
+        cat "$host_stats_file/rx_bytes" 2>/dev/null || echo "0"
+        return 0
+    fi
+    
     log_message "ERROR: Interface $interface not found"
     echo "0"
     return 1
@@ -89,6 +105,15 @@ get_network_tx_bytes() {
     local interface="$1"
     if [ -z "$interface" ]; then
         interface="enp86s0"
+    fi
+    
+    # Try to read from host-mounted /proc/net/dev first (for containers with host mount)
+    if [ -f "/host/proc/net/dev" ]; then
+        local line=$(grep "^[[:space:]]*$interface:" /host/proc/net/dev)
+        if [ -n "$line" ]; then
+            echo "$line" | awk '{print $10}'
+            return 0
+        fi
     fi
     
     # Read from /proc/net/dev (works with host networking)
@@ -104,6 +129,13 @@ get_network_tx_bytes() {
     local stats_file="/sys/class/net/$interface/statistics"
     if [ -d "$stats_file" ]; then
         cat "$stats_file/tx_bytes" 2>/dev/null || echo "0"
+        return 0
+    fi
+    
+    # Try host-mounted /sys path
+    local host_stats_file="/host/sys/class/net/$interface/statistics"
+    if [ -d "$host_stats_file" ]; then
+        cat "$host_stats_file/tx_bytes" 2>/dev/null || echo "0"
         return 0
     fi
     

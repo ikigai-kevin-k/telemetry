@@ -9,8 +9,8 @@ Type=oneshot
 RemainAfterExit=yes
 WorkingDirectory=/home/rnd/telemetry
 # Use docker compose (v2) command
-ExecStart=/usr/bin/docker compose -f /home/rnd/telemetry/docker-compose-GC-ARO-001-2-agent.yml up -d
-ExecStop=/usr/bin/docker compose -f /home/rnd/telemetry/docker-compose-GC-ARO-001-2-agent.yml down
+ExecStart=/usr/bin/docker compose -f /home/rnd/telemetry/docker-compose-GC-aro12-agent.yml up -d
+ExecStop=/usr/bin/docker compose -f /home/rnd/telemetry/docker-compose-GC-aro12-agent.yml down
 # Restart service if it fails
 Restart=on-failure
 RestartSec=10

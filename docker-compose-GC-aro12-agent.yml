@@ -44,6 +44,8 @@ services:
     volumes:
       - ./zabbix/agent2-GC-aro12-agent.conf:/etc/zabbix/zabbix_agent2.conf
       - ./zabbix/scripts:/var/lib/zabbix/scripts
+      - /sys:/host/sys:ro                       # Mount host sys directory for network interface access
+      - /proc/net/dev:/host/proc/net/dev:ro     # Mount host network statistics
       # Persistent volume for Zabbix agent data
       - zabbix_agent_aro12_data:/var/lib/zabbix/agent  # Zabbix agent persistent buffer
     restart: unless-stopped
