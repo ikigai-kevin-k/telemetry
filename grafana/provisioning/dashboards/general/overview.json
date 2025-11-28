@@ -119,8 +119,8 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "editorMode": "builder",
-          "expr": "zcam_temperature{device_ip=\"192.168.88.12\"}",
+          "editorMode": "code",
+          "expr": "label_replace(zcam_temperature{job=\"zcam-values-aro12\", device_name=\"zcam-aro12\", device_ip=\"192.168.88.12\"}, \"short_name\", \"ARO12\", \"device_name\", \"^zcam-aro12$\")",
           "hide": false,
           "legendFormat": "ARO12",
           "range": true,
