@@ -1,0 +1,27 @@
+[Unit]
+Description=Telemetry ARO-002-1 Agent Service
+Documentation=https://github.com/your-repo/telemetry
+After=docker.service network-online.target
+Requires=docker.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+User=rnd
+Group=rnd
+WorkingDirectory=/home/rnd/telemetry
+ExecStart=/home/rnd/telemetry/start-aro-002-1-agent.sh
+ExecStop=/usr/bin/docker compose -f /home/rnd/telemetry/docker-compose-GC-ARO-002-1-agent.yml down
+StandardOutput=journal
+StandardError=journal
+Restart=on-failure
+RestartSec=10
+
+# Wait for Docker to be ready
+TimeoutStartSec=300
+TimeoutStopSec=60
+
+[Install]
+WantedBy=multi-user.target
+
