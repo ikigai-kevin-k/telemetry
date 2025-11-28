@@ -846,6 +846,30 @@
                 "id": "decimals"
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ARO21"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "bps"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ARO22"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "bps"
+              }
+            ]
           }
         ]
       },
