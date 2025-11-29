@@ -1,0 +1,27 @@
+[Unit]
+Description=Temperature Exporter for GC-ARO-001-2 Agent
+Documentation=https://github.com/your-repo/telemetry
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=rnd
+Group=rnd
+WorkingDirectory=/home/rnd/telemetry
+Environment="PUSHGATEWAY_URL=http://100.64.0.113:9091"
+Environment="JOB_NAME=agent_temperature"
+Environment="INSTANCE_LABEL=GC-ARO-001-2-agent"
+Environment="METRIC_NAME=system_temperature_celsius"
+Environment="INTERVAL_SECONDS=10"
+ExecStart=/bin/bash /home/rnd/telemetry/push_temperature_to_pushgateway_aro001_2.sh
+StandardOutput=journal
+StandardError=journal
+Restart=always
+RestartSec=10
+# Wait for network to be ready
+TimeoutStartSec=60
+
+[Install]
+WantedBy=multi-user.target
+
