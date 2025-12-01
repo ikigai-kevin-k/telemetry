@@ -18,10 +18,155 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 67,
+  "id": 69,
   "links": [],
   "liveNow": false,
   "panels": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "drawStyle": "points",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 0,
+            "pointSize": 2,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "builder",
+          "expr": "roulette_error_event{instance=\"test_speed_roulette\"}",
+          "instant": false,
+          "key": "Q-4dda42f4-7ee2-4e2a-acf0-0a7f64e868d7-0",
+          "legendFormat": "sr-test-{{instance}}",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "builder",
+          "expr": "roulette_error_event{instance=\"speed_roulette\"}",
+          "hide": false,
+          "legendFormat": "speed-roulette",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "builder",
+          "expr": "roulette_error_event{instance=\"vip_roulette\"}",
+          "hide": false,
+          "legendFormat": "vip-roulette",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "builder",
+          "expr": "sicbo_error_event{instance=\"test_sicbo\"}",
+          "hide": false,
+          "legendFormat": "sb-test",
+          "range": true,
+          "refId": "D"
+        }
+      ],
+      "title": "Error Event",
+      "type": "timeseries"
+    },
+    {
+      "gridPos": {
+        "h": 16,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "content": "# Error Code Mapping Reference\n\n## Roulette Errors\n\n| Error Code | Integer Value | Description | Notes |\n|------------|---------------|-------------|-------|\n| ROULETTE_NO_BALL_DETECT | 1 | No ball detected | - |\n| ROULETTE_NO_WIN_NUM | 2 | No winning number | - |\n| ROULETTE_NO_REACH_POS | 3 | No reach position | - |\n| ROULETTE_INVALID_AFTER_RELAUNCH | 4 | Invalid after relaunch | ARE.1 |\n| ROULETTE_SENSOR_STUCK | 5 | Sensor stuck | ARE.3 |\n| ROUELTTE_WRONG_BALL_DIR | 6 | Wrong ball direction | ARE.4 (typo in enum) |\n| ROULETTE_WRONG_WHEEL_DIR | 7 | Wrong wheel direction | - |\n| ROULETTE_LAUNCH_FAIL | 8 | Launch failed | ARE.2 |\n| ROULETTE_ENCODER_FAIL | 9 | Encoder failed | - |\n| ROULETTE_BALL_DROP_FAIL | 10 | Ball drop failed | - |\n| ROULETTE_COMPRESSOR_LEAK | 11 | Compressor leak | - |\n| ROULETTE_STUCK_NMB | 12 | Stuck number | - |\n| SENSOR_STUCK | 5 | Sensor stuck (alias) | Alias for ROULETTE_SENSOR_STUCK |\n| ROULETTE_RELAUNCH_FAILED | 13 | Relaunch failed | Custom error code |\n| BROADCAST_POST_EXCEPTION | 15 | Broadcast exception | Custom error code |\n\n## Sicbo Errors\n\n| Error Code | Integer Value | Description | Notes |\n|------------|---------------|-------------|-------|\n| SICBO_INVALID_RESULT | 20 | Invalid result | SBE.2 |\n| SICBO_NO_SHAKE | 21 | No shake | SBE.3 |\n| SICBO_INVALID_AFTER_RESHAKE | 22 | Invalid after reshake | SBE.1 |\n\n## Game Flow Errors\n\n| Error Code | Integer Value | Description | Notes |\n|------------|---------------|-------------|-------|\n| NO_START | 30 | No start | Used by both roulette and sicbo |\n| NO_BETSTOP | 31 | No betstop | Used by both roulette and sicbo |\n| NO_DEAL | 32 | No deal | Used by both roulette and sicbo |\n| NO_FINISH | 33 | No finish | Used by both roulette and sicbo |\n| JSON_PARSE_ERR | 34 | JSON parse error | Used by both roulette and sicbo |\n\n## 注意事項\n\n- **ROULETTE_RELAUNCH** 是成功通知，不是錯誤，因此不包含在 mapping 中\n- **SENSOR_STUCK** 是 **ROULETTE_SENSOR_STUCK** 的別名，兩者對應相同的整數值 (5)\n- 錯誤碼是大小寫敏感的",
+        "mode": "markdown"
+      },
+      "pluginVersion": "8.0.0",
+      "title": "Error Code Mapping",
+      "type": "text"
+    },
     {
       "datasource": {
         "type": "prometheus",
@@ -85,7 +230,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 0
+        "y": 8
       },
       "id": 1,
       "interval": "1d",
@@ -188,13 +333,13 @@
     "list": []
   },
   "time": {
-    "from": "now-7d",
+    "from": "now-3m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "Asia/Taipei",
   "title": "Development",
   "uid": "development-dashboard",
-  "version": 25,
+  "version": 4,
   "weekStart": ""
 }
