@@ -168,9 +168,9 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "   label_replace(zcam_temperature{job=\"zcam-values\", device_name=\"zcam-sbo12\"}, \"short_name\", \"SBO12\", \"device_name\", \"^zcam-sbo12$\")",
+          "expr": "   label_replace(zcam_temperature{job=\"zcam-values\", device_name=\"zcam-asb12\"}, \"short_name\", \"ASB12\", \"device_name\", \"^zcam-asb12$\")",
           "hide": false,
-          "legendFormat": "SBO12",
+          "legendFormat": "ASB12",
           "range": true,
           "refId": "F"
         }
@@ -327,9 +327,9 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "   label_replace(zcam_bitrate{job=\"zcam-values\", device_name=\"zcam-sbo12\"}, \"short_name\", \"SBO12\", \"device_name\", \"^zcam-sbo12$\")",
+          "expr": "   label_replace(zcam_bitrate{job=\"zcam-values\", device_name=\"zcam-asb12\"}, \"short_name\", \"ASB12\", \"device_name\", \"^zcam-asb12$\")",
           "hide": false,
-          "legendFormat": "SBO12",
+          "legendFormat": "ASB12",
           "range": true,
           "refId": "F"
         }
