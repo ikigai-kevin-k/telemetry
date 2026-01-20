@@ -59,3 +59,13 @@
 核心功能腳本保留在專案根目錄，包括啟動、停止、查詢、備份等常用功能。
 
 詳細說明請參考根目錄的 `SCRIPTS_INDEX.md` 文檔。
+
+## Python 腳本
+
+### helpers/ 目錄中的 Python 腳本
+
+- **query_loki_logs.py** - 查詢 Loki 日誌工具
+  - 用途：從遠端 Loki 伺服器查詢日誌
+  - 用法：`python3 scripts/helpers/query_loki_logs.py`
+
+詳細說明請參考根目錄的 `PYTHON_SCRIPTS_INDEX.md` 文檔。
