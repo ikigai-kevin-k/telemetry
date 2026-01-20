@@ -1,0 +1,50 @@
+{
+  "transformations": [
+    {
+      "id": "extractFields",
+      "options": {
+        "format": "json",
+        "source": "Line"
+      }
+    },
+    {
+      "id": "extractFields",
+      "options": {
+        "format": "regex",
+        "regex": "^\\[[^\\]]+\\]\\s+Receive\\s*>>>\\s*(?P<message_clean>.*)$",
+        "source": "message"
+      }
+    },
+    {
+      "id": "organize",
+      "options": {
+        "excludeByName": {
+          "Time": true,
+          "id": true,
+          "labels": true,
+          "tsNs": true,
+          "Line": true,
+          "log_file": true,
+          "date": true,
+          "time": true,
+          "message": true
+        },
+        "indexByName": {},
+        "renameByName": {
+          "message_clean": "message"
+        }
+      }
+    }
+  ]
+}
+
+
+
+
+
+
+
+
+
+
+
