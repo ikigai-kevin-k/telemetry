@@ -4,7 +4,7 @@
 
 ## 📋 腳本分類
 
-### 🚀 服務啟動與停止腳本
+### 🚀 服務啟動與停止腳本（保留在根目錄）
 
 #### 伺服器端啟動
 - **`start-server.sh`** - 啟動伺服器模式
@@ -18,6 +18,7 @@
   - 功能：動態產生 agent 配置檔案
   - 用法：`./start-agent.sh <agent_name> <agent_ip>`
   - 範例：`./start-agent.sh GC-aro12-agent 100.64.0.149`
+  - 依賴：`scripts/setup/generate-agent-configs.sh`
 
 - **`start-asb-001-1-agent.sh`** - 啟動特定 Agent (ASB-001-1)
   - 用途：啟動特定 agent 的專用腳本
@@ -43,7 +44,7 @@
 - **`restart_aro_001_1_agent.sh`** - 重啟特定 Agent
 - **`restart-grafana-with-credentials.sh`** - 使用憑證重啟 Grafana
 
-### ⚡ 快捷指令腳本（Cursor Rules 中定義）
+### ⚡ 快捷指令腳本（Cursor Rules 中定義，保留在根目錄）
 
 - **`codebase_line.sh`** - 程式碼行數統計腳本
   - 觸發指令：`[line]`
@@ -57,61 +58,70 @@
   - 觸發指令：`[storage][prom]`
   - 用途：查詢過去 24 小時的 Prometheus 儲存增長分析
 
-### 🔧 配置產生腳本
+## 📁 其他腳本位置
 
+### scripts/ 目錄
+
+輔助腳本已整理到 `scripts/` 目錄，按功能分類：
+
+#### scripts/setup/ - 配置腳本
 - **`generate-agent-configs.sh`** - 產生 Agent 配置檔案
   - 用途：動態產生 Promtail 和 Zabbix Agent 配置
   - 被依賴：`start-agent.sh` 會呼叫此腳本
-  - 用法：`./generate-agent-configs.sh <agent_name> <agent_ip>`
+  - 用法：`./scripts/setup/generate-agent-configs.sh <agent_name> <agent_ip>`
 
-### 💾 備份與恢復腳本
-
+#### scripts/maintenance/ - 維護腳本
 - **`backup_telemetry_data.sh`** - 備份 Telemetry 資料
   - 用途：備份所有 Docker volumes 和配置檔案
   - 被依賴：`setup_automated_backup.sh` 會引用此腳本
+  - 用法：`./scripts/maintenance/backup_telemetry_data.sh`
 
 - **`setup_automated_backup.sh`** - 設定自動備份
   - 用途：設定 cron jobs 進行自動備份和健康檢查
   - 依賴：`backup_telemetry_data.sh`, `check_and_restore_containers.sh`
+  - 用法：`./scripts/maintenance/setup_automated_backup.sh`
 
 - **`check_and_restore_containers.sh`** - 檢查和恢復容器
   - 用途：檢查容器健康狀態並自動恢復
   - 被依賴：`setup_automated_backup.sh` 會引用此腳本
+  - 用法：`./scripts/maintenance/check_and_restore_containers.sh`
 
-### 📊 監控腳本
+- **`cleanup-journald.sh`** - 清理 systemd-journald 日誌
+  - 用途：清理 systemd-journald 日誌，保留最近 30 天的記錄
+  - 用法：`./scripts/maintenance/cleanup-journald.sh`
 
+#### scripts/monitoring/ - 監控腳本
 - **`monitor-alert-system.sh`** - 監控告警系統
   - 用途：監控 Alertmanager 和告警流程
+  - 用法：`./scripts/monitoring/monitor-alert-system.sh`
 
 - **`monitor-loki-storage.sh`** - 監控 Loki 儲存
   - 用途：監控 Loki 儲存使用情況
+  - 用法：`./scripts/monitoring/monitor-loki-storage.sh`
 
 - **`container_stats.sh`** - 容器統計
   - 用途：顯示容器資源使用統計
+  - 用法：`./scripts/monitoring/container_stats.sh`
 
 - **`list-agents.sh`** - 列出所有 Agents
   - 用途：列出所有已配置的 agents
+  - 用法：`./scripts/monitoring/list-agents.sh`
 
-### 📋 Dashboard 管理腳本
-
+#### scripts/dashboard/ - Dashboard 管理腳本
 - **`apply_persistence.sh`** - 套用持久化配置
   - 用途：套用已匯出的 Dashboard 配置
+  - 用法：`./scripts/dashboard/apply_persistence.sh`
 
 - **`export_and_persist.sh`** - 匯出並持久化
   - 用途：匯出 Dashboard 配置並持久化
+  - 用法：`./scripts/dashboard/export_and_persist.sh`
 
 - **`persist_dashboard_panels.sh`** - 持久化 Dashboard 面板
   - 用途：將 Dashboard 面板配置持久化
+  - 用法：`./scripts/dashboard/persist_dashboard_panels.sh`
 
-## 📁 其他腳本位置
-
-### scripts/ 目錄
-輔助腳本已整理到 `scripts/` 目錄，按功能分類：
-- `scripts/setup/` - 設定腳本
-- `scripts/maintenance/` - 維護腳本
-- `scripts/helpers/` - 輔助腳本
-
-詳細說明請參考 `scripts/README.md`。
+#### scripts/helpers/ - 輔助腳本
+其他輔助腳本請參考 `scripts/README.md`。
 
 ### archive/ 目錄
 一次性測試腳本已整理到 `archive/` 目錄：
@@ -145,23 +155,23 @@
 
 **備份資料：**
 ```bash
-./backup_telemetry_data.sh
-./setup_automated_backup.sh
+./scripts/maintenance/backup_telemetry_data.sh
+./scripts/maintenance/setup_automated_backup.sh
 ```
 
 **監控系統：**
 ```bash
-./monitor-alert-system.sh
-./monitor-loki-storage.sh
-./container_stats.sh
-./list-agents.sh
+./scripts/monitoring/monitor-alert-system.sh
+./scripts/monitoring/monitor-loki-storage.sh
+./scripts/monitoring/container_stats.sh
+./scripts/monitoring/list-agents.sh
 ```
 
 **Dashboard 管理：**
 ```bash
-./apply_persistence.sh
-./export_and_persist.sh
-./persist_dashboard_panels.sh
+./scripts/dashboard/apply_persistence.sh
+./scripts/dashboard/export_and_persist.sh
+./scripts/dashboard/persist_dashboard_panels.sh
 ```
 
 ## 📚 相關文檔
@@ -172,4 +182,4 @@
 
 ---
 
-**最後更新**：2025-01-XX
+**最後更新**：2025-01-20

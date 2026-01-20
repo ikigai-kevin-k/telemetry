@@ -77,7 +77,7 @@ fi
 echo "Generating configuration files for $AGENT_NAME..."
 
 # Generate Promtail configuration
-./generate-agent-configs.sh "$AGENT_NAME" "$AGENT_IP"
+./scripts/setup/generate-agent-configs.sh "$AGENT_NAME" "$AGENT_IP"
 
 # Check if docker compose is available
 if command -v docker-compose &> /dev/null; then
