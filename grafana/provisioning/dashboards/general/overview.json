@@ -161,6 +161,18 @@
           "legendFormat": "ASB11",
           "range": true,
           "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "   label_replace(zcam_temperature{job=\"zcam-values\", device_name=\"zcam-sbo12\"}, \"short_name\", \"SBO12\", \"device_name\", \"^zcam-sbo12$\")",
+          "hide": false,
+          "legendFormat": "SBO12",
+          "range": true,
+          "refId": "F"
         }
       ],
       "title": "ZCAM Temperature Trend (°C)",
@@ -308,6 +320,18 @@
           "legendFormat": "ASB11",
           "range": true,
           "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "   label_replace(zcam_bitrate{job=\"zcam-values\", device_name=\"zcam-sbo12\"}, \"short_name\", \"SBO12\", \"device_name\", \"^zcam-sbo12$\")",
+          "hide": false,
+          "legendFormat": "SBO12",
+          "range": true,
+          "refId": "F"
         }
       ],
       "title": "ZCAM Bitrate Trend (MBps)",
