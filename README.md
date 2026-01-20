@@ -346,12 +346,52 @@ curl http://localhost:9091/metrics
 
 ## 📚 Documentation
 
-Additional documentation:
-- `AGENT_MANAGEMENT.md` - Agent setup and management
-- `LOGGING_SETUP.md` - Loki logging configuration
-- `GRAFANA_ALERT_WEBHOOK_SETUP.md` - Alert webhook setup
-- `ZCAM_Telegraf_Grafana_Setup.md` - ZCAM monitoring setup
-- `LOKI_ARCHITECTURE.md` - Loki architecture overview
+Additional documentation is organized in the `docs/` directory:
+
+### Getting Started
+- [Environment Setup](docs/getting-started/ENVIRONMENT_SETUP.md) - Environment variables configuration
+- [Agent Management](docs/getting-started/AGENT_MANAGEMENT.md) - Agent setup and management
+- [GHCR Setup](docs/getting-started/GHCR_SETUP.md) - GitHub Container Registry setup
+- [Quick Start GHCR](docs/getting-started/QUICK_START_GHCR.md) - Quick start guide
+
+### Setup & Configuration
+- [Logging Setup](docs/setup/LOGGING_SETUP.md) - Loki logging configuration
+- [Loki Architecture](docs/setup/LOKI_ARCHITECTURE.md) - Loki architecture overview
+- [Grafana Alert Webhook Setup](docs/setup/GRAFANA_ALERT_WEBHOOK_SETUP.md) - Alert webhook setup
+- [Container Stats Commands](docs/setup/container_stats_commands.md) - Docker container resource statistics
+
+### Grafana
+- [Grafana Permissions](docs/grafana/permissions/) - Permission and access control guides
+- [Grafana Queries](docs/grafana/queries/) - Query and data extraction guides
+- [Grafana Dashboards](docs/grafana/dashboards/) - Dashboard configuration guides
+- [Grafana Troubleshooting](docs/grafana/troubleshooting/) - Grafana issue resolution
+
+### Zabbix & ZCAM
+- [Zabbix Documentation](docs/zabbix/) - Zabbix configuration and setup
+- [ZCAM Setup](docs/zabbix/zcam/ZCAM_Telegraf_Grafana_Setup.md) - ZCAM monitoring setup
+- [ZCAM API Reference](docs/zabbix/zcam/ZCAM_API_Reference.md) - ZCAM API documentation
+
+### Monitoring
+- [Monitoring Queries](docs/monitoring/queries/) - Query guides for metrics and logs
+- [Monitoring Alerts](docs/monitoring/alerts/) - Alert configuration guides
+- [Monitoring Storage](docs/monitoring/storage/) - Storage configuration for Prometheus and Loki
+
+### Data Persistence
+- [Data Persistence Summary](docs/persistence/DATA_PERSISTENCE_SUMMARY.md) - Overview of data persistence
+- [Docker Persistence](docs/persistence/docker_persistence.md) - Docker volume configuration
+- [BytePlus Persistence](docs/persistence/byteplus_aksk_persistence_setup.md) - BytePlus cloud storage setup
+
+### Troubleshooting
+- [Dashboard Issues](docs/troubleshooting/dashboards/) - Dashboard-related problem resolution
+- [LogQL Issues](docs/troubleshooting/logql/) - LogQL query and syntax fixes
+- [Connectivity Issues](docs/troubleshooting/connectivity/) - Connection and database repair guides
+
+### Reports & Guides
+- [Diagnostic Reports](docs/reports/) - System diagnosis reports
+- [Backup & Recovery](docs/backup/) - Backup and recovery procedures
+- [Usage Guides](docs/guides/) - Additional usage guides
+
+For complete documentation, see the [MkDocs site](https://ikigai-kevin-k.github.io/telemetry) or browse the `docs/` directory.
 
 ## 🛠️ Development
 

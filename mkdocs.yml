@@ -104,30 +104,127 @@ nav:
     - overview/index.md
     - overview/architecture.md
     - overview/services.md
+  - Getting Started:
+    - getting-started/ENVIRONMENT_SETUP.md
+    - getting-started/AGENT_MANAGEMENT.md
+    - getting-started/GHCR_SETUP.md
+    - getting-started/GHCR_BRANCH_SETUP.md
+    - getting-started/QUICK_START_GHCR.md
+    - getting-started/ASB-001-1-SETUP.md
   - Quick Start:
     - quick-start/server-setup.md
     - quick-start/agent-setup.md
     - quick-start/docker-compose.md
+  - Setup & Configuration:
+    - setup/LOGGING_SETUP.md
+    - setup/LOGGING_SETUP_SUMMARY.md
+    - setup/LOKI_ARCHITECTURE.md
+    - setup/GRAFANA_ALERT_WEBHOOK_SETUP.md
+    - setup/GRAFANA_ARO_001_1_SDP_PERSISTENCE_SETUP.md
+    - setup/container_stats_commands.md
+    - setup/docker-daemon-config-update.md
   - Configuration:
     - configuration/datasources.md
     - configuration/dashboards.md
     - configuration/environment-variables.md
     - configuration/alerting.md
+  - Grafana:
+    - grafana/grafana_metrics_dataflow.md
+    - "Permissions":
+      - grafana/permissions/check-viewer-permissions-guide.md
+      - grafana/permissions/grafana-permissions-persistence.md
+      - grafana/permissions/grafana-restrict-dashboard-access.md
+      - grafana/permissions/grafana-user-permissions.md
+    - "Queries":
+      - grafana/queries/grafana-extract-json-fields-guide.md
+      - grafana/queries/grafana-extract-json-fields-quick-guide.md
+      - grafana/queries/grafana_query_speed_roulette_guide.md
+      - grafana/queries/grafana_explore_rx_bits_guide.md
+      - grafana/queries/grafana_compatible_queries.md
+      - grafana/queries/grafana-remove-message-prefix-guide.md
+    - "Dashboards":
+      - grafana/dashboards/grafana-hide-table-columns-guide.md
+      - grafana/dashboards/grafana-hide-y-axis-units-guide.md
+      - grafana/dashboards/grafana-round-duration-statistics.md
+      - grafana/dashboards/grafana_time_range_fix.md
+      - grafana/dashboards/grafana_zabbix_dashboard.md
+      - grafana/dashboards/telegraf_dashboard.md
+    - "Troubleshooting":
+      - grafana/troubleshooting/grafana-error-event-fix-summary.md
+      - grafana/troubleshooting/grafana-error-event-provisioning-guide.md
+      - grafana/troubleshooting/fix-error-event-duplicate-legend.md
+  - Zabbix:
+    - zabbix/zabbix_storage.md
+    - zabbix/zabbix_agent_port_map.md
+    - zabbix/zabbix_email_alarm.md
+    - zabbix/zabbix_slack_alert.md
+    - zabbix/zabbix_manual_setting_data_persistence.md
+    - zabbix/zabbix_network_interface_workaround.md
+    - "ZCAM":
+      - zabbix/zcam/ZCAM_API_Reference.md
+      - zabbix/zcam/ZCAM_Multi_Device_Setup.md
+      - zabbix/zcam/ZCAM_Telegraf_Grafana_Setup.md
   - Monitoring:
+    - monitoring/disk_usage_monitoring_setup.md
     - monitoring/prometheus.md
     - monitoring/loki.md
     - monitoring/zabbix.md
     - monitoring/grafana.md
+    - "Queries":
+      - monitoring/queries/rx_bits_time_series_guide.md
+      - monitoring/queries/rx_bits_time_series_final.md
+      - monitoring/queries/simple_rx_bits_queries.md
+      - monitoring/queries/compatible_rx_bits_queries.md
+      - monitoring/queries/extract_timestamp_rx_bytes.md
+      - monitoring/queries/extract_fields_guide.md
+    - "Alerts":
+      - monitoring/alerts/SLACK_TEMPERATURE_ALERTS_SETUP.md
+      - monitoring/alerts/verify-alert-flow.md
+      - monitoring/alerts/server-side-verify.md
+    - "Storage":
+      - monitoring/storage/prometheus_storage.md
+      - monitoring/storage/loki.md
+      - monitoring/storage/loki_sdp_log.md
+  - Data Persistence:
+    - persistence/DATA_PERSISTENCE_SUMMARY.md
+    - persistence/docker_persistence.md
+    - persistence/docker_volume.md
+    - persistence/byteplus_aksk_persistence_setup.md
+    - persistence/byteplus_persistence_verification.md
+    - persistence/byteplus_vmp_aksk.md
+  - Troubleshooting:
+    - troubleshooting/common-issues.md
+    - troubleshooting/data-persistence.md
+    - troubleshooting/grafana-issues.md
+    - "Dashboards":
+      - troubleshooting/dashboards/dashboard_datasource_fix.md
+      - troubleshooting/dashboards/dashboard_no_data_fix.md
+      - troubleshooting/dashboards/dashboard_panel_switch.md
+      - troubleshooting/dashboards/fix_missing_number_field.md
+      - troubleshooting/dashboards/fix_timeseries_view.md
+      - troubleshooting/dashboards/switch_to_graph_view.md
+      - troubleshooting/dashboards/view_mode_solutions.md
+    - "LogQL":
+      - troubleshooting/logql/logql_syntax_fix_guide.md
+      - troubleshooting/logql/logql_unwrap_syntax_fix.md
+      - troubleshooting/logql/no_unwrap_solutions.md
+      - troubleshooting/logql/query_field_extraction_issue.md
+    - "Connectivity":
+      - troubleshooting/connectivity/connect-null-val.md
+      - troubleshooting/connectivity/DB_Broken_Repair.md
   - Guides:
     - guides/agent-management.md
     - guides/logging-setup.md
     - guides/grafana-alert-webhook.md
     - guides/zcam-setup.md
     - guides/loki-architecture.md
-  - Troubleshooting:
-    - troubleshooting/common-issues.md
-    - troubleshooting/data-persistence.md
-    - troubleshooting/grafana-issues.md
+    - guides/tpe_server_run_reminder.md
+  - Reports:
+    - reports/complete_diagnosis_report.md
+    - reports/grafana_diagnosis_report.md
+  - Backup & Recovery:
+    - backup/backup_recovery_usage.md
+    - backup/container_registry_backup_plan.md
   - Development:
     - development/adding-dashboards.md
     - development/adding-datasources.md
