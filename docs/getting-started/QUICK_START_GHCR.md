@@ -62,6 +62,6 @@ GitHub Actions workflow 會在每次構建時：
 
 ## 📝 詳細文檔
 
-- [GHCR_BRANCH_SETUP.md](./GHCR_BRANCH_SETUP.md) - 完整設置指南
-- [GHCR_SETUP.md](./GHCR_SETUP.md) - 基本使用說明（如存在）
+- [GHCR Branch Setup](GHCR_BRANCH_SETUP.md) - 完整設置指南
+- [GHCR Setup](GHCR_SETUP.md) - 基本使用說明
 
