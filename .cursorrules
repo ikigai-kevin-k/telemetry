@@ -163,3 +163,63 @@ The AI assistant MUST automatically execute the following git operations:
 
 **User query**: `[commit]feature/auto-commit`
 - Action: Add all files related to auto-commit feature, commit, then push
+
+### Tag Combination Rules
+- `[[push]]` can be combined with other tags like `[[min]]` or `[[sw]]`
+- When combined, first execute the code modifications according to other tags, then perform git operations
+- Example: `[[min]][[push]]` - Make minimal changes, then commit and push
+
+## Code Modification Control Tags
+
+### Modification Control Tag Detection
+When the user includes the following pattern in their query, the AI assistant MUST follow the corresponding behavior:
+
+### 1. Answer Only Mode - `[[ans]]`
+- **Tag**: `[[ans]]`
+- **Behavior**: Only answer questions and provide explanations, **DO NOT** modify any project code
+- **Use Case**: When user wants information, explanations, or analysis without code changes
+- **Examples**:
+  - `[[ans]] What does this function do?` - Explain the function without modifying it
+  - `[[ans]] How does the MQTT system work?` - Provide explanation only
+  - `[[ans]] What are the best practices for serial communication?` - Answer questions only
+
+### 2. Minimal Viable Modification - `[[min]]`
+- **Tag**: `[[min]]`
+- **Behavior**: Make the **smallest possible changes** to achieve the requested functionality
+- **Use Case**: When user wants minimal code changes, bug fixes, or small feature additions
+- **Guidelines**:
+  - Only modify the necessary code sections
+  - Avoid refactoring or restructuring existing code
+  - Keep changes focused and minimal
+  - Do not add unnecessary features or improvements
+- **Examples**:
+  - `[[min]] Fix the serial timeout issue` - Only fix the timeout, don't refactor the entire serial module
+  - `[[min]] Add error logging for this function` - Add only the minimal logging needed
+  - `[[min]] Change the timeout value to 5 seconds` - Only change the specific value
+
+### 3. Software Design Pattern Compliance - `[[sw]]`
+- **Tag**: `[[sw]]`
+- **Behavior**: Ensure all modifications follow **software design patterns** and best practices
+- **Use Case**: When user wants code changes that follow proper software engineering principles
+- **Guidelines**:
+  - Apply appropriate design patterns (Singleton, Factory, Observer, Strategy, etc.)
+  - Follow SOLID principles
+  - Implement proper separation of concerns
+  - Use design patterns that match the existing codebase architecture
+  - Ensure code is maintainable, extensible, and follows architectural patterns
+- **Examples**:
+  - `[[sw]] Refactor the state machine to use Strategy pattern` - Apply Strategy pattern properly
+  - `[[sw]] Add a new game type following the existing architecture` - Follow existing patterns
+  - `[[sw]] Implement error handling using Observer pattern` - Use Observer pattern for error handling
+
+### Tag Combination Rules
+- Tags can be combined (e.g., `[[min]][[sw]]` means minimal changes that follow design patterns)
+- `[[ans]]` takes precedence - if present, no code modifications will be made regardless of other tags
+- When multiple tags are present, follow all applicable guidelines
+- If no tags are present, use default behavior (make necessary changes following project standards)
+
+### Implementation Rules
+1. **Tag Detection**: Check for tags at the beginning or anywhere in the user query
+2. **Tag Parsing**: Extract all tags from the query before processing
+3. **Behavior Application**: Apply the corresponding behavior based on detected tags
+4. **Conflict Resolution**: If `[[ans]]` is present, ignore modification-related tags
