@@ -141,7 +141,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "builder",
-          "expr": "sicbo_error_event{instance=\"test_sicbo\"}",
+          "expr": "sicbo_error_event{instance=\"sicbo\"}",
           "hide": false,
           "legendFormat": "sb-test",
           "range": true,

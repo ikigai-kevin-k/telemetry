@@ -1,0 +1,148 @@
+site_name: Studio Telemetry Stack
+site_description: Comprehensive monitoring and observability platform documentation
+site_author: ikigai-kevin-k
+site_url: https://ikigai-kevin-k.github.io/telemetry
+
+# Repository
+repo_name: ikigai-kevin-k/telemetry
+repo_url: https://github.com/ikigai-kevin-k/telemetry
+edit_uri: edit/main/docs/
+
+# Copyright
+copyright: Copyright &copy; 2025 Studio Team
+
+# Theme configuration
+theme:
+  name: material
+  language: en
+  palette:
+    # Light mode
+    - scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode
+    - scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.annotate
+    - content.code.copy
+  icon:
+    repo: fontawesome/brands/github
+
+# Plugins
+plugins:
+  - i18n:
+      default_language: en
+      languages:
+        en: English
+        zh: 繁體中文
+      nav_translations:
+        en:
+          nav.home: Home
+          nav.overview: Overview
+          nav.architecture: Architecture
+          nav.quick-start: Quick Start
+          nav.configuration: Configuration
+          nav.monitoring: Monitoring
+          nav.troubleshooting: Troubleshooting
+          nav.documentation: Documentation
+        zh:
+          nav.home: 首頁
+          nav.overview: 概述
+          nav.architecture: 架構
+          nav.quick-start: 快速開始
+          nav.configuration: 配置
+          nav.monitoring: 監控
+          nav.troubleshooting: 故障排除
+          nav.documentation: 文檔
+  - search:
+      lang: en,zh
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: date
+      fallback_to_build_date: true
+
+# Markdown extensions
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+
+# Navigation (English - default)
+nav:
+  - Home: index.md
+  - Overview:
+    - overview/index.md
+    - overview/architecture.md
+    - overview/services.md
+  - Quick Start:
+    - quick-start/server-setup.md
+    - quick-start/agent-setup.md
+    - quick-start/docker-compose.md
+  - Configuration:
+    - configuration/datasources.md
+    - configuration/dashboards.md
+    - configuration/environment-variables.md
+    - configuration/alerting.md
+  - Monitoring:
+    - monitoring/prometheus.md
+    - monitoring/loki.md
+    - monitoring/zabbix.md
+    - monitoring/grafana.md
+  - Guides:
+    - guides/agent-management.md
+    - guides/logging-setup.md
+    - guides/grafana-alert-webhook.md
+    - guides/zcam-setup.md
+    - guides/loki-architecture.md
+  - Troubleshooting:
+    - troubleshooting/common-issues.md
+    - troubleshooting/data-persistence.md
+    - troubleshooting/grafana-issues.md
+  - Development:
+    - development/adding-dashboards.md
+    - development/adding-datasources.md
+    - development/testing.md
+  - API Reference:
+    - api/zcam-api.md
+
+# Extra CSS
+extra_css:
+  - stylesheets/extra.css
+
+# Extra JavaScript
+extra_javascript:
+  - javascripts/extra.js
+
+
+
+

@@ -1568,6 +1568,7 @@
             }
           },
           "mappings": [],
+          "max": 200,
           "thresholds": {
             "mode": "absolute",
             "steps": [
