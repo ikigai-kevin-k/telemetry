@@ -1688,6 +1688,18 @@
           "legendFormat": "sbo11",
           "range": true,
           "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "game_duration_sbo12{instance=\"sbo12\"}",
+          "hide": false,
+          "legendFormat": "sbo12",
+          "range": true,
+          "refId": "F"
         }
       ],
       "title": "Round Duration (Sec)",
@@ -1915,6 +1927,6 @@
   "timezone": "Asia/Taipei",
   "title": "System Overview",
   "uid": "overview-dashboard",
-  "version": 230,
+  "version": 261,
   "weekStart": ""
 }
