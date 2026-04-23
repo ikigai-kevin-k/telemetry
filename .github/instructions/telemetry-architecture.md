@@ -7,7 +7,23 @@ applyTo: "**/*"
 This document describes the service architecture, topology, and data flow
 for the `telemetry` project using Mermaid diagrams.
 
-## 1) High-Level Topology
+## 1) Service Classification (Server-side vs Agent-side)
+
+The current service grouping is:
+
+- Server-side:
+  - `loki`
+  - `prometheus`, `pushgateway`
+  - `alertmanager`
+  - `grafana`
+  - `zabbix-server`, `zabbix-web`, `zabbix-db`
+  - server-side exporter / webhook:
+    `disk-usage-exporter`, `telegraf-zcam`, `zcam-values-exporter`, `webhook`
+- Agent-side:
+  - `promtail` (log agent)
+  - `zabbix-agent` (host agent)
+
+## 2) High-Level Topology
 
 ```mermaid
 flowchart LR
@@ -57,7 +73,7 @@ flowchart LR
     PROM -->|scrape| ZVE
 ```
 
-## 2) Server-Side Service Architecture
+## 3) Server-Side Service Architecture
 
 ```mermaid
 flowchart TB
@@ -101,7 +117,7 @@ flowchart TB
     ZS --> ZDB
 ```
 
-## 3) Agent-Side Service Architecture
+## 4) Agent-Side Service Architecture
 
 ```mermaid
 flowchart TB
@@ -129,7 +145,7 @@ flowchart TB
     ZA -->|active/passive monitoring| ZS
 ```
 
-## 4) Log Data Flow (End-to-End)
+## 5) Log Data Flow (End-to-End)
 
 ```mermaid
 sequenceDiagram
@@ -148,7 +164,7 @@ sequenceDiagram
     Loki-->>Grafana: Return streams and log lines
 ```
 
-## 5) Metrics and Alert Data Flow
+## 6) Metrics and Alert Data Flow
 
 ```mermaid
 sequenceDiagram
@@ -168,7 +184,7 @@ sequenceDiagram
     Grafana->>Prom: Query metrics for dashboards
 ```
 
-## 6) Network and Deployment Topology Notes
+## 7) Network and Deployment Topology Notes
 
 - Server mode is designed for GE/TPE environments (for example, GE:
   `100.64.0.113`, TPE: `100.64.0.160`).
