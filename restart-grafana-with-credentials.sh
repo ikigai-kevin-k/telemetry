@@ -6,7 +6,8 @@
 # 檢查憑證檔案是否存在
 if [ ! -f "byteplus-credentials.env" ]; then
     echo "❌ 錯誤：byteplus-credentials.env 檔案不存在"
-    echo "請先執行 ./setup-byteplus-credentials.sh 設定憑證"
+    echo "請先執行: cp byteplus-credentials.env.example byteplus-credentials.env && chmod 600 byteplus-credentials.env"
+    echo "或執行 ./scripts/setup/setup-byteplus-credentials.sh 互動設定憑證"
     exit 1
 fi
 

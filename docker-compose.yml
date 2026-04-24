@@ -128,7 +128,7 @@ services:
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
       - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
     env_file:
-      # Load environment variables from file
+      # Required on host: copy byteplus-credentials.env.example -> byteplus-credentials.env (gitignored)
       - ./byteplus-credentials.env
     environment:
       - GF_SECURITY_ADMIN_USER=admin
