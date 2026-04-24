@@ -80,10 +80,10 @@ scrape_configs:
     scrape_timeout: 10s
 
   # Disk Usage Exporter metrics - Monitor local server disk usage
-  # Note: Using host IP (192.168.88.99) since disk-usage-exporter uses host network mode
+  # Exporter runs on host network mode; use current server-side reachable address
   - job_name: 'disk-usage'
     static_configs:
-      - targets: ['192.168.88.99:9275']
+      - targets: ['100.64.0.182:9275']
     metrics_path: '/metrics'
     scrape_interval: 30s
     scrape_timeout: 10s
