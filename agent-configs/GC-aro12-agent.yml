@@ -30,4 +30,4 @@ zabbix_config: "./zabbix/agent2-GC-aro12-agent.conf"
 docker_compose_file: "./docker-compose-GC-aro12-agent.yml"
 
 # Created timestamp
-created_at: "2025-09-15T04:00:02Z"
+created_at: "2025-10-20T05:45:33Z"

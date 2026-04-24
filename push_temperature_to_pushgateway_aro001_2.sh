@@ -6,7 +6,7 @@
 
 set -euo pipefail
 
-PUSHGATEWAY_URL=${PUSHGATEWAY_URL:-"http://100.64.0.113:9091"}
+PUSHGATEWAY_URL=${PUSHGATEWAY_URL:-"http://100.64.0.182:9091"}
 JOB_NAME=${JOB_NAME:-"agent_temperature"}
 INSTANCE_LABEL=${INSTANCE_LABEL:-"GC-ARO-001-2-agent"}
 METRIC_NAME=${METRIC_NAME:-"system_temperature_celsius"}

@@ -9,7 +9,7 @@ Type=simple
 User=rnd
 Group=rnd
 WorkingDirectory=/home/rnd/telemetry
-Environment="PUSHGATEWAY_URL=http://100.64.0.113:9091"
+Environment="PUSHGATEWAY_URL=http://100.64.0.182:9091"
 Environment="JOB_NAME=agent_temperature"
 Environment="INSTANCE_LABEL=GC-ARO-001-2-agent"
 Environment="METRIC_NAME=system_temperature_celsius"
