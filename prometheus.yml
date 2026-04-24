@@ -71,14 +71,6 @@ scrape_configs:
     scrape_interval: 30s
     scrape_timeout: 10s
 
-  # ZCAM Values Exporter metrics (Agent-side: GC-ARO-001-2)
-  - job_name: 'zcam-values-aro12'
-    static_configs:
-      - targets: ['100.64.0.149:9274']  # GC-ARO-001-2-agent (ARO12)
-    metrics_path: '/metrics'
-    scrape_interval: 30s
-    scrape_timeout: 10s
-
   # eBPF Exporter metrics (CPU, Temperature, Network Speed)
   - job_name: 'ebpf-exporter'
     static_configs:
@@ -88,10 +80,10 @@ scrape_configs:
     scrape_timeout: 10s
 
   # Disk Usage Exporter metrics - Monitor local server disk usage
-  # Note: Using host IP (192.168.88.180) since disk-usage-exporter uses host network mode
+  # Exporter runs on host network mode; use current server-side reachable address
   - job_name: 'disk-usage'
     static_configs:
-      - targets: ['192.168.88.180:9275']
+      - targets: ['100.64.0.182:9275']
     metrics_path: '/metrics'
     scrape_interval: 30s
     scrape_timeout: 10s
