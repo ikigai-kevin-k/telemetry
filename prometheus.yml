@@ -48,7 +48,7 @@ scrape_configs:
   # Telegraf ZCAM HTTP Response metrics
   - job_name: 'telegraf-zcam'
     static_configs:
-      - targets: ['100.64.0.149:9273']
+      - targets: ['100.64.0.178:9273']
     metrics_path: '/metrics'
     scrape_interval: 30s
     scrape_timeout: 10s
@@ -56,7 +56,7 @@ scrape_configs:
   # ZCAM Values Exporter metrics
   - job_name: 'zcam-values'
     static_configs:
-      - targets: ['100.64.0.149:9274']
+      - targets: ['100.64.0.178:9274']
     metrics_path: '/metrics'
     scrape_interval: 30s
     scrape_timeout: 10s
@@ -64,7 +64,7 @@ scrape_configs:
   # ZCAM Values Exporter metrics (Agent-side: GC-ARO-001-2)
   - job_name: 'zcam-values-aro12'
     static_configs:
-      - targets: ['100.64.0.149:9274']
+      - targets: ['100.64.0.178:9274']
         labels:
           site: 'aro12'
     metrics_path: '/metrics'
